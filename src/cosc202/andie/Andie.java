@@ -20,6 +20,8 @@ import javax.imageio.*;
  * 
  * @author Steven Mills
  * @version 1.0
+ * 
+ * fork by team t-pose
  */
 public class Andie {
 
