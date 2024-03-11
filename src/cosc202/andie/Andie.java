@@ -24,6 +24,10 @@ import javax.swing.JScrollPane;
  * 
  * @author Steven Mills
  * @version 1.0
+ * 
+ * fork by team t-pose
+ * 
+ * fork by Owethu
  */
 public class Andie {
 
@@ -39,7 +43,7 @@ public class Andie {
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
      * 
-     * @see ImagePanel
+     * @see ImagePanel haha
      * @see ImageAction
      * @see ImageOperation
      * @see FileActions
@@ -106,6 +110,8 @@ public class Andie {
      * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
+
+     //Calan: You're not supposed to run from here? Try running with GRADLE.
     public static void main(String[] args) throws Exception {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
