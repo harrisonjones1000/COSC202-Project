@@ -22,6 +22,8 @@ import javax.imageio.*;
  * @version 1.0
  * 
  * fork by team t-pose
+ * 
+ * fork by Owethu ;)
  */
 public class Andie {
 
