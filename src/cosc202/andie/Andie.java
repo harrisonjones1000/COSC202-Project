@@ -34,7 +34,7 @@ import javax.swing.JScrollPane;
 public class Andie {
 
     /**
-     * Merger conflict test
+     * 
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
