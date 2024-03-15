@@ -30,7 +30,6 @@ import javax.swing.JScrollPane;
  * 
  * fork by Owethu
  * 
- * test
  */
 public class Andie {
 
