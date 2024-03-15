@@ -1,10 +1,15 @@
 package cosc202.andie;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.imageio.*;
+import java.awt.BorderLayout;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
 
 /**
+ * harrisons test comment
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
@@ -123,3 +128,5 @@ public class Andie {
         });
     }
 }
+
+/** Commits toaster bath **/
