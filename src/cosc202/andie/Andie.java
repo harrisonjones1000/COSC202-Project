@@ -9,7 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
 /**
- * harrisons test comment
+ * harrisons test comment calan check comment
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
