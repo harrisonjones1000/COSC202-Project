@@ -9,7 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
 /**
- * harrisons test comment
+ * harrisons test comment --  merge conflict test
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 public class Andie {
 
     /**
+     * Testing -Owethu
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
