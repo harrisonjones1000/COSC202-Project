@@ -21,8 +21,8 @@ public class DefaultTest {
         int x = 1;
         assertEquals(x,x);
     }
-    @Test
     //Tests if x =/= y
+    @Test
     public void testNotEquals(){
         int x = 1;
         int y = 2;
