@@ -180,15 +180,29 @@ public class FilterActions {
          * </p>
          * 
          * <p>
-         * This method is called whenever the MeanFilterAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized {@link MeanFilter}.
+         * This method is called whenever the GaussianBlurFilterAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link GaussianBlurFilter}.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            int radius = 1;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = radiusModel.getNumber().intValue();
+            }
+
             // Create and apply the filter
-            target.getImage().apply(new GaussianBlurFilter());
+            target.getImage().apply(new GaussianBlurFilter(radius));
             target.repaint();
             target.getParent().revalidate();
         }
