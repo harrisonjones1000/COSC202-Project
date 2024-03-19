@@ -26,7 +26,8 @@ public class FilterActions {
     
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
-
+    
+    ResourceBundle lan = Andie.language.getLanBundle(); 
     /**
      * <p>
      * Create a set of Filter menu actions.
@@ -46,7 +47,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(lan.getString("filter"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));

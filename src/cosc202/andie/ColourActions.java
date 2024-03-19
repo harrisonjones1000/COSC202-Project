@@ -1,8 +1,9 @@
 package cosc202.andie;
-
+import cosc202.andie.Andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 
 /**
  * <p>
@@ -23,10 +24,12 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ColourActions {
-    
+
+    ResourceBundle lan = Andie.language.getLanBundle();
+
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-
+    
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -34,7 +37,7 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ConvertToGreyAction(lan.getString("greyscale"), null, lan.getString("greyscale_description"), Integer.valueOf(KeyEvent.VK_G)));
     }
 
     /**
@@ -45,7 +48,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+        JMenu fileMenu = new JMenu(lan.getString("colour"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));

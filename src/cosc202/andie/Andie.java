@@ -2,14 +2,13 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
 /**
- * harrisons test comment --  merge conflict test
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
@@ -26,15 +25,15 @@ import javax.swing.JScrollPane;
  * @author Steven Mills
  * @version 1.0
  * 
- * fork by team t-pose
- * 
- * fork by Owethu
  * 
  */
 public class Andie {
 
+    /*I declare the Language class in this class, I made it public so all the other classes can access it. */
+    public static Language language = new Language();
+
     /**
-     * Testing -Owethu
+     * 
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
