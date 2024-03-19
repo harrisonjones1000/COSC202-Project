@@ -19,7 +19,7 @@ import java.awt.image.*;
  * @version 1.0
  */
 
-public class GaussianBlurFilter {
+public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth,
      * this is also used to find a value of the filter (know as sigma)
@@ -68,24 +68,25 @@ public class GaussianBlurFilter {
     }
 
     public float[] kernalArrayMaker(int r){
-        int size = (2*r+1) * (2*r+1);
+        
+        int size = (2*radius+1) * (2*radius+1);
         float [] array = new float[size];
-        float sigma = r/3;
+        float sigma = (float)radius/(float)3;
         float sum = 0;
         int counter = 0;
-        for (int i = 0; i < 2*r+1; i++){
-            for (int j = 0; j < 2*r+1; j++){
-                float num = GaussianFunction(i-r,j-r,sigma);
-                sum += num;
-                array[counter] = num;
-                counter++;
-            }
+        for (int i = 0; i < 2*radius+1; i++){
+           for (int j = 0; j < 2*radius+1; j++){
+              float num = GaussianFunction(i-radius,j-radius,sigma);
+              sum += num;
+              array[counter] = num;
+              counter++;
+           }
         }
         for (int i = 0; i < size; i++){
-            array[i] = array[i] / sum;
+           array[i] = array[i] / sum;
         }
         return array;
-    }
+    }      
 
     /**
      * <p>
