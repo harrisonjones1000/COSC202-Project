@@ -39,7 +39,7 @@ public class GaussianBlurFilter {
      * 
      * @param radius The radius of the newly constructed MeanFilter
      */
-    GaussianBlurFilter(int radius) {
+    public GaussianBlurFilter(int radius) {
         this.radius = radius;    
     }
     /**
@@ -57,10 +57,34 @@ public class GaussianBlurFilter {
         this(1);    
     }
 
+    public int getRadius(){
+        return radius;
+    }
+
     public float GaussianFunction(int x, int y, float sigma){
         double l = 1.0/(2*Math.PI*sigma*sigma);
-        double r = Math.exp(((x*x)+(y*y))/(2*sigma*sigma));
+        double r = Math.exp(-((x*x)+(y*y))/(2*sigma*sigma));
         return (float)(l * r);
+    }
+
+    public float[] kernalArrayMaker(int r){
+        int size = (2*r+1) * (2*r+1);
+        float [] array = new float[size];
+        float sigma = r/3;
+        float sum = 0;
+        int counter = 0;
+        for (int i = 0; i < 2*r+1; i++){
+            for (int j = 0; j < 2*r+1; j++){
+                float num = GaussianFunction(i-r,j-r,sigma);
+                sum += num;
+                array[counter] = num;
+                counter++;
+            }
+        }
+        for (int i = 0; i < size; i++){
+            array[i] = array[i] / sum;
+        }
+        return array;
     }
 
     /**
@@ -78,20 +102,7 @@ public class GaussianBlurFilter {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
-        float sigma = radius/3;
-        float sum = 0;
-        for (int i = 0; i < 2*radius+1; i++){
-            for (int j = 0; j < 2*radius+1; j++){
-                float num = GaussianFunction(i,j,sigma);
-                sum += num;
-                array[i*2*radius+j] = num;
-            }
-        }
-        for (int i = 0; i < size; i++){
-            array[i] = array[i] / sum;
-        }
+        float[] array = kernalArrayMaker(radius);
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         ConvolveOp convOp = new ConvolveOp(kernel);
