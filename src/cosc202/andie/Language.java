@@ -14,17 +14,11 @@ public class Language {
      * @return void
      */
     public Language(){
-        System.out.println("The Language class is accessed.");
         //run a few opertations to find the right language
         prefs = Preferences.userNodeForPackage(Language.class);
-        System.out.println("prefs assigned");
-        Locale.setDefault(new Locale(prefs.get("language", "mi"), 
+        Locale.setDefault(new Locale(prefs.get("language", "en"), 
                 prefs.get("country", "NZ")));
-        System.out.println("Locale set");
         bundle = ResourceBundle.getBundle("MessageBundle");
-        System.out.println("bundle object assigned");
-        /*Testing if the bundle is correctly initialized */
-        System.out.println(bundle.getString("file"));
 
 
     }
@@ -34,13 +28,15 @@ public class Language {
      */
     public void setLanguage(String langauge){
         try{
-            if(langauge.equals("English") || langauge.equals("english")){
-                prefs.put("language", "en");
-            }
+            if(langauge.equals("English") || langauge.equals("english")) prefs.put("language", "en");
+               
+            else if(langauge.equals("Māori")) prefs.put("language", "mi");
+
             prefs.put("country", "mi");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
+        System.out.println("Update to " + bundle.getString("set_language"));
     }
     public ResourceBundle getLanBundle(){
         return bundle;

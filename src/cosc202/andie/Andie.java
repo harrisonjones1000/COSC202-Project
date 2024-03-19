@@ -93,6 +93,9 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
+        //Testing menu items, UI logic
+        LanguageActions lanActions = new LanguageActions();
+        menuBar.add(lanActions.createJMenu());
 
         
         frame.setJMenuBar(menuBar);
