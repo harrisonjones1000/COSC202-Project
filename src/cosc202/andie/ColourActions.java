@@ -35,6 +35,7 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ImageInversionAction("Image Inversion", null, "Invert image colors", Integer.valueOf(KeyEvent.VK_I)));
     }
 
     /**
@@ -91,6 +92,49 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ConvertToGrey());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+        /**
+     * <p>
+     * Action to convert an image to its inverse.
+     * </p>
+     * 
+     * @see ImageInversion
+     */
+
+    public class ImageInversionAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new image-inversion action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ImageInversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the image-inversion action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageInversionAction is triggered.
+         * It changes the image to its inverse.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageInversion());
             target.repaint();
             target.getParent().revalidate();
         }
