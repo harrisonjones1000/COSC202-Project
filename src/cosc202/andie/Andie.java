@@ -97,6 +97,10 @@ public class Andie {
         LanguageActions lanActions = new LanguageActions();
         menuBar.add(lanActions.createJMenu());
 
+        //Transformations: resize, flip, rotate
+        TransformationActions transActions = new TransformationActions();
+        menuBar.add(transActions.createJMenu());
+
         
         frame.setJMenuBar(menuBar);
         frame.pack();
