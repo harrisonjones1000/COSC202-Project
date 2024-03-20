@@ -27,6 +27,8 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
+    /*retrieving the resources object from the Language object which stores the preferences. */
+    ResourceBundle lan = Andie.language.getLanBundle(); 
     /**
      * <p>
      * Create a set of File menu actions.
@@ -34,10 +36,10 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
+        actions.add(new FileOpenAction(lan.getString("open"), null, lan.getString("open_desc"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileSaveAction(lan.getString("save"), null, lan.getString("save_desc"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(lan.getString("save_as"), null, lan.getString("save_as_desc"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExitAction(lan.getString("exit"), null, lan.getString("exit_desc"), Integer.valueOf(0)));
     }
 
     /**
@@ -48,7 +50,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(lan.getString("file"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
