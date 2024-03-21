@@ -56,10 +56,25 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
     GaussianBlurFilter() {
         this(1);    
     }
-
+    /**<p>
+    * Gets radius of the Gaussian Filter.
+    * @return The radius.
+    * </p>
+    */
     public int getRadius(){
         return radius;
     }
+
+    /**
+     * <p>
+     * Takes input values and applys them to the Gaussian Function.
+     * </p>
+     * 
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param sigma The value of standard deviation, depends on radius.
+     * @return The value at coordinates x,y with standard deviation sigma.
+     */
 
     public float GaussianFunction(int x, int y, float sigma){
         double l = 1.0/(2*Math.PI*sigma*sigma);
