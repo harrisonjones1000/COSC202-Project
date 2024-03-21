@@ -2,14 +2,13 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
 /**
- * harrisons test comment --  merge conflict test
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
@@ -26,15 +25,15 @@ import javax.swing.JScrollPane;
  * @author Steven Mills
  * @version 1.0
  * 
- * fork by team t-pose
- * 
- * fork by Owethu
  * 
  */
 public class Andie {
 
+    /*I declare the Language class in this class, I made it public so all the other classes can access it. */
+    public static Language language = new Language();
+
     /**
-     * Testing -Owethu
+     * 
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
@@ -93,6 +92,15 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+
+        //Testing menu items, UI logic
+        LanguageActions lanActions = new LanguageActions();
+        menuBar.add(lanActions.createJMenu());
+
+        //Transformations: resize, flip, rotate
+        TransformationActions transActions = new TransformationActions();
+        menuBar.add(transActions.createJMenu());
+
         
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -114,7 +122,7 @@ public class Andie {
      * @see #createAndShowGUI()
      */
 
-     //Calan: You're not supposed to run from here? Try running with GRADLE.
+     
     public static void main(String[] args) throws Exception {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
