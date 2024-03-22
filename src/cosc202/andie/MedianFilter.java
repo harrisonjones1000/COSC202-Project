@@ -70,42 +70,42 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      */
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        int size = (2*radius+1) * (2*radius+1); 
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                int counter = 0;
-                int [] a_array = new int [size];
-                int [] r_array = new int [size];
-                int [] g_array = new int [size];
-                int [] b_array = new int [size];
-
+                ArrayList<Integer> array = new ArrayList<Integer>();
                 for (int i = -radius; i < radius + 1; i++){
                     for (int j = -radius; j < radius + 1; j++){
-                        int argb = input.getRGB(x, y);
-                        int a = (argb & 0xFF000000) >> 24;
-                        int r = (argb & 0x00FF0000) >> 16;
-                        int g = (argb & 0x0000FF00) >> 8;
-                        int b = (argb & 0x000000FF);
-                        a_array[counter] = a;
-                        r_array[counter] = r;
-                        g_array[counter] = g;
-                        b_array[counter] = b;
-                        counter++;
+                        try{
+                            int argb = input.getRGB(x+i, y+j);
+                            array.add(argb);
+                        }catch(Exception ArrayIndexOutOfBoundsException){
+                            
+                        }
                     }
 
+                }
+                int[] a_array = new int[array.size()];
+                int[] r_array = new int[array.size()];
+                int[] g_array = new int[array.size()];
+                int[] b_array = new int[array.size()];
+                for (int i = 0; i < array.size(); i++){
+                a_array[i] = (array.get(i) & 0xFF000000) >> 24;
+                r_array[i] = (array.get(i) & 0x00FF0000) >> 16;
+                g_array[i] = (array.get(i) & 0x0000FF00) >> 8;
+                b_array[i] = (array.get(i) & 0x000000FF);
                 }
                 Arrays.sort(a_array);
                 Arrays.sort(r_array);
                 Arrays.sort(g_array);
                 Arrays.sort(b_array);
-                System.out.println(Arrays.toString(r_array));
-                int a = a_array[radius + 1];
-                int r = r_array[radius + 1];
-                int g = g_array[radius + 1];
-                int b = b_array[radius + 1];
+                int medianPos;
+                if (array.size() % 2 == 0){
+                    medianPos = array.size() / 2;
+                } else{
+                    medianPos = 1 + array.size() / 2;
+                }
 
-                int argb = (a << 24) | (r << 16) | (g << 8) | b;
-                
+                int argb = (a_array[medianPos] << 24) | (r_array[medianPos] << 16) | (g_array[medianPos] << 8) | b_array[medianPos];
                 output.setRGB(x, y, argb);
 
             }
