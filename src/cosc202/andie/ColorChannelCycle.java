@@ -51,7 +51,7 @@ public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
                 //Normal image is a,r,g,b
-                argb = (a << 24) | (b << 16) | (r << 8) | b;
+                argb = (a << 24) | (b << 16) | (r << 8) | g;
                 input.setRGB(x, y, argb);
             }
         }

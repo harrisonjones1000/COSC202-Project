@@ -138,8 +138,6 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int option = JOptionPane.showOptionDialog(null, null, "Choose direction of color cycle", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
             target.getImage().apply(new ImageInversion());
             target.repaint();
             target.getParent().revalidate();
