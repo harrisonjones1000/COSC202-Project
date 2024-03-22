@@ -4,12 +4,11 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to convert an image from colour to its color inversion.
+ * ImageOperation to cycle the red, green and blue color channels of the image.
  * </p>
  * 
  * <p>
- * The images produced by this operation are identical to the original image except the color values
- * of each pixel are subtracted from 255. //Change
+ *  By its nature color cycling three times in any direction will result in the original image again.
  * </p>
  * 
  * <p>
@@ -19,25 +18,24 @@ import java.awt.image.*;
  * @author Calan McDermott, Steven Mills who made ConvertToGrey which this is based off
  * @version 1.0
  */
-public class ImageInversion implements ImageOperation, java.io.Serializable {
-
+public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
     /**
      * <p>
-     * Create a new ImageInversion operation.
+     * Create a new ColorChannelCycle operation.
      * </p>
      */
-    ImageInversion() {
-
+    private boolean rTogTob = false;
+    ColorChannelCycle(boolean rTogTob) {
+        this.rTogTob = rTogTob;
     }
 
     /**
      * <p>
-     * Apply inversion conversion to an image.
+     * Apply color channel cycling conversion to an image.
      * </p>
      * 
      * <p>
-     * The conversion from red, green, and blue values to their inverses consists of subtracting
-     * each value from 255, representing white.
+     * The conversion consists of setting each variable .
      * </p>
      * 
      * @param input The image to be converted to greyscale
@@ -52,12 +50,8 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
-
-                int invr = 255-r;
-                int invg = 255-g;
-                int invb = 255-b;
-
-                argb = (a << 24) | (invr << 16) | (invg << 8) | invb;
+                //Normal image is a,r,g,b
+                argb = (a << 24) | (b << 16) | (r << 8) | b;
                 input.setRGB(x, y, argb);
             }
         }
