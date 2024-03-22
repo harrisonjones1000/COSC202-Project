@@ -69,29 +69,48 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         int size = (2*radius+1) * (2*radius+1); 
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                int[] arraya = new int[size];
-                int[] arrayr = new int[size];
-                int[] arrayg = new int[size];
-                int[] arrayb = new int[size];
                 int counter = 0;
-                for (int i = y - radius; i < y + radius + 1; i++){
-                    for (int j = x - radius; j < x + radius + 1; j++){
+                int [] a_array = new int [size];
+                int [] r_array = new int [size];
+                int [] g_array = new int [size];
+                int [] b_array = new int [size];
+
+                for (int i = -radius; i < radius + 1; i++){
+                    for (int j = -radius; j < radius + 1; j++){
                         int argb = input.getRGB(x, y);
-                        arraya[counter] = (argb & 0xFF000000) >> 24;
-                        arrayr[counter] = (argb & 0x00FF0000) >> 16;
-                        arrayg[counter] = (argb & 0x0000FF00) >> 8;
-                        arrayb[counter] = (argb & 0x0000FF);
+                        int a = (argb & 0xFF000000) >> 24;
+                        int r = (argb & 0x00FF0000) >> 16;
+                        int g = (argb & 0x0000FF00) >> 8;
+                        int b = (argb & 0x000000FF);
+                        a_array[counter] = a;
+                        r_array[counter] = r;
+                        g_array[counter] = g;
+                        b_array[counter] = b;
+                        counter++;
                     }
+
                 }
-                System.out.println((arraya[radius - 1] << 24) + " " + (arrayr[radius - 1] << 16) + " " + (arrayg[radius - 1] << 8) + " " + arrayb[radius - 1]);
-                int argb = (arraya[radius - 1] << 24) | (arrayr[radius - 1] << 16) | (arrayg[radius - 1] << 8) | arrayb[radius - 1];
-                input.setRGB(x, y, argb);
+                Arrays.sort(a_array);
+                Arrays.sort(r_array);
+                Arrays.sort(g_array);
+                Arrays.sort(b_array);
+                System.out.println(Arrays.toString(r_array));
+                int a = a_array[radius + 1];
+                int r = r_array[radius + 1];
+                int g = g_array[radius + 1];
+                int b = b_array[radius + 1];
+
+                int argb = (a << 24) | (r << 16) | (g << 8) | b;
+                
+                output.setRGB(x, y, argb);
+
             }
         }
 
-        return input;
+        return output;
     }
 }
