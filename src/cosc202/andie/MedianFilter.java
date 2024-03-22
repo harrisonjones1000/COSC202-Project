@@ -72,27 +72,23 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
         int size = (2*radius+1) * (2*radius+1); 
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                int[][] array = new int[4][size];
+                int[] arraya = new int[size];
+                int[] arrayr = new int[size];
+                int[] arrayg = new int[size];
+                int[] arrayb = new int[size];
                 int counter = 0;
                 for (int i = y - radius; i < y + radius + 1; i++){
                     for (int j = x - radius; j < x + radius + 1; j++){
                         int argb = input.getRGB(x, y);
-                        array[0][counter] = (argb & 0xFF000000) >> 24;
-                        array[1][counter] = (argb & 0x00FF0000) >> 16;
-                        array[2][counter] = (argb & 0x0000FF00) >> 8;
-                        array[3][counter] = (argb & 0x000000FF);
+                        arraya[counter] = (argb & 0xFF000000) >> 24;
+                        arrayr[counter] = (argb & 0x00FF0000) >> 16;
+                        arrayg[counter] = (argb & 0x0000FF00) >> 8;
+                        arrayb[counter] = (argb & 0x0000FF);
                     }
                 }
-                int[] arraya = array[0];
-                int[] arrayr = array[1];
-                int[] arrayg = array[2];
-                int[] arrayb = array[3];
-                Arrays.sort(arraya);
-                Arrays.sort(arrayr);
-                Arrays.sort(arrayg);
-                Arrays.sort(arrayb);
-                int argb = arraya[radius + 1] | arrayr[radius + 1] | arrayg[radius + 1] | arrayb[radius + 1];
-                input.setRGB(x,y,argb);
+                System.out.println((arraya[radius - 1] << 24) + " " + (arrayr[radius - 1] << 16) + " " + (arrayg[radius - 1] << 8) + " " + arrayb[radius - 1]);
+                int argb = (arraya[radius - 1] << 24) | (arrayr[radius - 1] << 16) | (arrayg[radius - 1] << 8) | arrayb[radius - 1];
+                input.setRGB(x, y, argb);
             }
         }
 
