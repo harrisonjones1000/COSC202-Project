@@ -37,7 +37,7 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
      * Larger filters give a stronger blurring effect.
      * </p>
      * 
-     * @param radius The radius of the newly constructed MeanFilter
+     * @param radius The radius of the newly constructed GaussianFilter
      */
     public GaussianBlurFilter(int radius) {
         this.radius = radius;    
