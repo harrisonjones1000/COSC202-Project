@@ -14,7 +14,7 @@ import java.util.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Ryan Wilks, Steven Mills, who made Mean Filter, which this is based off of.
+ * @author Ryan Wilks, Steven Mills, who made Mean Filter and Convert To Grey, which this is based off of.
  * @version 1.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable{
@@ -61,11 +61,11 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * 
      * <p>
      * Unlike many filters, the Median filter is not implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.  
+     * The size of the array of local pixels is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
      * </p>
      * 
-     * @param input The image to apply the Gaussian filter to.
+     * @param input The image to apply the Median filter to.
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
