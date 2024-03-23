@@ -26,13 +26,25 @@ public class Language {
      * @param String preferred language
      * @return void
      */
+    // Note the main issue is here? They may be an issue with the logic of my if statements.
     public void setLanguage(String langauge){
-        try{
-            if(langauge.equals("English") || langauge.equals("english")) prefs.put("language", "en");
-               
-            else if(langauge.equals("Māori")) prefs.put("language", "mi");
+        /*This statement for my debugging prints out the expected language when the user clicks on 
+          a specific language option
+          */
+        System.out.println("String language = " + langauge); 
 
-            prefs.put("country", "mi");
+        //using the param string to perform some opertations to update the language preferences
+        try{
+            if(langauge == "English"){
+                prefs.put("language", "en");
+                System.out.println("Prefs updated to English");
+            }
+            if(langauge == "Māori"){
+                prefs.put("language", "mi");
+                System.out.println("Prefs updated to Māori");
+            }
+
+            prefs.put("country", "NZ");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }

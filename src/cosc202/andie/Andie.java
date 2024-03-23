@@ -95,7 +95,7 @@ public class Andie {
 
         //Testing menu items, UI logic
         LanguageActions lanActions = new LanguageActions();
-        menuBar.add(lanActions.createJMenu());
+        menuBar.add(lanActions.createMenu());
 
         //Transformations: resize, flip, rotate
         TransformationActions transActions = new TransformationActions();

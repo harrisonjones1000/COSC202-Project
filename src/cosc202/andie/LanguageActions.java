@@ -27,12 +27,12 @@ public class LanguageActions {
 
     ResourceBundle lan = Andie.language.getLanBundle();
 
-    /** A list of actions for the Colour menu. */
+    /**A list of Language options stored as an ArrayList. */
     protected ArrayList<String> actions;
     
     /**
      * <p>
-     * Create a set of Colour menu actions.
+     * Create a list of language options.
      * </p>
      */
     public LanguageActions(){
@@ -49,14 +49,15 @@ public class LanguageActions {
      * 
      * @return The edit menu UI element
      */
-    public JMenu createJMenu(){
+    public JMenu createMenu(){
         JMenu langMenu = new JMenu(lan.getString("language"));
 
         for(String action : actions){
-            JMenu item = null;
-            item = new JMenu(action);
+            JMenuItem item = null;
+            item = new JMenuItem(action);
             item.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae){
+                    //System.out.println("Button clicked");
                     Andie.language.setLanguage(action);
                 }
             });
