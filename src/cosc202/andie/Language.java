@@ -20,7 +20,6 @@ public class Language {
                 prefs.get("country", "NZ")));
         bundle = ResourceBundle.getBundle("MessageBundle");
 
-
     }
     /*The method sets the preferred language
      * @param String preferred language
@@ -28,28 +27,37 @@ public class Language {
      */
     // Note the main issue is here? They may be an issue with the logic of my if statements.
     public void setLanguage(String langauge){
-        /*This statement for my debugging prints out the expected language when the user clicks on 
-          a specific language option
-          */
         System.out.println("String language = " + langauge); 
 
-        //using the param string to perform some opertations to update the language preferences
+        //Setting the language preferences based on String language
         try{
             if(langauge == "English"){
                 prefs.put("language", "en");
-                System.out.println("Prefs updated to English");
-            }
-            if(langauge == "Māori"){
+            }else if(langauge == "Māori"){
                 prefs.put("language", "mi");
-                System.out.println("Prefs updated to Māori");
             }
 
             prefs.put("country", "NZ");
+            bundle = ResourceBundle.getBundle("MessageBundle");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
-        System.out.println("Update to " + bundle.getString("set_language"));
+        //Testing to see if prefs have been updated.
+        System.out.println("Preferences updated Successfully to: " + getCurrentLanguage());
     }
+
+    /*Method that returns the current language 
+     * @parm void
+     * @return String representation of the current Language
+    */
+    public String getCurrentLanguage(){
+        return bundle.getString("set_language");
+    }
+
+    /*The method returns the current Language resource bundle
+     * @param void
+     * @return ResourceBundle bundle;
+     */
     public ResourceBundle getLanBundle(){
         return bundle;
     }

@@ -39,7 +39,7 @@ public class LanguageActions {
         actions  = new ArrayList<String>();
         //will add actions later.
         actions.add("English");
-        actions.add("Māori ");
+        actions.add("Māori");
     }
 
     /**
