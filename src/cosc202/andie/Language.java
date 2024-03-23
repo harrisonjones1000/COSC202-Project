@@ -1,5 +1,6 @@
 package cosc202.andie;
 import java.util.*;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 
@@ -38,6 +39,7 @@ public class Language {
             }
 
             prefs.put("country", "NZ");
+            
             bundle = ResourceBundle.getBundle("MessageBundle");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
