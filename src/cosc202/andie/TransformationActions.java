@@ -8,15 +8,16 @@ public class TransformationActions{
 
     protected ArrayList<Action> actions;
 
+    ResourceBundle lan = Andie.language.getLanBundle();
     public TransformationActions(){
         actions = new ArrayList<Action>();
-        actions.add(new ResizeAction("Resize", null, "Resizes image", Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RotateAction("Rotate", null, "Rotates image clockwise", Integer.valueOf(KeyEvent.VK_T)));
-        actions.add(new FlipAction("Flip", null, "Flips image", Integer.valueOf(KeyEvent.VK_F)));
+        actions.add(new ResizeAction(lan.getString("resize"), null, lan.getString("resize_desc"), Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateAction(lan.getString("rotate"), null, lan.getString("rotate_desc"), Integer.valueOf(KeyEvent.VK_T)));
+        actions.add(new FlipAction(lan.getString("flip"), null, lan.getString("flip_desc"), Integer.valueOf(KeyEvent.VK_F)));
     }
 
     public JMenu createJMenu() {
-        JMenu fileMenu = new JMenu("Transformations");
+        JMenu fileMenu = new JMenu(lan.getString("transformations"));
 
         fileMenu.add(new JMenuItem(actions.get(0)));
         fileMenu.add(new JMenuItem(actions.get(1)));

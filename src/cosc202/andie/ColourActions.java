@@ -38,8 +38,8 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction(lan.getString("greyscale"), null, lan.getString("greyscale_description"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new ImageInversionAction("Image Inversion", null, "Invert image colors", Integer.valueOf(KeyEvent.VK_I)));
-        actions.add(new ColorChannelCycleAction("Color Channel Cycle", null, "Cycle image color channels", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new ImageInversionAction(lan.getString("image_inversion"), null, lan.getString("image_inversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new ColorChannelCycleAction(lan.getString("color_chanel_cycle"), null, lan.getString("color_chanel_cycle_desc"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
