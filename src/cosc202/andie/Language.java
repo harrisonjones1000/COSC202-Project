@@ -33,19 +33,27 @@ public class Language {
         //Setting the language preferences based on String language
         try{
             if(langauge == "English"){
+                //Andie.frame.dispose();
                 prefs.put("language", "en");
+                prefs.put("country", "NZ");
+                Andie.frame.repaint();
+                
             }else if(langauge == "Māori"){
+                //Andie.frame.dispose();
                 prefs.put("language", "mi");
+                prefs.put("country", "NZ");
+                Andie.frame.repaint();
+                
             }
 
-            prefs.put("country", "NZ");
             
-            bundle = ResourceBundle.getBundle("MessageBundle");
+            
+            //bundle = ResourceBundle.getBundle("MessageBundle");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
         //Testing to see if prefs have been updated.
-        System.out.println("Preferences updated Successfully to: " + getCurrentLanguage());
+        System.out.println("Current Language: " + getCurrentLanguage());
     }
 
     /*Method that returns the current language 
@@ -61,7 +69,7 @@ public class Language {
      * @return ResourceBundle bundle;
      */
     public ResourceBundle getLanBundle(){
-        return bundle;
+        return ResourceBundle.getBundle("MessageBundle");
     }
 
 }
