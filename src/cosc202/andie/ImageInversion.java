@@ -40,7 +40,7 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
      * each value from 255, representing white.
      * </p>
      * 
-     * @param input The image to be converted to greyscale
+     * @param input The image to be inverted.
      * @return The resulting inverted image.
      */
     public BufferedImage apply(BufferedImage input) {
