@@ -104,7 +104,9 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                 } else{
                     medianPos = 1 + array.size() / 2;
                 }
-
+                //note, in cases with even array size, the median is not the mean of the two middle values, only the left.
+                //this is uncommon as if all inputs are not out of bounds, the size of the array is (2 * radius + 1)^2,
+                //since an odd number times an odd number is always odd, even size is uncommon and only tends to appear near the edges.
                 int argb = (a_array[medianPos] << 24) | (r_array[medianPos] << 16) | (g_array[medianPos] << 8) | b_array[medianPos];
                 output.setRGB(x, y, argb);
 
