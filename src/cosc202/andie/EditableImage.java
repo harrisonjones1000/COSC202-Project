@@ -185,6 +185,7 @@ class EditableImage {
         // Write image file based on file extension
         String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
         ImageIO.write(original, extension, new File(imageFilename));
+
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
@@ -235,6 +236,20 @@ class EditableImage {
     public void undo() {
         redoOps.push(ops.pop());
         refresh();
+    }
+
+    /*Convert the image from a list of operations applied to the original
+     image to making a new image using the list of operations, and exporting those 
+    */
+    public void exportImage(String fileName){
+        String exportedFileName = fileName + ".png";
+        try{
+            if(hasImage()){
+                ImageIO.write(this.current, "png", new File(exportedFileName));
+            }
+        }catch (IOException ie){
+            System.out.println(ie.toString());
+        }
     }
 
     /**
