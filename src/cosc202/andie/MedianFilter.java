@@ -66,7 +66,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * </p>
      * 
      * @param input The image to apply the Median filter to.
-     * @return The resulting (blurred)) image.
+     * @return The resulting blurred image.
      */
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);

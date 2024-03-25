@@ -47,7 +47,7 @@ public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
      * boolean {@link rTogTob}.
      * </p>
      * 
-     * @param input The image to be converted to greyscale
+     * @param input The image to have its color channels swapped
      * @return The resulting inverted image.
      */
     public BufferedImage apply(BufferedImage input) {
