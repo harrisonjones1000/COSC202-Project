@@ -7,7 +7,8 @@ public class ErrorHandling{
     public static void badSaveError(){
 
         int okayOption = JOptionPane.showConfirmDialog(null, 
-                         "You can't save a file under this type/name. Please Try again.", 
+                         "You can't save this file.  Either: -\tThere is no fiel to save. \n -\tAn attempt has been made to save the file "
+                         "as an incorrect image file type. \n\nPlease Try again.", 
                          "Invalid Save Type", 
                          JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         
