@@ -285,9 +285,7 @@ public class FileActions {
                     System.exit(1);
                 }
             }
-
         }
-
     }
 
     /**
