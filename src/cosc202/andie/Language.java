@@ -8,9 +8,14 @@ public class Language {
 
     /*I'll keep the prefs as a datafeld */
     public Preferences prefs;
+
     ResourceBundle bundle;
 
-    /*The constructor creates the object Language, which is set to default to English.
+    //The constructor creates the object Language, which is set to default to English.
+    /**Creates a new Language class
+     * <p>
+     * A new Language class will obtain the local language preferences set by the user in their last session, 
+     * or the local default if no preference has been set.
      * @param void
      * @return void
      */
@@ -22,14 +27,18 @@ public class Language {
         bundle = ResourceBundle.getBundle("MessageBundle");
 
     }
-    /*The method sets the preferred language
-     * @param String preferred language
+    /**
+     * Sets the preferred language of the user.
+     * <p>
+     * 
+     * Tries to set the language of the program to the one chosen by the
+     * user in the language menu.
+     * @param langauge The language the user wishes to set as their default.
      * @return void
      */
     // Note the main issue is here? They may be an issue with the logic of my if statements.
     public void setLanguage(String langauge){
-        System.out.println("String language = " + langauge); 
-
+        
         //Setting the language preferences based on String language
         try{
             if(langauge == "English"){
@@ -52,21 +61,20 @@ public class Language {
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
-        //Testing to see if prefs have been updated.
-        System.out.println("Current Language: " + getCurrentLanguage());
+        
     }
 
-    /*Method that returns the current language 
-     * @parm void
+    /**Method that returns the current language 
+     * @param void
      * @return String representation of the current Language
     */
     public String getCurrentLanguage(){
         return bundle.getString("set_language");
     }
 
-    /*The method returns the current Language resource bundle
+    /**The method returns the current Language resource bundle
      * @param void
-     * @return ResourceBundle bundle;
+     * @return ResourceBundle consisting of the language bundle;
      */
     public ResourceBundle getLanBundle(){
         return ResourceBundle.getBundle("MessageBundle");

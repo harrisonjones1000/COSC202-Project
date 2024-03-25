@@ -46,7 +46,7 @@ public class Andie {
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
      * 
-     * @see ImagePanel haha
+     * @see ImagePanel
      * @see ImageAction
      * @see ImageOperation
      * @see FileActions
