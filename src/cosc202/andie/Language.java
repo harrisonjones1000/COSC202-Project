@@ -1,5 +1,6 @@
 package cosc202.andie;
 import java.util.*;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 
@@ -20,26 +21,55 @@ public class Language {
                 prefs.get("country", "NZ")));
         bundle = ResourceBundle.getBundle("MessageBundle");
 
-
     }
     /*The method sets the preferred language
      * @param String preferred language
      * @return void
      */
+    // Note the main issue is here? They may be an issue with the logic of my if statements.
     public void setLanguage(String langauge){
-        try{
-            if(langauge.equals("English") || langauge.equals("english")) prefs.put("language", "en");
-               
-            else if(langauge.equals("Māori")) prefs.put("language", "mi");
+        System.out.println("String language = " + langauge); 
 
-            prefs.put("country", "mi");
+        //Setting the language preferences based on String language
+        try{
+            if(langauge == "English"){
+                //Andie.frame.dispose();
+                prefs.put("language", "en");
+                prefs.put("country", "NZ");
+                Andie.frame.repaint();
+                
+            }else if(langauge == "Māori"){
+                //Andie.frame.dispose();
+                prefs.put("language", "mi");
+                prefs.put("country", "NZ");
+                Andie.frame.repaint();
+                
+            }
+
+            
+            
+            //bundle = ResourceBundle.getBundle("MessageBundle");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
-        System.out.println("Update to " + bundle.getString("set_language"));
+        //Testing to see if prefs have been updated.
+        System.out.println("Current Language: " + getCurrentLanguage());
     }
+
+    /*Method that returns the current language 
+     * @parm void
+     * @return String representation of the current Language
+    */
+    public String getCurrentLanguage(){
+        return bundle.getString("set_language");
+    }
+
+    /*The method returns the current Language resource bundle
+     * @param void
+     * @return ResourceBundle bundle;
+     */
     public ResourceBundle getLanBundle(){
-        return bundle;
+        return ResourceBundle.getBundle("MessageBundle");
     }
 
 }

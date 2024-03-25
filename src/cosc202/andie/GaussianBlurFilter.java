@@ -37,7 +37,7 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
      * Larger filters give a stronger blurring effect.
      * </p>
      * 
-     * @param radius The radius of the newly constructed MeanFilter
+     * @param radius The radius of the newly constructed GaussianFilter
      */
     public GaussianBlurFilter(int radius) {
         this.radius = radius;    
@@ -81,6 +81,19 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
         double r = Math.exp(-((x*x)+(y*y))/(2*sigma*sigma));
         return (float)(l * r);
     }
+
+    /**
+     * <p>
+     * Takes input of radius and calculates an array that plots gaussian function with sigma = radius/3.
+     * </p>
+     * 
+     * <p>
+     * This makes the array for the kernal to apply the Gaussian Blur Filter.
+     * </p>
+     * 
+     * @param r the radius.
+     * @return The array that plots the Gaussian Formula with sigma = r/3 and the middle of the array being at (0,0).
+     */
 
     public float[] kernalArrayMaker(int r){
         

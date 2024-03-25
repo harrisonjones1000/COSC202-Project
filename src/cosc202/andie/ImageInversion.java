@@ -9,7 +9,7 @@ import java.awt.image.*;
  * 
  * <p>
  * The images produced by this operation are identical to the original image except the color values
- * of each pixel are subtracted from 255.
+ * of each pixel are subtracted from 255. //Change
  * </p>
  * 
  * <p>
@@ -40,7 +40,7 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
      * each value from 255, representing white.
      * </p>
      * 
-     * @param input The image to be converted to greyscale
+     * @param input The image to be inverted.
      * @return The resulting inverted image.
      */
     public BufferedImage apply(BufferedImage input) {

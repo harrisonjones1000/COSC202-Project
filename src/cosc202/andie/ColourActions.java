@@ -38,7 +38,8 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction(lan.getString("greyscale"), null, lan.getString("greyscale_description"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new ImageInversionAction("Image Inversion", null, "Invert image colors", Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new ImageInversionAction(lan.getString("image_inversion"), null, lan.getString("image_inversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new ColorChannelCycleAction(lan.getString("color_chanel_cycle"), null, lan.getString("color_chanel_cycle_desc"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -138,6 +139,62 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ImageInversion());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+            /**
+     * <p>
+     * Action to convert an image to its inverse.
+     * </p>
+     * 
+     * @see ColorChannelCycle
+     */
+
+     public class ColorChannelCycleAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new image-inversion action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ColorChannelCycleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the image-inversion action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageInversionAction is triggered.
+         * It changes the image to its inverse.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            String[] directions = {"r->g->b->r","r<-g<-b<-r", "Cancel"};
+            int option = JOptionPane.showOptionDialog(null, "Choose direction of color cycle", "Color Cycle Option Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
+            System.out.println(option);
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == 1) {
+                target.getImage().apply(new ColorChannelCycle(false));
+            } else if (option == 0) {
+                target.getImage().apply(new ColorChannelCycle(true));
+            }
+            //target.getImage().apply(new ColorChannelCycle(true)); //Check if better to set a variable
+            //Or call two methods
+            //Currently setting a variable.
             target.repaint();
             target.getParent().revalidate();
         }
