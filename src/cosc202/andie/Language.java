@@ -35,8 +35,7 @@ public class Language {
      */
     // Note the main issue is here? They may be an issue with the logic of my if statements.
     public void setLanguage(String langauge){
-        System.out.println("String language = " + langauge); 
-
+        
         //Setting the language preferences based on String language
         try{
             if(langauge == "English"){
@@ -59,8 +58,7 @@ public class Language {
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
-        //Testing to see if prefs have been updated.
-        System.out.println("Current Language: " + getCurrentLanguage());
+        
     }
 
     /**Method that returns the current language 

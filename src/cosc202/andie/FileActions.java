@@ -116,7 +116,7 @@ public class FileActions {
 
                 } catch (Exception ex) {
 
-                    System.exit(1);
+                    ErrorHandling.wrongFileTypeError();
 
                 }
             }
@@ -226,7 +226,7 @@ public class FileActions {
 
                 } catch (Exception ex) {
 
-                    System.exit(1);
+                    ErrorHandling.badSaveError();
 
                 }
             }
