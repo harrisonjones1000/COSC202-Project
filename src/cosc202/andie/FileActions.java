@@ -1,8 +1,16 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  * <p>
@@ -100,11 +108,16 @@ public class FileActions {
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
+
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
+
                 } catch (Exception ex) {
+
                     System.exit(1);
+
                 }
             }
 
@@ -134,7 +147,9 @@ public class FileActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
             super(name, icon, desc, mnemonic);
+
         }
 
         /**
@@ -151,10 +166,14 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().save();           
+
+                target.getImage().save();  
+
             } catch (Exception ex) {
+
                 System.exit(1);
             }
+
         }
 
     }
@@ -199,11 +218,16 @@ public class FileActions {
             int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
+
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
+
                 } catch (Exception ex) {
+
                     System.exit(1);
+
                 }
             }
         }
