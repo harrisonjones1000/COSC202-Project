@@ -16,8 +16,6 @@ public class Language {
      * <p>
      * A new Language class will obtain the local language preferences set by the user in their last session, 
      * or the local default if no preference has been set.
-     * @param void
-     * @return void
      */
     public Language(){
         //run a few opertations to find the right language
@@ -34,7 +32,6 @@ public class Language {
      * Tries to set the language of the program to the one chosen by the
      * user in the language menu.
      * @param langauge The language the user wishes to set as their default.
-     * @return void
      */
     // Note the main issue is here? They may be an issue with the logic of my if statements.
     public void setLanguage(String langauge){
@@ -67,7 +64,6 @@ public class Language {
     }
 
     /**Method that returns the current language 
-     * @param void
      * @return String representation of the current Language
     */
     public String getCurrentLanguage(){
@@ -75,7 +71,6 @@ public class Language {
     }
 
     /**The method returns the current Language resource bundle
-     * @param void
      * @return ResourceBundle consisting of the language bundle;
      */
     public ResourceBundle getLanBundle(){
