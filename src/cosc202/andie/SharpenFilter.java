@@ -24,6 +24,7 @@ import java.awt.image.*;
 public class SharpenFilter implements ImageOperation, java.io.Serializable{
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * Currently, the only possible value is 1, this is just here incase more radius values are to be implemented.
      */
     private int radius;
 
@@ -31,7 +32,6 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
      * <p>
      * Construct a Sharpen filter with the size of 3 x 3.
      * </p
-     * @see MeanFilter(int)
      */
     SharpenFilter() {
         this.radius = 1;
