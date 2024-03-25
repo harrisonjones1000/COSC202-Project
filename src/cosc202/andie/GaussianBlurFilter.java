@@ -128,7 +128,7 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
      * </p>
      * 
      * @param input The image to apply the Gaussian filter to.
-     * @return The resulting (blurred)) image.
+     * @return The resulting blurred image.
      */
     public BufferedImage apply(BufferedImage input) {
         float[] array = kernalArrayMaker(radius);

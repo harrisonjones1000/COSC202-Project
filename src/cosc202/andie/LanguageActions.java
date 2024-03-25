@@ -7,13 +7,12 @@ import javax.swing.*;
 
 /**
  * <p>
- * Actions provided by the Colour menu.
+ * Actions provided by the Language menu.
  * </p>
  * 
  * <p>
- * The Colour menu contains actions that affect the colour of each pixel directly 
- * without reference to the rest of the image.
- * This includes conversion to greyscale in the sample code, but more operations will need to be added.
+ * The Language menu contains actions that affects the language of ANDIE.
+ * The supported languages consists of English and Maori, with each having their own language file.
  * </p>
  * 
  * <p> 
@@ -24,7 +23,7 @@ import javax.swing.*;
  * @version 1.0
  */
 public class LanguageActions {
-
+    /**The current language bundle of ANDIE*/
     ResourceBundle lan = Andie.language.getLanBundle();
 
     /**A list of Language options stored as an ArrayList. */
@@ -32,7 +31,7 @@ public class LanguageActions {
     
     /**
      * <p>
-     * Create a list of language options.
+     * Create a set of Language menu actions.
      * </p>
      */
     public LanguageActions(){

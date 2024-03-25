@@ -145,7 +145,7 @@ public class ColourActions {
 
     }
 
-            /**
+    /**
      * <p>
      * Action to convert an image to its inverse.
      * </p>
@@ -157,7 +157,7 @@ public class ColourActions {
 
         /**
          * <p>
-         * Create a new image-inversion action.
+         * Create a new color-channel-cycle action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -171,12 +171,12 @@ public class ColourActions {
 
         /**
          * <p>
-         * Callback for when the image-inversion action is triggered.
+         * Callback for when the color-channel-cycle action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ImageInversionAction is triggered.
-         * It changes the image to its inverse.
+         * This method is called whenever the ColorChannelCycleAction is triggered.
+         * It swaps the color channels of the image in a direction of user choice.
          * </p>
          * 
          * @param e The event triggering this callback.
