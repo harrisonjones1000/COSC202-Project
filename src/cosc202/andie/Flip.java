@@ -4,12 +4,32 @@ import java.awt.image.*;
 
 public class Flip implements ImageOperation, java.io.Serializable {
     
+    /**Controls direction of flip operation, horizontally if true and vertically if false*/
     private boolean flipX;
 
+    /**Constructs a Flip operation with a given direction
+     * <p>
+     * This class supports image flipping in the horizontal and vertical planes. 
+     * The direction of this operation depends on the given boolean.
+     * 
+     * @param flipX Indicates the direction of the flip operation.
+     */
     Flip(boolean flipX){
         this.flipX = flipX;
     }
+    /**
+     * <p>
+     * Apply a Flip operation to an image.
+     * </p>
+     * 
+     * <p>
+        The Flip operation is controlled by an if statement in code, controlled by {@link flipX}.
 
+     * </p>
+     * 
+     * @param input The image to apply the Flip to.
+     * @return The resulting flipped image.
+     */
     public BufferedImage apply(BufferedImage input){
         int width = input.getWidth();
         int height = input.getHeight();
