@@ -115,11 +115,13 @@ public class Andie {
      * @return vod
     */
     public static void createPopupPanel(String title, String message, String category){
+        //dynamically insert optionType based on the string category.
         switch (category) {
-            case "alert":
+            case "information":
                 JOptionPane.showMessageDialog(frame, message, title, JOptionPane.INFORMATION_MESSAGE); 
                 break;
-        
+            case "error":
+                JOptionPane.showMessageDialog(frame, message, title, JOptionPane.ERROR_MESSAGE); 
             default:
                 break;
         }

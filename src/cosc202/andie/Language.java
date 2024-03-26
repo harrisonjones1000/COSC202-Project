@@ -47,7 +47,7 @@ public class Language {
                 prefs.put("language", "mi");
                 prefs.put("country", "NZ");
             }
-            Andie.createPopupPanel(bundle.getString("lanPopUp_title"), bundle.getString("lanPopUp_message"), "alert");
+            Andie.createPopupPanel(bundle.getString("lanPopUp_title"), bundle.getString("lanPopUp_message"), "information");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated.\n" + ea.toString());
         }
