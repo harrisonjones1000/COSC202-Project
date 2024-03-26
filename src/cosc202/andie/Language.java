@@ -40,23 +40,17 @@ public class Language {
         
         try{
             if(langauge == "English"){
-                //Andie.frame.dispose();
                 prefs.put("language", "en");
                 prefs.put("country", "NZ");
                 
             }else if(langauge == "Māori"){
-                //Andie.frame.dispose();
                 prefs.put("language", "mi");
                 prefs.put("country", "NZ");
-                
             }
-            Andie.createPopupMenu();
-            //bundle = ResourceBundle.getBundle("MessageBundle");
+            Andie.createPopupMenu(bundle.getString("lanPopUp_title"), bundle.getString("lanPopUp_message"), "alert");
         }catch(NoSuchElementException ea){
-            System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
+            System.out.println("Languages preferences couldn't be updated.\n" + ea.toString());
         }
-        
-        
     }
 
     /**Method that returns the current language 

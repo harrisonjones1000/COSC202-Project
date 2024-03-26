@@ -109,9 +109,9 @@ public class Andie {
         frame.pack();
         frame.setVisible(true);
     }
-    public static void createPopupMenu(/*String title, String mesage, String category*/){
+    public static void createPopupMenu(String title, String message, String category){
 
-        JOptionPane.showMessageDialog(frame, "Restart the program", "Language preference", JOptionPane.INFORMATION_MESSAGE); 
+        JOptionPane.showMessageDialog(frame, message, title, JOptionPane.INFORMATION_MESSAGE); 
   
         
     }

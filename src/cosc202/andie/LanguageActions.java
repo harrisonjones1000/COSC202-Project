@@ -58,6 +58,8 @@ public class LanguageActions {
                 public void actionPerformed(ActionEvent ae){
                     //System.out.println("Button clicked");
                     Andie.language.setLanguage(action);
+                    //close the program 
+                    System.exit(0);
                 }
             });
             langMenu.add(item);
