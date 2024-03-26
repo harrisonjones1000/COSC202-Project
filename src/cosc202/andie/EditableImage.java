@@ -294,4 +294,10 @@ class EditableImage {
         }
     }
 
+    public boolean hasChanged() {
+        
+        return !ops.isEmpty();
+
+    }
+
 }
