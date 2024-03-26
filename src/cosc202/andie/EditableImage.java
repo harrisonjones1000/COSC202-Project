@@ -46,6 +46,8 @@ class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
+    private static ResourceBundle bundle = Andie.language.getLanBundle();
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -248,7 +250,8 @@ class EditableImage {
             if(hasImage()){
                 ImageIO.write(this.current, "png", new File(fileName + ".png"));
             }else{
-                System.out.println("Start by choosing an image to edit.");
+                //Pop up panel prompts the user to choose an image first
+                Andie.createPopupPanel(bundle.getString("exportPopUp_title"), bundle.getString("exportPopUp_message"), "alert");
             }
         }catch (IOException ie){
             System.out.println(ie.toString());

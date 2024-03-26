@@ -43,7 +43,7 @@ public class LanguageActions {
 
     /**
      * <p>
-     * Create a menu of language preferrences
+     * Create a menu of language preferrences, when preferences are updated the program will close.
      * </p>
      * 
      * @return The edit menu UI element

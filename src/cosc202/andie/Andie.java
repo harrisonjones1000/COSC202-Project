@@ -109,11 +109,20 @@ public class Andie {
         frame.pack();
         frame.setVisible(true);
     }
-    public static void createPopupMenu(String title, String message, String category){
-
-        JOptionPane.showMessageDialog(frame, message, title, JOptionPane.INFORMATION_MESSAGE); 
-  
+    /*The method creates a Popup panel which within the JFrame frame, 
+     *it dynamically renders JOptionPane based on a number of parameters
+     * @param String title, String message, String category 
+     * @return vod
+    */
+    public static void createPopupPanel(String title, String message, String category){
+        switch (category) {
+            case "alert":
+                JOptionPane.showMessageDialog(frame, message, title, JOptionPane.INFORMATION_MESSAGE); 
+                break;
         
+            default:
+                break;
+        }
     }
 
     /**
