@@ -32,7 +32,7 @@ public class Andie {
 
     /*I declare the Language class in this class, Which is public so all the classes can access it.*/
     public static Language language = new Language();
-    public static JFrame frame;
+    private static JFrame frame;
     public static ImagePanel imagePanel = new ImagePanel();
 
     /**

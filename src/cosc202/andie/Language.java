@@ -1,6 +1,5 @@
 package cosc202.andie;
 import java.util.*;
-import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 
@@ -16,18 +15,17 @@ public class Language {
      * <p>
      * A new Language class will obtain the local language preferences set by the user in their last session, 
      * or the local default if no preference has been set.
+     * </p>
      */
     public Language(){
-        //run a few opertations to find the right language
         prefs = Preferences.userNodeForPackage(Language.class);
         Locale.setDefault(new Locale(prefs.get("language", "en"), 
                 prefs.get("country", "NZ")));
         bundle = ResourceBundle.getBundle("MessageBundle");
-
     }
-    /**
+    /*<p>
      * Sets the preferred language of the user.
-     * <p>
+     *<p>
      * 
      * Tries to set the language of the program to the one chosen by the
      * user in the language menu.
@@ -39,11 +37,11 @@ public class Language {
         //Setting the language preferences based on String language
         
         try{
-            if(langauge == "English"){
+            if(langauge.equalsIgnoreCase("English")){
                 prefs.put("language", "en");
                 prefs.put("country", "NZ");
                 
-            }else if(langauge == "Māori"){
+            }else if(langauge.equalsIgnoreCase("Māori")){
                 prefs.put("language", "mi");
                 prefs.put("country", "NZ");
             }
