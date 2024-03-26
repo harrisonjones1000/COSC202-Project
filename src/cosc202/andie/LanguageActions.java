@@ -56,7 +56,8 @@ public class LanguageActions {
             item.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae){
                     /*Since the language object is private we use the accessor method
-                      getLanguage to the object then modifiy it with the new language.
+                      getLanguage() to get the object then modifiy it with the new 
+                      language, using the setLanguage(String preferredLanguage) method.
                     */
                     Andie.getLanguage().setLanguage(language);
                     //close the program 
