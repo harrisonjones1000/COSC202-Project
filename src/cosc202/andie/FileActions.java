@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 
 /**
  * <p>
@@ -171,7 +173,7 @@ public class FileActions {
 
             } catch (Exception ex) {
 
-                System.exit(1);
+                ErrorHandling.badSaveError();
             }
 
         }
@@ -282,7 +284,7 @@ public class FileActions {
      * Action to quit the ANDIE application.
      * </p>
      */
-    public class FileExitAction extends AbstractAction {
+    public class FileExitAction extends ImageAction {
 
         /**
          * <p>
@@ -295,25 +297,83 @@ public class FileActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon);
+            super(name, icon, desc, mnemonic);
             putValue(SHORT_DESCRIPTION, desc);
             putValue(MNEMONIC_KEY, mnemonic);
         }
-
-         /**
+         
+        /**  
          * <p>
          * Callback for when the file-exit action is triggered.
          * </p>
          * 
          * <p>
          * This method is called whenever the FileExitAction is triggered.
-         * It quits the program.
+         * It quits the program if the image opened has had no changes made,
+         * if changes have been made, asks the user to save, calling the 
          * </p>
          * 
          * @param e The event triggering this callback.
          */
+
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+
+            /* If the image has had no changes made when the exit button is pushed */
+            if(!Andie.imagePanel.image.hasChanged()){
+
+                /* Exit the program*/ 
+                System.exit(0);
+
+            }
+
+            /* If the image has had a change made when the exit button is pushed */
+            else{
+
+                /* Create a dialogue box with a yes no option to ask if the user
+                   wants to save the image */
+                int okayOption = JOptionPane.showConfirmDialog(null,
+                "Do you wish to save this image?", 
+                "Save Image", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                
+                /* If the user presses yes (wants to save) */
+                if(okayOption == JOptionPane.YES_OPTION){
+                    
+                    /* Create the file chooser window, and save dialogue */
+                    JFileChooser fileChooser = new JFileChooser();
+                    int result = fileChooser.showSaveDialog(target);
+                    
+                    /* If the user presses the save button */
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        
+                        /* Try to save the image with name given */
+                        try {
+        
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            target.getImage().saveAs(imageFilepath);
+
+                    /* If invalid image type, show corresponding error */
+                        } catch (Exception ex) {
+        
+                            ErrorHandling.badSaveError();
+        
+                        }
+        
+                    }
+        
+                }
+                
+                /* If the user presses no (doesn't want to save) */
+                else if(okayOption == JOptionPane.NO_OPTION){
+                    
+                    /* Exit the program */
+                    System.exit(0);
+        
+                }
+        
+            }
+
+
         }
 
     }

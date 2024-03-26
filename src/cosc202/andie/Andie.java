@@ -32,6 +32,7 @@ public class Andie {
     /*I declare the Language class in this class, I made it public so all the other classes can access it. */
     public static Language language = new Language();
     public static JFrame frame;
+    public static ImagePanel imagePanel = new ImagePanel(); // change access modifier later
 
     /**
      * 
@@ -66,7 +67,6 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
