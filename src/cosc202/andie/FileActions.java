@@ -337,7 +337,6 @@ public class FileActions {
                 System.exit(0);
 
             }
-
             /* If the image has had a change made when the exit button is pushed */
             else{
 
