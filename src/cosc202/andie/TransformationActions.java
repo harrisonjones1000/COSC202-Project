@@ -8,7 +8,7 @@ public class TransformationActions{
 
     protected ArrayList<Action> actions;
 
-    ResourceBundle lan = Andie.language.getLanBundle();
+    ResourceBundle lan = Andie.lan;
     public TransformationActions(){
         actions = new ArrayList<Action>();
         actions.add(new ResizeAction(lan.getString("resize"), null, lan.getString("resize_desc"), Integer.valueOf(KeyEvent.VK_R)));

@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.util.ResourceBundle;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -31,7 +33,8 @@ import javax.swing.JScrollPane;
 public class Andie {
 
     /*I declare the Language class in this class, Which is public so all the classes can access it.*/
-    public static Language language = new Language();
+    private static Language language = new Language();
+    public static ResourceBundle lan = language.getLanBundle();
     private static JFrame frame;
     public static ImagePanel imagePanel = new ImagePanel();
 
@@ -125,6 +128,9 @@ public class Andie {
             default:
                 break;
         }
+    }
+    public static Language getLanguage(){
+        return language;
     }
 
     /**

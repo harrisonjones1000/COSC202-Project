@@ -27,7 +27,7 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
     
-    ResourceBundle lan = Andie.language.getLanBundle(); 
+    ResourceBundle lan = Andie.lan;
     /**
      * <p>
      * Create a set of Filter menu actions.

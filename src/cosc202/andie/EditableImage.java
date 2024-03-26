@@ -46,7 +46,7 @@ class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
-    private static ResourceBundle bundle = Andie.language.getLanBundle();
+    private static ResourceBundle bundle = Andie.lan;
 
     /**
      * <p>

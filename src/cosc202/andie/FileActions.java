@@ -38,7 +38,7 @@ public class FileActions {
     protected ArrayList<Action> actions;
 
     /*retrieving the resources object from the Language object which stores the preferences. */
-    ResourceBundle lan = Andie.language.getLanBundle(); 
+    ResourceBundle lan = Andie.lan;
     /**
      * <p>
      * Create a set of File menu actions.

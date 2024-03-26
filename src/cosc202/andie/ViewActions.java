@@ -28,7 +28,8 @@ public class ViewActions {
      */
     protected ArrayList<Action> actions;
 
-    ResourceBundle lan = Andie.language.getLanBundle();
+    //Getting the lan resources from the Andie class
+    ResourceBundle lan = Andie.lan;
 
     /**
      * <p>

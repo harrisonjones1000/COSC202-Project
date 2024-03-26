@@ -6,9 +6,9 @@ import java.util.prefs.Preferences;
 public class Language {
 
     /*I'll keep the prefs as a datafeld */
-    public Preferences prefs;
+    private Preferences prefs;
 
-    ResourceBundle bundle;
+    public ResourceBundle bundle;
 
     //The constructor creates the object Language, which is set to default to English.
     /**Creates a new Language class

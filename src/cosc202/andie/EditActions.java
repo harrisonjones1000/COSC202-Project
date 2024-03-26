@@ -28,7 +28,7 @@ public class EditActions {
     protected ArrayList<Action> actions;
 
     /*Initializing the resource bundle */
-    ResourceBundle lan = Andie.language.getLanBundle();
+    ResourceBundle lan = Andie.lan;
 
     /**
      * <p>

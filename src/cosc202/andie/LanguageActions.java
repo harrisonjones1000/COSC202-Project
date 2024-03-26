@@ -24,10 +24,10 @@ import javax.swing.*;
  */
 public class LanguageActions {
     /**The current language bundle of ANDIE*/
-    ResourceBundle lan = Andie.language.getLanBundle();
+    ResourceBundle lan = Andie.lan;
 
     /**A list of Language options stored as an ArrayList. */
-    protected ArrayList<String> actions;
+    protected ArrayList<String> languages;
     
     /**
      * <p>
@@ -35,12 +35,11 @@ public class LanguageActions {
      * </p>
      */
     public LanguageActions(){
-        actions  = new ArrayList<String>();
+        languages  = new ArrayList<String>();
         //will add actions later.
-        actions.add("English");
-        actions.add("Māori");
+        languages.add("English");
+        languages.add("Māori");
     }
-
     /**
      * <p>
      * Create a menu of language preferrences, when preferences are updated the program will close.
@@ -51,13 +50,15 @@ public class LanguageActions {
     public JMenu createMenu(){
         JMenu langMenu = new JMenu(lan.getString("language"));
 
-        for(String action : actions){
+        for(String language : languages){
             JMenuItem item = null;
-            item = new JMenuItem(action);
+            item = new JMenuItem(language);
             item.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae){
-                    //System.out.println("Button clicked");
-                    Andie.language.setLanguage(action);
+                    /*Since the language object is private we use the accessor method
+                      getLanguage to the object then modifiy it with the new language.
+                    */
+                    Andie.getLanguage().setLanguage(language);
                     //close the program 
                     System.exit(0);
                 }
