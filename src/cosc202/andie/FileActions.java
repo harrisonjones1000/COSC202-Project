@@ -245,10 +245,12 @@ public class FileActions {
      */
     public class ExportImageAction extends ImageAction {
 
+
         /**
          * <p>
          * Create a new export file action
          * </p>
+         * 
          * 
          * @param name The name of the action (ignored if null).
          * @param icon An icon to use to represent the action (ignored if null).
@@ -266,17 +268,26 @@ public class FileActions {
          * 
          * <p>
          * This method is called whenever the ExportImageAction is triggered 
-         * it prompts the user to enter a fileName and filePath for where the 
-         * exported image will be saved.
+         * it prompts the user to enter a fileName in a folder where the image will be 
+         * saved.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //Perform operations for exporting an image.
-            System.out.println("Export Button clicked");
-        }
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showSaveDialog(fileChooser);
 
+            if(result ==JFileChooser.APPROVE_OPTION){
+                try{
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().exportImage(imageFilepath);
+                }catch(Exception ex){
+                    System.out.println(ex.toString());
+                    System.exit(1);
+                }
+            }
+        }
     }
 
     /**

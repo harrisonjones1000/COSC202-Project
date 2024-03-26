@@ -23,7 +23,7 @@ import java.util.*;
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
     
-    /**
+    /**-private
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
