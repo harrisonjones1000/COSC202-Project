@@ -37,27 +37,25 @@ public class Language {
     public void setLanguage(String langauge){
         
         //Setting the language preferences based on String language
+        
         try{
             if(langauge == "English"){
                 //Andie.frame.dispose();
                 prefs.put("language", "en");
                 prefs.put("country", "NZ");
-                Andie.frame.repaint();
                 
             }else if(langauge == "Māori"){
                 //Andie.frame.dispose();
                 prefs.put("language", "mi");
                 prefs.put("country", "NZ");
-                Andie.frame.repaint();
                 
             }
-
-            
-            
+            Andie.createPopupMenu();
             //bundle = ResourceBundle.getBundle("MessageBundle");
         }catch(NoSuchElementException ea){
             System.out.println("Languages preferences couldn't be updated\n" + ea.toString());
         }
+        
         
     }
 

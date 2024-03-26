@@ -72,7 +72,7 @@ class EditableImage {
      * @return True if there is an image, false otherwise.
      */
     public boolean hasImage() {
-        return current != null;
+        return this.current != null;
     }
 
     /**
@@ -238,14 +238,17 @@ class EditableImage {
         refresh();
     }
 
-    /*Convert the image from a list of operations applied to the original
-     image to making a new image using the list of operations, and exporting those 
+    /*
+     * The method converts the  BufferedImage current object to an png image.
+     * @param fileName 
+     * @return void
     */
     public void exportImage(String fileName){
-        String exportedFileName = fileName + ".png";
         try{
             if(hasImage()){
-                ImageIO.write(this.current, "png", new File(exportedFileName));
+                ImageIO.write(this.current, "png", new File(fileName + ".png"));
+            }else{
+                System.out.println("Start by choosing an image to edit.");
             }
         }catch (IOException ie){
             System.out.println(ie.toString());

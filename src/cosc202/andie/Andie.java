@@ -2,10 +2,11 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 /**
@@ -29,9 +30,10 @@ import javax.swing.JScrollPane;
  */
 public class Andie {
 
-    /*I declare the Language class in this class, I made it public so all the other classes can access it. */
+    /*I declare the Language class in this class, Which is public so all the classes can access it.*/
     public static Language language = new Language();
-    public static JFrame frame;
+
+    protected static JFrame frame;
 
     /**
      * 
@@ -70,7 +72,8 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
+
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
@@ -101,11 +104,16 @@ public class Andie {
         //Transformations: resize, flip, rotate
         TransformationActions transActions = new TransformationActions();
         menuBar.add(transActions.createJMenu());
-
         
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
+    }
+    public static void createPopupMenu(/*String title, String mesage, String category*/){
+
+        JOptionPane.showMessageDialog(frame, "Restart the program", "Language preference", JOptionPane.INFORMATION_MESSAGE); 
+  
+        
     }
 
     /**

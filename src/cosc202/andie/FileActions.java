@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * <p>
@@ -214,6 +215,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
