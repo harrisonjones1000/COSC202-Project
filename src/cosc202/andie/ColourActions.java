@@ -182,8 +182,8 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            String[] directions = {"r->g->b->r","r<-g<-b<-r", "Cancel"};
-            int option = JOptionPane.showOptionDialog(null, "Choose direction of color cycle", "Color Cycle Option Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
+            String[] directions = {"r->g->b->r","r<-g<-b<-r", lan.getString("cancel")};
+            int option = JOptionPane.showOptionDialog(null, lan.getString("color_chanel_cycle_message"), lan.getString("color_chanel_cycle_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
             System.out.println(option);
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
