@@ -71,4 +71,96 @@ public class ErrorHandling{
 
     }
 
+/*********************************************************************/
+/**                     exportLocationError method                  **/
+/*********************************************************************/ 
+    /**<p>
+     * Method for catching runtime errors where a user attempts to export
+     * a file to the wrong location.
+     * </p>
+     * 
+     * <p>
+     * Upon attempting to export a file to an incorrect location, will 
+     * alert the user and ask to save in a different location.
+     * </p>
+     * 
+     */
+
+     public static void exportLocationError(){
+        
+        int okayOption = JOptionPane.showOptionDialog(null,
+                         lan.getString("export_location_error_message"), 
+                         lan.getString("export_location_error_title"), 
+                         JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, new Object[]{lan.getString("ok")}, null);
+
+        if(okayOption == JOptionPane.OK_OPTION){
+
+            return;
+
+        }
+
+    }
+
+/*********************************************************************/
+/**                      cannotUndoMessage method                   **/
+/*********************************************************************/ 
+    /**<p>
+     * Method for catching runtime error for empty stack, where the user 
+     * cannot undo as there are no items in the ops stack. Alerts
+     * the user that they can't undo.
+     * </p>
+     * 
+     * <p>
+     * Attemmpting to undo on an empty image panel, or unchanged image 
+     * causes an error message pop-up, returns nothing.
+     * </p>
+     * 
+     */
+
+    public static void cannotUndoMessage(){
+        
+        int okayOption = JOptionPane.showOptionDialog(null,
+                         lan.getString("cannot_undo_message"), 
+                         lan.getString("cannot_undo_title"), 
+                         JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, new Object[]{lan.getString("ok")}, null);
+
+        if(okayOption == JOptionPane.OK_OPTION){
+
+            return;
+
+        }
+
+    }
+
+/*********************************************************************/
+/**                      cannotRedoMessage method                   **/
+/*********************************************************************/ 
+    /**<p>
+     * Method for catching runtime error for empty stack, where the user 
+     * cannot redo as there are no items in the redoOps stack. Alerts
+     * the user that they can't redo.
+     * </p>
+     * 
+     * <p>
+     * Attemmpting to redo after the most current change has been redone 
+     * causes an error message pop-up, returns nothing.
+     * </p>
+     * 
+     */
+
+     public static void cannotRedoMessage(){
+        
+        int okayOption = JOptionPane.showOptionDialog(null,
+                         lan.getString("cannot_redo_message"), 
+                         lan.getString("cannot_redo_title"), 
+                         JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, new Object[]{lan.getString("ok")}, null);
+
+        if(okayOption == JOptionPane.OK_OPTION){
+
+            return;
+
+        }
+
+    }
+
 }

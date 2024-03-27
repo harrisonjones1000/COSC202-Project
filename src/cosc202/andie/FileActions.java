@@ -106,6 +106,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(lan.getString("open")); //found this method at https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JFileChooser.html#showOpenDialog(java.awt.Component)
             int result = fileChooser.showOpenDialog(target);
@@ -282,13 +283,19 @@ public class FileActions {
             int result = fileChooser.showSaveDialog(fileChooser);
 
             if(result ==JFileChooser.APPROVE_OPTION){
+
                 try{
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().exportImage(imageFilepath.trim());
                     Andie.createPopupPanel(lan.getString("export_popup_title"), lan.getString("export_popup_message"), "information");
-                }catch(Exception ex){
-                    System.out.println(ex.toString());
-                    System.exit(1);
+
+                }
+
+                catch(Exception ex){
+
+                    ErrorHandling.exportLocationError();
+
                 }
             }
         }

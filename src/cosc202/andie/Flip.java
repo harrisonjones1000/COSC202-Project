@@ -49,19 +49,20 @@ public class Flip implements ImageOperation, java.io.Serializable {
         int temp;
 
         if(flipX){
-            for(int x = 0; x < width; x++){
-                for(int y = 0; y < height/2; y++){
-                    temp = input.getRGB(x,y);
-                    input.setRGB(x,y,input.getRGB(x,height-1-y));
-                    input.setRGB(x,height-1-y,temp);
-                }
-            }
-        }else{
             for(int y = 0; y < height; y++){
                 for(int x = 0; x < width/2; x++){
                     temp = input.getRGB(x,y);
                     input.setRGB(x,y,input.getRGB(width-1-x,y));
                     input.setRGB(width-1-x,y,temp);
+                }
+            }
+
+        }else{
+            for(int x = 0; x < width; x++){
+                for(int y = 0; y < height/2; y++){
+                    temp = input.getRGB(x,y);
+                    input.setRGB(x,y,input.getRGB(x,height-1-y));
+                    input.setRGB(x,height-1-y,temp);
                 }
             }
             

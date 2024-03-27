@@ -88,15 +88,27 @@ public class EditActions {
          * 
          * <p>
          * This method is called whenever the UndoAction is triggered.
-         * It undoes the most recently applied operation.
+         * It undoes the most recently applied operation, and notifies
+         * User if no more undo actions can be made.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().undo();
-            target.repaint();
-            target.getParent().revalidate();
+
+            if(Andie.imagePanel.image.hasChanged()){
+
+                target.getImage().undo();
+                target.repaint();
+                target.getParent().revalidate();
+
+            }
+
+            else{
+
+                ErrorHandling.cannotUndoMessage();
+
+            }
         }
     }
 
@@ -137,9 +149,20 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().redo();
-            target.repaint();
-            target.getParent().revalidate();
+
+            if(Andie.imagePanel.image.numRedoOps() == 0){
+
+                ErrorHandling.cannotRedoMessage();
+
+            }
+
+            else{
+
+                target.getImage().redo();
+                target.repaint();
+                target.getParent().revalidate();
+
+            }
         }
     }
 

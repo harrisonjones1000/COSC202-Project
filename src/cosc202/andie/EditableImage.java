@@ -236,8 +236,19 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        redoOps.push(ops.pop());
-        refresh();
+
+        /* This if loop change was made due to a funky error wherein if the
+         * user were to continuously press undo, it could fill the 
+         * redoOps stack with nothing as it would push the nothing
+         * from the ops stack.
+         */
+        if(ops.size() > 0){
+
+            redoOps.push(ops.pop());
+            refresh();
+
+        }
+
     }
 
     /*
@@ -267,7 +278,9 @@ class EditableImage {
      * </p>
      */
     public void redo()  {
+
         apply(redoOps.pop());
+
     }
 
     /**
@@ -300,9 +313,30 @@ class EditableImage {
         }
     }
 
+    /**
+     * <p>
+     * Obtain a true or false as to whether any changes have been made to an image.
+     * </p>
+     * 
+     * @return A boolean which will be true if the image has been changed/any operations
+     * in the stack.
+     */
+
     public boolean hasChanged() {
         
         return !ops.isEmpty();
+
+    }
+
+    public int numRedoOps(){
+
+        return redoOps.size();
+
+    }
+
+    public int numOps(){
+
+        return ops.size();
 
     }
 
