@@ -107,9 +107,13 @@ public class FilterActions {
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
+
                 return;
+                
             } else if (option == JOptionPane.OK_OPTION) {
+
                 radius = radiusModel.getNumber().intValue();
+
             }
 
             // Create and apply the filter
