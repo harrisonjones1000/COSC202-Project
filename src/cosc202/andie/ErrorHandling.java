@@ -1,6 +1,7 @@
 package cosc202.andie;
 
-import javax.swing.JFileChooser;
+import java.util.ResourceBundle;
+
 import javax.swing.JOptionPane;
 
 public class ErrorHandling{
@@ -20,15 +21,14 @@ public class ErrorHandling{
      * </p>
      * 
      */
+    private static ResourceBundle lan = Andie.lan;
     public static void badSaveError(){
 
-        int okayOption = JOptionPane.showConfirmDialog(null, 
-                         "You can't save this file.  Either: \n - \tThere is no file to save." 
-                       + "\n - \tAn attempt has been made to save the file as an incorrect image" 
-                       + "file type. \n\nPlease try again.", 
-                        "Invalid Save Type", 
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-        
+        Object[] options = {lan.getString("ok")};
+        int okayOption = JOptionPane.showOptionDialog(null, 
+                         lan.getString("save_error_message"), 
+                        lan.getString("save_error_title"), 
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, null);
         if(okayOption == JOptionPane.OK_OPTION){
 
             return;

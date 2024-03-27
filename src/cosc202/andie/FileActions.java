@@ -107,6 +107,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(lan.getString("open")); //found this method at https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JFileChooser.html#showOpenDialog(java.awt.Component)
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -218,6 +219,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(lan.getString("save"));
             int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
