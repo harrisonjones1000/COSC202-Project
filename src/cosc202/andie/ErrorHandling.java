@@ -55,11 +55,11 @@ public class ErrorHandling{
      */
 
     public static void wrongFileTypeError(){
-
-        int okayOption = JOptionPane.showConfirmDialog(null,
-                         "You can't open a file of this type.", 
-                         "Invalid File Type", 
-                         JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        
+        int okayOption = JOptionPane.showOptionDialog(null,
+                         lan.getString("wrong_file_type_error_message"), 
+                         lan.getString("wrong_file_type_error_title"), 
+                         JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, new Object[]{lan.getString("ok")}, null);
 
         if(okayOption == JOptionPane.OK_OPTION){
 
