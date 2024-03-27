@@ -30,10 +30,9 @@ Export image - Currently the program crashes when attempting to save in another 
 
 4) Exit - Currently forces user to Save As if user presses exit without saving changes, rather than saving the image normally (Minor)
 
-5) Multilingual support - The program does not update the JMenuBar with updated preferences, but user has to restart the program to get the updated JMenuBar (Semi-major).
+5) Multilingual support - The program only updates the language preferences when the program is restarted.
 
 6) Export image - Currently the program crashes when attempting to save in another directory other than the home directory.
-> c145659be4794516c0723681763d7ea1dea905f7
 
 ## User Guide
 To use andie, after opening the application, click File, then open, then find the image file you want to edit. After which, you may zoom in and out under view, undo and redo under Edit, Filter to blur/sharpen the image, Colour to alter the colour of the image, Language to change the language of the application (must close and reopen the application first and only english and Māori are implimented), and transform to resize, flip, and rotate the image. After editing the image, you may save the image, save the image as a copy, or export the image.
