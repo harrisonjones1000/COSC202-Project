@@ -94,7 +94,8 @@ public class TransformationActions{
             //Pop-up dialog box will take scale factors between .1 and 10, with a step size of .1
             SpinnerNumberModel scaleFactorModel = new SpinnerNumberModel(1.0, .1, 10, .1);
             JSpinner scaleFactorSpinner = new JSpinner(scaleFactorModel);
-            int option = JOptionPane.showOptionDialog(null, scaleFactorSpinner, "Enter scale factor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            Object[] options = {lan.getString("ok"), lan.getString("cancel")};
+            int option = JOptionPane.showOptionDialog(null, scaleFactorSpinner, lan.getString("resize_action_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -146,8 +147,8 @@ public class TransformationActions{
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e){
-            Object[] options = {"Rotate 90 degrees right", "Rotate 90 degrees left", "Rotate 180 degrees", "Cancel"};
-            int n = JOptionPane.showOptionDialog(null, null, "Select", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[3]);
+            Object[] options = {lan.getString("rotate_90_r"), lan.getString("rotate_90_l"), lan.getString("rotate_180"), lan.getString("cancel")};
+            int n = JOptionPane.showOptionDialog(null, null, lan.getString("select"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[3]);
 
             if (n == 3) {
                 return;
@@ -195,8 +196,8 @@ public class TransformationActions{
          */
         public void actionPerformed(ActionEvent e){
             boolean flipX = true;
-            Object[] options = {"Flip Horizontal", "Flip Vertical", "Cancel"};
-            int n = JOptionPane.showOptionDialog(null, null, "Select", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+            Object[] options = {lan.getString("flip_hori"), lan.getString("flip_vert"), lan.getString("cancel")};
+            int n = JOptionPane.showOptionDialog(null, null, lan.getString("select"),JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (n == JOptionPane.CANCEL_OPTION) {
                 return;

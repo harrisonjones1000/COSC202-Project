@@ -80,7 +80,6 @@ public class Andie {
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
@@ -116,24 +115,31 @@ public class Andie {
         frame.pack();
         frame.setVisible(true);
     }
-    /*The method creates a Popup panel which within the JFrame frame, 
-     *it dynamically renders JOptionPane based on a number of parameters
+    /**
+     * <p>
+     *  The method creates a Popup panel which within the JFrame frame, 
+     *  it dynamically renders JOptionPane based on a number of parameters
+     * </p>
+     * <p>
+     * Documentation for JOptionPan: https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JOptionPane.html#INFORMATION_MESSAGE
+     * </p>
+     *
      * @param String title, String message, String category 
      * @return vod
     */
     public static void createPopupPanel(String title, String message, String category){
-        //dynamically insert optionType based on the string category. and also the button text based on the language
+        //dynamically insert optionType based on the string category, and also the button text based on the language
         switch (category) {
             case "information":
                 JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 
                                             JOptionPane.INFORMATION_MESSAGE, null,
-                                            new Object[]{lan.getString("lanPopUp_btn")}, null);
+                                            new Object[]{lan.getString("ok")}, null);
                 
                 break;
             case "error":
             JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 
                 JOptionPane.WARNING_MESSAGE, null,
-                new Object[]{lan.getString("lanPopUp_btn")}, null); 
+                new Object[]{lan.getString("ok")}, null); 
             default:
                 break;
         }
