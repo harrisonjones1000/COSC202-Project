@@ -38,8 +38,14 @@ public class Andie {
 
     /*I declare the Language class in this class, Which is public so all the classes can access it.*/
     private static Language language = new Language();
+
+    /*Declare and intialise the ResourceBundle lan */
     public static ResourceBundle lan = language.getLanBundle();
+    
+    /*Made the JFrame frame accessible throught the class. */
     private static JFrame frame;
+
+    /*The image panel is declared and intialized, whilst also made public so its accesible by other classes. */
     public static ImagePanel imagePanel = new ImagePanel();
 
     /**
@@ -143,9 +149,6 @@ public class Andie {
             default:
                 break;
         }
-    }
-    public static Language getLanguage(){
-        return language;
     }
 
     /**

@@ -284,7 +284,7 @@ public class FileActions {
             if(result ==JFileChooser.APPROVE_OPTION){
                 try{
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().exportImage(imageFilepath);
+                    target.getImage().exportImage(imageFilepath.trim());
                     Andie.createPopupPanel(lan.getString("export_popup_title"), lan.getString("export_popup_message"), "information");
                 }catch(Exception ex){
                     System.out.println(ex.toString());

@@ -10,6 +10,8 @@ public class Language {
 
     public ResourceBundle bundle;
 
+    private Language language;
+
     //The constructor creates the object Language, which is set to default to English.
     /**Creates a new Language class
      * <p>
@@ -64,5 +66,13 @@ public class Language {
     public ResourceBundle getLanBundle(){
         return ResourceBundle.getBundle("MessageBundle");
     }
-
+    /**
+     * <p>
+     * Acessor method for the Language language object
+     * </p>
+     * @return Language language object
+     */
+    public Language getLanguage(){
+        return language;
+    }
 }
