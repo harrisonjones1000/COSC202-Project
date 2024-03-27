@@ -41,7 +41,7 @@ public class Andie {
 
     /*Declare and intialise the ResourceBundle lan */
     public static ResourceBundle lan = language.getLanBundle();
-    
+
     /*Made the JFrame frame accessible throught the class. */
     private static JFrame frame;
 
@@ -149,6 +149,17 @@ public class Andie {
             default:
                 break;
         }
+    }
+
+    /**
+     * <p>
+     * Method makes the Languge object which was just created accesible 
+     * </p>
+     * @param args void
+     * @return Languge object
+     */
+    public static Language getLanguage(){
+        return language;
     }
 
     /**
