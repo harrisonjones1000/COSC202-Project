@@ -12,6 +12,7 @@ Calan - Image Inversion, Colour Channel Cycling
 ## How code was tested
 Unit tests were made for the Gaussian Blur Filter
 Other features were tested by implementing them and visually comparing the operations to out estimation of the expected output.
+Errors were identified after manually testing each feature with actions normal or abnormal, and rectified with code and re-testing.
 
 ## List of known bugs/issues
 1) Median Filter - On even array size, the 'median' is not the mean of the 2 centre values but the value on the left (Very Minor)
