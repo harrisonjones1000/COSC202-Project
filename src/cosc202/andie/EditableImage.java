@@ -262,10 +262,13 @@ class EditableImage {
                 ImageIO.write(this.current, "png", new File(fileName + ".png"));
             }else{
                 //Pop up panel prompts the user to choose an image first
-                Andie.createPopupPanel(bundle.getString("exportPopUp_title"), bundle.getString("exportPopUp_message"), "error");
+                Andie.createPopupPanel(bundle.getString("export_error_popup_title"), 
+                                       bundle.getString("export_error_popup_message"),
+                                        "error");
             }
         }catch (IOException ie){
             System.out.println(ie.toString());
+            return;
         }
     }
 

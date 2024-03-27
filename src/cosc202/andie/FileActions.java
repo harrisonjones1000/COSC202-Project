@@ -288,6 +288,7 @@ public class FileActions {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().exportImage(imageFilepath);
+                    Andie.createPopupPanel(lan.getString("export_popup_title"), lan.getString("export_popup_message"), "information");
 
                 }
 
