@@ -27,7 +27,8 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
     
-    ResourceBundle lan = Andie.lan;
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
     /**
      * <p>
      * Create a set of Filter menu actions.

@@ -40,4 +40,5 @@ To use andie, after opening the application, click File, then open, then find th
 
 ## Future Change Ideas
 - Add a window that pops up upon exiting the program if an image has been edited during that run, but hasn't been saved -- ADDED
-- 
+- Create a custom __JFileChooser__ so it can support multilingual support since currently there are default values for the labels in English **Look in**, **File Name:**, **Files of Type:**, **Open** button, **Cancel** button and all other labels to have multilingual support. 
+  

@@ -21,6 +21,8 @@ public class ErrorHandling{
      * </p>
      * 
      */
+    
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
     private static ResourceBundle lan = Andie.lan;
     public static void badSaveError(){
 

@@ -23,7 +23,9 @@ import java.util.*;
 public class TransformationActions{
 
     protected ArrayList<Action> actions;
-    ResourceBundle lan = Andie.lan;
+    
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
      /**
      * <p>

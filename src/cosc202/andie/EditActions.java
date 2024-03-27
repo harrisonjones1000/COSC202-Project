@@ -27,8 +27,8 @@ public class EditActions {
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
 
-    /*Initializing the resource bundle */
-    ResourceBundle lan = Andie.lan;
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
     /**
      * <p>

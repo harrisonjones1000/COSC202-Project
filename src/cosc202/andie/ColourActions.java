@@ -25,7 +25,8 @@ import javax.swing.*;
  */
 public class ColourActions {
 
-    ResourceBundle lan = Andie.lan();
+    /*Get the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;

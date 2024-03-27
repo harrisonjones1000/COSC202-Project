@@ -37,8 +37,8 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
-    /*retrieving the resources object from the Language object which stores the preferences. */
-    ResourceBundle lan = Andie.lan;
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
     /**
      * <p>
      * Create a set of File menu actions.

@@ -23,8 +23,9 @@ import javax.swing.*;
  * @version 1.0
  */
 public class LanguageActions {
-    /**The current language bundle of ANDIE*/
-    ResourceBundle lan = Andie.lan;
+    
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
     /**A list of Language options stored as an ArrayList. */
     protected ArrayList<String> languages;
