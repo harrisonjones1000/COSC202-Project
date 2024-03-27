@@ -2,6 +2,18 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+/**
+ * <p>
+ * ImageOperation to flip an image a specified way.
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @author Harrison Jones
+ * @version 1.0
+ */
 public class Flip implements ImageOperation, java.io.Serializable {
     
     /**Controls direction of flip operation, horizontally if true and vertically if false*/
@@ -54,9 +66,6 @@ public class Flip implements ImageOperation, java.io.Serializable {
             }
             
         }
-
-        
-
         return input;
     }
 }
