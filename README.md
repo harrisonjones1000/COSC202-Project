@@ -14,14 +14,6 @@ Unit tests were made for the Gaussian Blur Filter
 Other features were tested by implementing them and visually comparing the operations to out estimation of the expected output.
 
 ## List of known bugs/issues
-<!--
-<<<<<<< HEAD
-Median Filter - On even array size, the 'median' is not the mean of the 2 centre values but the value on the left (Very Minor)
-Save/Save as - Currently causes the application to crash if attempting to save with no image in application(Major)
-Open - Cannot open .ops files (ie, cannot open files that have been saved with save as, says incorrect file type) (Semi-major)
-Multilingual support - The program does not update the JMenuBar with updated preferences, but user has to restart the program to get the updated JMenuBar (minor).
-Export image - Currently the program crashes when attempting to save in another directory other than the home directory.(Major)
-=======-->
 1) Median Filter - On even array size, the 'median' is not the mean of the 2 centre values but the value on the left (Very Minor)
 
 2) Save/Save as - Currently causes the application to crash if attempting to save with no image in application(Major) -- FIXED
@@ -30,7 +22,7 @@ Export image - Currently the program crashes when attempting to save in another 
 
 4) Exit - Currently forces user to Save As if user presses exit without saving changes, rather than saving the image normally (Minor)
 
-5) Multilingual support - The program only updates the language preferences when the program is restarted.(Minor)
+5) Multilingual support - The program does not update the JMenuBar with updated preferences, but user has to restart the program to get the updated JMenuBar (minor).
 
 6) Export image - Currently the program crashes when attempting to save in another directory other than the home directory.(Major)
 
@@ -40,4 +32,6 @@ To use andie, after opening the application, click File, then open, then find th
 ## Future Change Ideas
 - Add a window that pops up upon exiting the program if an image has been edited during that run, but hasn't been saved -- ADDED
 - Create a custom __JFileChooser__ so it can support multilingual support since currently there are default values for the labels in English **Look in**, **File Name:**, **Files of Type:**, **Open** button, **Cancel** button and all other labels to have multilingual support. 
+- Make all menu buttons apart from 'File' and 'Language' either have an error message display when no image is in the ImagePanel, or make
+the buttons unclickable until the user has selected an image to edit.
   
