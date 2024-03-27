@@ -28,8 +28,8 @@ public class ViewActions {
      */
     protected ArrayList<Action> actions;
 
-    //Getting the lan resources from the Andie class
-    ResourceBundle lan = Andie.lan;
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
     /**
      * <p>
