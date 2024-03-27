@@ -5,7 +5,7 @@ Harrison - Image Resize, Image Rotation, Image Flip
 
 Owethu - Multilingual Support, Image Export
 
-Emanuel - Exception Handling, Other Error Avoidance/Prevention
+Emanuel - Exception Handling, Other Usability Error Avoidance/Prevention
 
 Calan - Image Inversion, Colour Channel Cycling
 
