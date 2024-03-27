@@ -5,9 +5,13 @@ import java.awt.Image;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
@@ -118,13 +122,18 @@ public class Andie {
      * @return vod
     */
     public static void createPopupPanel(String title, String message, String category){
-        //dynamically insert optionType based on the string category.
+        //dynamically insert optionType based on the string category. and also the button text based on the language
         switch (category) {
             case "information":
-                JOptionPane.showMessageDialog(frame, message, title, JOptionPane.INFORMATION_MESSAGE); 
+                JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 
+                                            JOptionPane.INFORMATION_MESSAGE, null,
+                                            new Object[]{lan.getString("lanPopUp_btn")}, null);
+                
                 break;
             case "error":
-                JOptionPane.showMessageDialog(frame, message, title, JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.WARNING_MESSAGE, null,
+                new Object[]{lan.getString("lanPopUp_btn")}, null); 
             default:
                 break;
         }
