@@ -342,10 +342,14 @@ public class FileActions {
 
                 /* Create a dialogue box with a yes no option to ask if the user
                    wants to save the image */
-                int okayOption = JOptionPane.showConfirmDialog(null,
-                "Do you wish to save this image?", 
-                "Save Image", 
-                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                Object[] options = {lan.getString("yes"), lan.getString("no")};
+                int okayOption = JOptionPane.showOptionDialog(null,
+                lan.getString("save_question"), 
+                lan.getString("save_title"), 
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,
+                null, 
+                options, 
+                null);
                 
                 /* If the user presses yes (wants to save) */
                 if(okayOption == JOptionPane.YES_OPTION){
