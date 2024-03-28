@@ -259,6 +259,7 @@ class EditableImage {
     public void exportImage(String fileName){
         try{
             if(hasImage()){
+                //The image will be saved as a "png" file, the ImageIO.write() I found from the implementation of the save() method.
                 ImageIO.write(this.current, "png", new File(fileName + ".png"));
             }else{
                 //Pop up panel prompts the user to choose an image first
