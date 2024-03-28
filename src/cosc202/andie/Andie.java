@@ -39,10 +39,15 @@ public class Andie {
     /*I declare the Language class in this class, Which is public so all the classes can access it.*/
     private static Language language = new Language();
 
-    /*Declare and intialise the ResourceBundle lan */
+    /*Declare and intialise the ResourceBundle lan so the ResourceBundle can be accessible in other classes. */
     public static ResourceBundle lan = language.getLanBundle();
 
-    /*Made the JFrame frame accessible throught the class. */
+    /**
+     * <p>
+     * Made the JFrame frame accessible throught this class, for the functionality of the createPopupPanel so 
+     * that the frame can be the parent class and the pop up panel is within the frame.
+     * </p>  
+     * */
     private static JFrame frame;
 
     /*The image panel is declared and intialized, whilst also made public so its accesible by other classes. */
@@ -134,7 +139,11 @@ public class Andie {
      * @return vod
     */
     public static void createPopupPanel(String title, String message, String category){
-        //dynamically insert optionType based on the string category, and also the button text based on the language
+        /**
+         * <p>
+         * Dynamically insert optionType based on the string category, and also the button text based on the language
+         * </p>
+         */
         switch (category) {
             case "information":
                 JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 

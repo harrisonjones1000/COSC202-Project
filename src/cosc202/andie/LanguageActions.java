@@ -44,6 +44,7 @@ public class LanguageActions {
     /**
      * <p>
      * Create a menu of language preferrences, when preferences are updated the program will close.
+     * I also utilized the ActionListener Interface the documentation: https://www.javatpoint.com/java-actionlistener
      * </p>
      * 
      * @return The edit menu UI element
@@ -56,9 +57,12 @@ public class LanguageActions {
             item = new JMenuItem(language);
             item.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae){
-                    /*Since the language object is private we use the accessor method
-                      getLanguage() to get the object then modifiy it with the new 
-                      language, using the setLanguage(String preferredLanguage) method.
+                    /**
+                     *<p>
+                     * Since the language object is private we use the accessor method
+                     * getLanguage() to get the object then modifiy it using the modifier
+                     * setLanguage(String preferredLanguage) method.
+                      </p>
                     */
                     Andie.getLanguage().setLanguage(language);
                     //close the program 
