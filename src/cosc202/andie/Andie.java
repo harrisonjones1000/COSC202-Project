@@ -135,8 +135,9 @@ public class Andie {
      * Documentation for JOptionPan: https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JOptionPane.html#INFORMATION_MESSAGE
      * </p>
      *
-     * @param String title, String message, String category 
-     * @return vod
+     * @param title 
+     * @param message 
+     * @param category 
     */
     public static void createPopupPanel(String title, String message, String category){
         /**
@@ -164,7 +165,6 @@ public class Andie {
      * <p>
      * Method makes the Languge object which was just created accesible 
      * </p>
-     * @param args void
      * @return Languge object
      */
     public static Language getLanguage(){

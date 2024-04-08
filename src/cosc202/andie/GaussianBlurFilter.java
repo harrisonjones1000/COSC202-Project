@@ -58,8 +58,8 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
     }
     /**<p>
     * Gets radius of the Gaussian Filter.
-    * @return The radius.
     * </p>
+    * @return The radius.
     */
     public int getRadius(){
         return radius;
