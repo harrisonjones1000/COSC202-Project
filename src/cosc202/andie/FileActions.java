@@ -1,8 +1,18 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * <p>
@@ -27,8 +37,8 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
-    /*retrieving the resources object from the Language object which stores the preferences. */
-    ResourceBundle lan = Andie.language.getLanBundle(); 
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
     /**
      * <p>
      * Create a set of File menu actions.
@@ -96,15 +106,22 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(lan.getString("open")); //found this method at https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JFileChooser.html#showOpenDialog(java.awt.Component)
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
+
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
+
                 } catch (Exception ex) {
-                    System.exit(1);
+
+                    ErrorHandling.wrongFileTypeError();
+
                 }
             }
 
@@ -134,7 +151,9 @@ public class FileActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
             super(name, icon, desc, mnemonic);
+
         }
 
         /**
@@ -151,10 +170,14 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().save();           
+
+                target.getImage().save();  
+
             } catch (Exception ex) {
-                System.exit(1);
+
+                ErrorHandling.badSaveError();
             }
+
         }
 
     }
@@ -195,15 +218,22 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(lan.getString("save"));
             int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
+
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
+
                 } catch (Exception ex) {
-                    System.exit(1);
+
+                    ErrorHandling.badSaveError();
+
                 }
             }
         }
@@ -219,10 +249,12 @@ public class FileActions {
      */
     public class ExportImageAction extends ImageAction {
 
+
         /**
          * <p>
          * Create a new export file action
          * </p>
+         * 
          * 
          * @param name The name of the action (ignored if null).
          * @param icon An icon to use to represent the action (ignored if null).
@@ -240,17 +272,33 @@ public class FileActions {
          * 
          * <p>
          * This method is called whenever the ExportImageAction is triggered 
-         * it prompts the user to enter a fileName and filePath for where the 
-         * exported image will be saved.
+         * it prompts the user to enter a fileName in a folder where the image will be 
+         * saved.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //Perform operations for exporting an image.
-            System.out.println("Export Button clicked");
-        }
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showSaveDialog(fileChooser);
 
+            if(result ==JFileChooser.APPROVE_OPTION){
+
+                try{
+
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().exportImage(imageFilepath.trim());
+                    Andie.createPopupPanel(lan.getString("export_popup_title"), lan.getString("export_popup_message"), "information");
+
+                }
+
+                catch(Exception ex){
+
+                    ErrorHandling.exportLocationError();
+
+                }
+            }
+        }
     }
 
     /**
@@ -258,7 +306,7 @@ public class FileActions {
      * Action to quit the ANDIE application.
      * </p>
      */
-    public class FileExitAction extends AbstractAction {
+    public class FileExitAction extends ImageAction {
 
         /**
          * <p>
@@ -271,25 +319,86 @@ public class FileActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon);
+            super(name, icon, desc, mnemonic);
             putValue(SHORT_DESCRIPTION, desc);
             putValue(MNEMONIC_KEY, mnemonic);
         }
-
-         /**
+         
+        /**  
          * <p>
          * Callback for when the file-exit action is triggered.
          * </p>
          * 
          * <p>
          * This method is called whenever the FileExitAction is triggered.
-         * It quits the program.
+         * It quits the program if the image opened has had no changes made,
+         * if changes have been made, asks the user to save, calling the 
          * </p>
          * 
          * @param e The event triggering this callback.
          */
+
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+
+            /* If the image has had no changes made when the exit button is pushed */
+            if(!Andie.imagePanel.image.hasChanged()){
+
+                /* Exit the program*/ 
+                System.exit(0);
+
+            }
+            /* If the image has had a change made when the exit button is pushed */
+            else{
+
+                /* Create a dialogue box with a yes no option to ask if the user
+                   wants to save the image */
+                Object[] options = {lan.getString("yes"), lan.getString("no")};
+                int okayOption = JOptionPane.showOptionDialog(null,
+                lan.getString("save_question"), 
+                lan.getString("save_title"), 
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,
+                null, 
+                options, 
+                null);
+                
+                /* If the user presses yes (wants to save) */
+                if(okayOption == JOptionPane.YES_OPTION){
+                    
+                    /* Create the file chooser window, and save dialogue */
+                    JFileChooser fileChooser = new JFileChooser();
+                    int result = fileChooser.showSaveDialog(target);
+                    
+                    /* If the user presses the save button */
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        
+                        /* Try to save the image with name given */
+                        try {
+        
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            target.getImage().saveAs(imageFilepath);
+
+                    /* If invalid image type, show corresponding error */
+                        } catch (Exception ex) {
+        
+                            ErrorHandling.badSaveError();
+        
+                        }
+        
+                    }
+        
+                }
+                
+                /* If the user presses no (doesn't want to save) */
+                else if(okayOption == JOptionPane.NO_OPTION){
+                    
+                    /* Exit the program */
+                    System.exit(0);
+        
+                }
+        
+            }
+
+
         }
 
     }

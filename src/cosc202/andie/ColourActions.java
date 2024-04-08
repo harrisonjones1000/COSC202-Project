@@ -25,7 +25,8 @@ import javax.swing.*;
  */
 public class ColourActions {
 
-    ResourceBundle lan = Andie.language.getLanBundle();
+    /*Get the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
@@ -145,7 +146,7 @@ public class ColourActions {
 
     }
 
-            /**
+    /**
      * <p>
      * Action to convert an image to its inverse.
      * </p>
@@ -157,7 +158,7 @@ public class ColourActions {
 
         /**
          * <p>
-         * Create a new image-inversion action.
+         * Create a new color-channel-cycle action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -171,19 +172,19 @@ public class ColourActions {
 
         /**
          * <p>
-         * Callback for when the image-inversion action is triggered.
+         * Callback for when the color-channel-cycle action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ImageInversionAction is triggered.
-         * It changes the image to its inverse.
+         * This method is called whenever the ColorChannelCycleAction is triggered.
+         * It swaps the color channels of the image in a direction of user choice.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            String[] directions = {"r->g->b->r","r<-g<-b<-r", "Cancel"};
-            int option = JOptionPane.showOptionDialog(null, "Choose direction of color cycle", "Color Cycle Option Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
+            String[] directions = {"r->g->b->r","r<-g<-b<-r", lan.getString("cancel")};
+            int option = JOptionPane.showOptionDialog(null, lan.getString("color_chanel_cycle_message"), lan.getString("color_chanel_cycle_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
             System.out.println(option);
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;

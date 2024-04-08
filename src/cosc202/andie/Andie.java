@@ -2,10 +2,17 @@ package cosc202.andie;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.util.*;
+import java.util.ResourceBundle;
+
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 /**
@@ -29,9 +36,22 @@ import javax.swing.JScrollPane;
  */
 public class Andie {
 
-    /*I declare the Language class in this class, I made it public so all the other classes can access it. */
-    public static Language language = new Language();
-    public static JFrame frame;
+    /*I declare the Language class in this class, Which is public so all the classes can access it.*/
+    private static Language language = new Language();
+
+    /*Declare and intialise the ResourceBundle lan so the ResourceBundle can be accessible in other classes. */
+    public static ResourceBundle lan = language.getLanBundle();
+
+    /**
+     * <p>
+     * Made the JFrame frame accessible throught this class, for the functionality of the createPopupPanel so 
+     * that the frame can be the parent class and the pop up panel is within the frame.
+     * </p>  
+     * */
+    private static JFrame frame;
+
+    /*The image panel is declared and intialized, whilst also made public so its accesible by other classes. */
+    public static ImagePanel imagePanel = new ImagePanel();
 
     /**
      * 
@@ -46,7 +66,7 @@ public class Andie {
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
      * 
-     * @see ImagePanel haha
+     * @see ImagePanel
      * @see ImageAction
      * @see ImageOperation
      * @see FileActions
@@ -66,11 +86,11 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
+        imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
@@ -101,11 +121,54 @@ public class Andie {
         //Transformations: resize, flip, rotate
         TransformationActions transActions = new TransformationActions();
         menuBar.add(transActions.createJMenu());
-
         
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
+    }
+    /**
+     * <p>
+     *  The method creates a Popup panel which within the JFrame frame, 
+     *  it dynamically renders JOptionPane based on a number of parameters
+     * </p>
+     * <p>
+     * Documentation for JOptionPan: https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/JOptionPane.html#INFORMATION_MESSAGE
+     * </p>
+     *
+     * @param String title, String message, String category 
+     * @return vod
+    */
+    public static void createPopupPanel(String title, String message, String category){
+        /**
+         * <p>
+         * Dynamically insert optionType based on the string category, and also the button text based on the language
+         * </p>
+         */
+        switch (category) {
+            case "information":
+                JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 
+                                            JOptionPane.INFORMATION_MESSAGE, null,
+                                            new Object[]{lan.getString("ok")}, null);
+                
+                break;
+            case "error":
+            JOptionPane.showOptionDialog(frame, message, title, JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.WARNING_MESSAGE, null,
+                new Object[]{lan.getString("ok")}, null); 
+            default:
+                break;
+        }
+    }
+
+    /**
+     * <p>
+     * Method makes the Languge object which was just created accesible 
+     * </p>
+     * @param args void
+     * @return Languge object
+     */
+    public static Language getLanguage(){
+        return language;
     }
 
     /**

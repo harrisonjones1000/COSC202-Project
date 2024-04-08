@@ -25,7 +25,7 @@ public class ImagePanel extends JPanel {
     /**
      * The image to display in the ImagePanel.
      */
-    private EditableImage image;
+    public EditableImage image; 
 
     /**
      * <p>
@@ -38,6 +38,8 @@ public class ImagePanel extends JPanel {
      * </p>
      */
     private double scale;
+
+
 
     /**
      * <p>

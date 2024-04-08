@@ -9,14 +9,14 @@ import java.awt.image.*;
  * 
  * <p>
  * The images produced by this operation are identical to the original image except the color values
- * of each pixel are subtracted from 255. //Change
+ * of each pixel are subtracted from 255.
  * </p>
  * 
  * <p>
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Calan McDermott, Steven Mills who made ConvertToGrey which this is based off
+ * @author Calan McDermott, Steven Mills who made ConvertToGrey which this is derived from
  * @version 1.0
  */
 public class ImageInversion implements ImageOperation, java.io.Serializable {
@@ -46,7 +46,9 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
   
         for (int y = 0; y < input.getHeight(); ++y) {
+
             for (int x = 0; x < input.getWidth(); ++x) {
+
                 int argb = input.getRGB(x, y);
                 int a = (argb & 0xFF000000) >> 24;
                 int r = (argb & 0x00FF0000) >> 16;
@@ -59,7 +61,9 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
 
                 argb = (a << 24) | (invr << 16) | (invg << 8) | invb;
                 input.setRGB(x, y, argb);
+
             }
+            
         }
         
         return input;
