@@ -182,16 +182,13 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            String[] directions = {"r->g->b->r","r<-g<-b<-r", "Cancel"};
+            String[] directions = {"r->g->b->r","r<-g<-b<-r","Swap green and blue","Swap red and green","Swap red and blue", "Cancel"};
             int option = JOptionPane.showOptionDialog(null, "Choose direction of color cycle", "Color Cycle Option Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
             System.out.println(option);
-            if (option == JOptionPane.CANCEL_OPTION) {
+            if (option == 6) {
                 return;
-            } else if (option == 1) {
-                target.getImage().apply(new ColorChannelCycle(false));
-            } else if (option == 0) {
-                target.getImage().apply(new ColorChannelCycle(true));
             }
+            target.getImage().apply(new ColorChannelCycle(option));
             //target.getImage().apply(new ColorChannelCycle(true)); //Check if better to set a variable
             //Or call two methods
             //Currently setting a variable.
