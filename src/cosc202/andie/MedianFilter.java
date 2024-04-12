@@ -63,6 +63,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * Unlike many filters, the Median filter is not implemented via convolution.
      * The size of the array of local pixels is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
+     * 
+     * The Try-catch statement is to prevent taking RGB values from outside of the image.
      * </p>
      * 
      * @param input The image to apply the Median filter to.
