@@ -60,6 +60,34 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         this(1);
     }
 
+    public BufferedImage convOp(BufferedImage input, float[][] kernel){
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        int[][] result = new int[input.getWidth()][input.getHeight()];
+        Arrays.fill(result, 0);
+        for (int y = 0; y < input.getHeight(); ++y) {
+            for (int x = 0; x < input.getWidth(); ++x) {
+                for (int dy = -radius; dy <= radius; ++dy){
+                    for (int dx = -radius; dx <= radius; ++dx){
+                        try{
+                            result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(x, y);
+                        }catch(Exception ArrayIndexOutOfBoundsException){
+                            if (x+dx < 0 && x+dx > input.getWidth() && y+dy >= 0 && y+dy <= input.getWidth()){
+                                result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(x, y + dy);
+                            }else if (x+dx >= 0 && x+dx <= input.getWidth() && y+dy < 0 && y+dy > input.getWidth()){
+                                result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(dx + x, y);
+                            }else{
+                                result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(x, y);
+                            }
+                        }
+                    }
+                    output.setRGB(x,y,result[x][y]);
+                }
+            }
+        }
+    
+        return output;
+    }
+
     /**
      * <p>
      * Apply a Mean filter to an image.
@@ -73,16 +101,15 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 
      * @param input The image to apply the Mean filter to.
      * @return The resulting blurred image.
-     */
+     =*/
+
+    
     public BufferedImage apply(BufferedImage input) {
         int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
+        float [][] array = new float[2*radius + 1][2*radius + 1];
         Arrays.fill(array, 1.0f/size);
-
-        Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-        ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+        output = convOp(input,array);
 
         return output;
     }
