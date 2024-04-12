@@ -2,7 +2,7 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
-
+import java.text.*;
 /**
  * <p>
  * ImageOperation to apply a Mean (simple blur) filter.
@@ -60,31 +60,79 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         this(1);
     }
 
-    public BufferedImage convOp(BufferedImage input, float[][] kernel){
+    /**
+     * <p>
+     * Takes a Buffered Image and Kernel and apply a convolution filter from said kernal.
+     * </p
+     * >
+     * <p>
+     * Note that values outside the image instead takes values
+     * </p>
+     * @param input The BufferedImage
+     * @param kernel The Kernel for the convolution.
+     * @return The BufferedImage with the convolution filter applied
+     */
+    public BufferedImage convOp(BufferedImage input, Kernel kernel){
+        float[] kerArray = new float[(2*radius + 1)*(2*radius + 1)];
+        kernel.getKernelData(kerArray);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        int[][] result = new int[input.getWidth()][input.getHeight()];
-        Arrays.fill(result, 0);
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                for (int dy = -radius; dy <= radius; ++dy){
-                    for (int dx = -radius; dx <= radius; ++dx){
+                ArrayList<Integer> array = new ArrayList<Integer>();
+                for (int i = -radius; i < radius + 1; i++){
+                    for (int j = -radius; j < radius + 1; j++){        
+                        int argb;
                         try{
-                            result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(x, y);
+                            argb = input.getRGB(x+i, y+j);
                         }catch(Exception ArrayIndexOutOfBoundsException){
-                            if (x+dx < 0 && x+dx > input.getWidth() && y+dy >= 0 && y+dy <= input.getWidth()){
-                                result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(x, y + dy);
-                            }else if (x+dx >= 0 && x+dx <= input.getWidth() && y+dy < 0 && y+dy > input.getWidth()){
-                                result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(dx + x, y);
+                            if ((x+i >= 0 && x+i < input.getWidth())&&(y+j < 0 && y+j > input.getWidth())){
+                                argb = input.getRGB(x+i, y);
+                            } else if ((x+i < 0 && x+i > input.getWidth())&&(y+j >= 0 && y+j > input.getWidth())){
+                                argb = input.getRGB(x, y+j);
                             }else{
-                                result[x][y] += kernel[radius+dx][radius+dy] * input.getRGB(x, y);
+                                argb = input.getRGB(x, y);
                             }
+                                
                         }
+                        array.add(argb);
                     }
-                    output.setRGB(x,y,result[x][y]);
+
                 }
+                int[] a_array = new int[array.size()];
+                int[] r_array = new int[array.size()];
+                int[] g_array = new int[array.size()];
+                int[] b_array = new int[array.size()];
+                for (int i = 0; i < array.size(); i++){
+                    a_array[i] = (array.get(i) & 0xFF000000) >> 24;
+                    r_array[i] = (array.get(i) & 0x00FF0000) >> 16;
+                    g_array[i] = (array.get(i) & 0x0000FF00) >> 8;
+                    b_array[i] = (array.get(i) & 0x000000FF);
+                }
+                float a_mean = 0;
+                float r_mean = 0;
+                float g_mean = 0;
+                float b_mean = 0; 
+
+                for (int i = 0; i < a_array.length; i++){
+                    a_mean += a_array[i]*kerArray[i];
+                    r_mean += r_array[i]*kerArray[i];
+                    g_mean += g_array[i]*kerArray[i];
+                    b_mean += b_array[i]*kerArray[i];
+                }
+                DecimalFormat fmt = new DecimalFormat("0");
+                String a_m = fmt.format(a_mean);
+                String r_m = fmt.format(r_mean);
+                String g_m = fmt.format(g_mean);
+                String b_m = fmt.format(b_mean);
+                int a_me = Integer.parseInt(a_m);
+                int r_me = Integer.parseInt(r_m);
+                int g_me = Integer.parseInt(g_m);
+                int b_me = Integer.parseInt(b_m);
+                int argb = ((int)a_me << 24) | ((int)r_me << 16) | ((int)g_me << 8) | (int)b_me;
+                output.setRGB(x, y, argb);
             }
         }
-    
+
         return output;
     }
 
@@ -106,10 +154,11 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
     
     public BufferedImage apply(BufferedImage input) {
         int size = (2*radius+1) * (2*radius+1);
-        float [][] array = new float[2*radius + 1][2*radius + 1];
+        float [] array = new float[size];
         Arrays.fill(array, 1.0f/size);
+        Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        output = convOp(input,array);
+        output = convOp(input,kernel);
 
         return output;
     }
