@@ -23,11 +23,12 @@ import javax.swing.*;
  * @version 1.0
  */
 public class LanguageActions {
-    /**The current language bundle of ANDIE*/
-    ResourceBundle lan = Andie.language.getLanBundle();
+    
+    /*Initializing the resource bundle by getting the resource bundle from the Andie class */
+    private ResourceBundle lan = Andie.lan;
 
     /**A list of Language options stored as an ArrayList. */
-    protected ArrayList<String> actions;
+    protected ArrayList<String> languages;
     
     /**
      * <p>
@@ -35,15 +36,15 @@ public class LanguageActions {
      * </p>
      */
     public LanguageActions(){
-        actions  = new ArrayList<String>();
+        languages  = new ArrayList<String>();
         //will add actions later.
-        actions.add("English");
-        actions.add("Māori");
+        languages.add("English");
+        languages.add("Māori");
     }
-
     /**
      * <p>
-     * Create a menu of language preferrences
+     * Create a menu of language preferrences, when preferences are updated the program will close.
+     * I also utilized the ActionListener Interface the documentation: https://www.javatpoint.com/java-actionlistener
      * </p>
      * 
      * @return The edit menu UI element
@@ -51,13 +52,21 @@ public class LanguageActions {
     public JMenu createMenu(){
         JMenu langMenu = new JMenu(lan.getString("language"));
 
-        for(String action : actions){
+        for(String language : languages){
             JMenuItem item = null;
-            item = new JMenuItem(action);
+            item = new JMenuItem(language);
             item.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae){
-                    //System.out.println("Button clicked");
-                    Andie.language.setLanguage(action);
+                    /**
+                     *<p>
+                     * Since the language object is private we use the accessor method
+                     * getLanguage() to get the object then modifiy it using the modifier
+                     * setLanguage(String preferredLanguage) method.
+                      </p>
+                    */
+                    Andie.getLanguage().setLanguage(language);
+                    //close the program 
+                    System.exit(0);
                 }
             });
             langMenu.add(item);

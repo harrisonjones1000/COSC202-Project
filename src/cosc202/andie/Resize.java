@@ -4,6 +4,19 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.*;
 
+/**
+ * <p>
+ * ImageOperation to resize the image to a specified scale factor
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @see java.awt.image
+ * @author Harrison Jones
+ * @version 1.0
+ */
 public class Resize implements ImageOperation, java.io.Serializable {
 
     /**

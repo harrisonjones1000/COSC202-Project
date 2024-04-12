@@ -46,6 +46,8 @@ class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
+    private static ResourceBundle bundle = Andie.lan;
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -72,7 +74,7 @@ class EditableImage {
      * @return True if there is an image, false otherwise.
      */
     public boolean hasImage() {
-        return current != null;
+        return this.current != null;
     }
 
     /**
@@ -185,6 +187,7 @@ class EditableImage {
         // Write image file based on file extension
         String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
         ImageIO.write(original, extension, new File(imageFilename));
+
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
@@ -233,8 +236,41 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        redoOps.push(ops.pop());
-        refresh();
+
+        /* This if loop change was made due to a funky error wherein if the
+         * user were to continuously press undo, it could fill the 
+         * redoOps stack with nothing as it would push the nothing
+         * from the ops stack.
+         */
+        if(ops.size() > 0){
+
+            redoOps.push(ops.pop());
+            refresh();
+
+        }
+
+    }
+
+    /*
+     * The method converts the  BufferedImage current object to an png image.
+     * @param fileName 
+     * @return void
+    */
+    public void exportImage(String fileName){
+        try{
+            if(hasImage()){
+                //The image will be saved as a "png" file, the ImageIO.write() I found from the implementation of the save() method.
+                ImageIO.write(this.current, "png", new File(fileName + ".png"));
+            }else{
+                //Pop up panel prompts the user to choose an image first
+                Andie.createPopupPanel(bundle.getString("export_error_popup_title"), 
+                                       bundle.getString("export_error_popup_message"),
+                                        "error");
+            }
+        }catch (IOException ie){
+            System.out.println(ie.toString());
+            return;
+        }
     }
 
     /**
@@ -243,7 +279,9 @@ class EditableImage {
      * </p>
      */
     public void redo()  {
+
         apply(redoOps.pop());
+
     }
 
     /**
@@ -274,6 +312,33 @@ class EditableImage {
         for (ImageOperation op: ops) {
             current = op.apply(current);
         }
+    }
+
+    /**
+     * <p>
+     * Obtain a true or false as to whether any changes have been made to an image.
+     * </p>
+     * 
+     * @return A boolean which will be true if the image has been changed/any operations
+     * in the stack.
+     */
+
+    public boolean hasChanged() {
+        
+        return !ops.isEmpty();
+
+    }
+
+    public int numRedoOps(){
+
+        return redoOps.size();
+
+    }
+
+    public int numOps(){
+
+        return ops.size();
+
     }
 
 }
