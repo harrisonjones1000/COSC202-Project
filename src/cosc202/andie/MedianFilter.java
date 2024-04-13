@@ -63,6 +63,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * Unlike many filters, the Median filter is not implemented via convolution.
      * The size of the array of local pixels is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
+     * 
+     * The Try-catch statement is to prevent taking RGB values from outside of the image.
      * </p>
      * 
      * @param input The image to apply the Median filter to.
@@ -75,11 +77,18 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                 ArrayList<Integer> array = new ArrayList<Integer>();
                 for (int i = -radius; i < radius + 1; i++){
                     for (int j = -radius; j < radius + 1; j++){
+                        int argb;
                         try{
-                            int argb = input.getRGB(x+i, y+j);
+                            argb = input.getRGB(x+i, y+j);
                             array.add(argb);
                         }catch(Exception ArrayIndexOutOfBoundsException){
-                            
+                            if ((x+i >= 0 && x+i < input.getWidth())&&(y+j < 0 && y+j > input.getWidth())){
+                                argb = input.getRGB(x+i, y);
+                            } else if ((x+i < 0 && x+i > input.getWidth())&&(y+j >= 0 && y+j > input.getWidth())){
+                                argb = input.getRGB(x, y+j);
+                            }else{
+                                argb = input.getRGB(x, y);
+                            }
                         }
                     }
 
@@ -108,6 +117,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                 //this is uncommon as if all inputs are not out of bounds, the size of the array is (2 * radius + 1)^2,
                 //since an odd number times an odd number is always odd, even size is uncommon and only tends to appear near the edges.
                 int argb = (a_array[medianPos] << 24) | (r_array[medianPos] << 16) | (g_array[medianPos] << 8) | b_array[medianPos];
+                
                 output.setRGB(x, y, argb);
 
             }

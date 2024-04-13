@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.util.ResourceBundle;
 
@@ -80,6 +81,7 @@ public class Andie {
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
+        frame.setMinimumSize(new Dimension(500, 600));
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
@@ -128,6 +130,7 @@ public class Andie {
         
         frame.setJMenuBar(menuBar);
         frame.pack();
+        frame.setSize(new Dimension(500, 600));
         frame.setVisible(true);
     }
     /**

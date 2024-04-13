@@ -26,14 +26,14 @@ public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
      * Boolean that controls direction of color channel swapping. True indicates that red moves to green,
      * green moves to blue and blue moves to red, while false indicates the opposite.
      */
-    private boolean rTogTob = false;
+    private int rTogTob = 0;
     /**
      * <p>
      * Create a new ColorChannelCycle operation with the given direction.
      * @param rTogTob Boolean indicating direction of color channel swapping.
      * </p>
      */
-    ColorChannelCycle(boolean rTogTob) {
+    ColorChannelCycle(int rTogTob) {
         this.rTogTob = rTogTob;
     }
 
@@ -51,7 +51,7 @@ public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
      * @return The resulting inverted image.
      */
     public BufferedImage apply(BufferedImage input) {
-        if (rTogTob) {
+        if (rTogTob==1) {
             for (int y = 0; y < input.getHeight(); ++y) {
                 for (int x = 0; x < input.getWidth(); ++x) {
                     int argb = input.getRGB(x, y);
@@ -64,7 +64,7 @@ public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
                     input.setRGB(x, y, argb);
                 }
             }
-        } else {
+        } else if (rTogTob==0) {
             for (int y = 0; y < input.getHeight(); ++y) {
                 for (int x = 0; x < input.getWidth(); ++x) {
                     int argb = input.getRGB(x, y);
@@ -74,6 +74,45 @@ public class ColorChannelCycle implements ImageOperation, java.io.Serializable {
                     int b = (argb & 0x000000FF);
                     // Normal image is a,r,g,b
                     argb = (a << 24) | (b << 16) | (r << 8) | g;
+                    input.setRGB(x, y, argb);
+                }
+            }
+        } else if (rTogTob==2) {
+            for (int y = 0; y < input.getHeight(); ++y) {
+                for (int x = 0; x < input.getWidth(); ++x) {
+                    int argb = input.getRGB(x, y);
+                    int a = (argb & 0xFF000000) >> 24;
+                    int r = (argb & 0x00FF0000) >> 16;
+                    int g = (argb & 0x0000FF00) >> 8;
+                    int b = (argb & 0x000000FF);
+                    // Normal image is a,r,g,b
+                    argb = (a << 24) | (r << 16) | (b << 8) | g;
+                    input.setRGB(x, y, argb);
+                }
+            }
+        } else if (rTogTob==3) {
+            for (int y = 0; y < input.getHeight(); ++y) {
+                for (int x = 0; x < input.getWidth(); ++x) {
+                    int argb = input.getRGB(x, y);
+                    int a = (argb & 0xFF000000) >> 24;
+                    int r = (argb & 0x00FF0000) >> 16;
+                    int g = (argb & 0x0000FF00) >> 8;
+                    int b = (argb & 0x000000FF);
+                    // Normal image is a,r,g,b
+                    argb = (a << 24) | (g << 16) | (r << 8) | b;
+                    input.setRGB(x, y, argb);
+                }
+            }
+        } else{
+            for (int y = 0; y < input.getHeight(); ++y) {
+                for (int x = 0; x < input.getWidth(); ++x) {
+                    int argb = input.getRGB(x, y);
+                    int a = (argb & 0xFF000000) >> 24;
+                    int r = (argb & 0x00FF0000) >> 16;
+                    int g = (argb & 0x0000FF00) >> 8;
+                    int b = (argb & 0x000000FF);
+                    // Normal image is a,r,g,b
+                    argb = (a << 24) | (b << 16) | (g << 8) | r;
                     input.setRGB(x, y, argb);
                 }
             }

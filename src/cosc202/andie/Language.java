@@ -5,19 +5,21 @@ import java.util.prefs.Preferences;
 
 public class Language {
 
-    /*I'll keep the prefs as a datafeld */
     private Preferences prefs;
 
     public ResourceBundle bundle;
 
     private Language language;
 
-    //The constructor creates the object Language, which is set to default to English.
-    /**Creates a new Language class
+    /**
      * <p>
      * A new Language class will obtain the local language preferences set by the user in their last session, 
-     * or the local default if no preference has been set.
+     * or the local default if no preference has been set. The constructor by default sets the preferred language
+     * to English, country New Zealand.
      * </p>
+     * 
+     * @author Nkanyiso Owethu Ndlovu
+     * @version 1.0
      */
     public Language(){
         prefs = Preferences.userNodeForPackage(Language.class);
