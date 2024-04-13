@@ -39,7 +39,7 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
-
+    public Rectangle selected;
 
     /**
      * <p>
@@ -53,6 +53,7 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        selected = null;
     }
 
     /**
@@ -133,10 +134,13 @@ public class ImagePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (image.hasImage()) {
+        if(image.hasImage()){
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+            if(selected!=null){
+                g2.drawRect(selected.x, selected.y, selected.width, selected.height);
+            }
             g2.dispose();
         }
     }

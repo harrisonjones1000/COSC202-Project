@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.Rectangle;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
@@ -23,6 +24,8 @@ import java.util.*;
 public class TransformationActions{
 
     protected ArrayList<Action> actions;
+
+    private Rectangle selected;
     
     /*Initializing the resource bundle by getting the resource bundle from the Andie class */
     private ResourceBundle lan = Andie.lan;
@@ -92,6 +95,7 @@ public class TransformationActions{
          */
         public void actionPerformed(ActionEvent e){
             double scaleFactor = 1;
+            selected = target.selected;
 
             //Pop-up dialog box will take scale factors between .1 and 10, with a step size of .1
             SpinnerNumberModel scaleFactorModel = new SpinnerNumberModel(1.0, .1, 10, .1);
@@ -107,7 +111,7 @@ public class TransformationActions{
             }
 
             // Create and apply the filter, also changes new preferred size.
-            target.getImage().apply(new Resize(scaleFactor));
+            target.getImage().apply(new Resize(scaleFactor, target.selected)); 
             target.setPreferredSize(target.getPreferredSize());
             target.repaint();
             target.getParent().revalidate();
@@ -156,7 +160,7 @@ public class TransformationActions{
                 return;
             }
 
-            target.getImage().apply(new Rotate(n)); 
+            target.getImage().apply(new Rotate(n, target.selected));
             target.repaint();
             target.getParent().revalidate();
         }

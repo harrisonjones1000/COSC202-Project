@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.*;
 
 /**
@@ -23,14 +24,16 @@ public class Resize implements ImageOperation, java.io.Serializable {
      * The factor the image will be resized as
      */
     private double scaleFactor = .5;
+    private Rectangle rectangle;
     
     /**
      * Constructs a Resize operation with the given {@link scaleFactor}.
      * 
      * @param scaleFactor The scaleFactor of the newly constructed Resize.
      */
-    Resize(double scaleFactor) {
+    Resize(double scaleFactor, Rectangle rectangle) {
         this.scaleFactor = scaleFactor;    
+        this.rectangle = rectangle;
     }
     /**
      * <p>
@@ -59,7 +62,5 @@ public class Resize implements ImageOperation, java.io.Serializable {
         g.dispose();
         
         return output;
-        
     }
-
 }
