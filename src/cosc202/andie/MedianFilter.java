@@ -61,10 +61,12 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * 
      * <p>
      * Unlike many filters, the Median filter is not implemented via convolution.
+     * The method of dealing with attempting to take pixel values from outside of input image is also different.
+     * Instead of taking the closest valid pixel, here the pixel just ignores it, this allows for a smoother edge compared to the method in other filters.
+     * This is because the filter does not require a kernel, thus it is easy to find the median value by sorting the RGB values.
+     * This is what the Try-catch statement is for.
      * The size of the array of local pixels is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
-     * 
-     * The Try-catch statement is to prevent taking RGB values from outside of the image.
      * </p>
      * 
      * @param input The image to apply the Median filter to.
@@ -82,13 +84,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                             argb = input.getRGB(x+i, y+j);
                             array.add(argb);
                         }catch(Exception ArrayIndexOutOfBoundsException){
-                            if ((x+i >= 0 && x+i < input.getWidth())&&(y+j < 0 && y+j > input.getWidth())){
-                                argb = input.getRGB(x+i, y);
-                            } else if ((x+i < 0 && x+i > input.getWidth())&&(y+j >= 0 && y+j > input.getWidth())){
-                                argb = input.getRGB(x, y+j);
-                            }else{
-                                argb = input.getRGB(x, y);
-                            }
+
                         }
                     }
 

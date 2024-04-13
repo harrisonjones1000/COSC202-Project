@@ -66,7 +66,8 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * </p
      * >
      * <p>
-     * Note that values outside the image instead takes values
+     * Note that values outside the image instead takes values from the nearest valid value.
+     * This is what the Try-catch statement is for.
      * </p>
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
