@@ -213,7 +213,7 @@ public class TransformationActions{
                 flipX = false;
             }
            
-            target.getImage().apply(new Flip(flipX));
+            target.getImage().apply(new Flip(flipX, target.selected));
             target.repaint();
             target.getParent().revalidate();
         }

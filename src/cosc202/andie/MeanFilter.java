@@ -18,8 +18,8 @@ import java.text.*;
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
- * @author Steven Mills
- * @version 1.0
+ * @author Steven Mills and Ryan Wilks, who extended the filter to the full image.
+ * @version 1.1
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
     
@@ -66,7 +66,8 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * </p
      * >
      * <p>
-     * Note that values outside the image instead takes values
+     * Note that values outside the image instead takes values from the nearest valid value.
+     * This is what the Try-catch statement is for.
      * </p>
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
@@ -108,27 +109,27 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
                     g_array[i] = (array.get(i) & 0x0000FF00) >> 8;
                     b_array[i] = (array.get(i) & 0x000000FF);
                 }
-                float a_mean = 0;
-                float r_mean = 0;
-                float g_mean = 0;
-                float b_mean = 0; 
+                float a_sum = 0;
+                float r_sum = 0;
+                float g_sum = 0;
+                float b_sum = 0; 
 
                 for (int i = 0; i < a_array.length; i++){
-                    a_mean += a_array[i]*kerArray[i];
-                    r_mean += r_array[i]*kerArray[i];
-                    g_mean += g_array[i]*kerArray[i];
-                    b_mean += b_array[i]*kerArray[i];
+                    a_sum += a_array[i]*kerArray[i];
+                    r_sum += r_array[i]*kerArray[i];
+                    g_sum += g_array[i]*kerArray[i];
+                    b_sum += b_array[i]*kerArray[i];
                 }
                 DecimalFormat fmt = new DecimalFormat("0");
-                String a_m = fmt.format(a_mean);
-                String r_m = fmt.format(r_mean);
-                String g_m = fmt.format(g_mean);
-                String b_m = fmt.format(b_mean);
-                int a_me = Integer.parseInt(a_m);
-                int r_me = Integer.parseInt(r_m);
-                int g_me = Integer.parseInt(g_m);
-                int b_me = Integer.parseInt(b_m);
-                int argb = ((int)a_me << 24) | ((int)r_me << 16) | ((int)g_me << 8) | (int)b_me;
+                String aString = fmt.format(a_sum);
+                String rString = fmt.format(r_sum);
+                String gString = fmt.format(g_sum);
+                String bString = fmt.format(b_sum);
+                int aRounded = Integer.parseInt(aString);
+                int rRounded = Integer.parseInt(rString);
+                int gRounded = Integer.parseInt(gString);
+                int bRounded = Integer.parseInt(bString);
+                int argb = ((int)aRounded << 24) | ((int)rRounded << 16) | ((int)gRounded<< 8) | (int)bRounded;
                 output.setRGB(x, y, argb);
             }
         }

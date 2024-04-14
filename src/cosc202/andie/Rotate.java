@@ -24,6 +24,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
     */
     private int rotate;
     private Rectangle rectangle;
+    private int width, height, x0, y0, x1, y1, d;
 
     /**Constructs a Rotate operation with a given direction
      * <p>
@@ -50,57 +51,98 @@ public class Rotate implements ImageOperation, java.io.Serializable {
      * @return The resulting rotated image.
      */
     public BufferedImage apply(BufferedImage input){
-        int width = input.getWidth();
-        int height = input.getHeight();
-        
-        if (rotate == 0){ //90 degrees right
-            BufferedImage output = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
-            for(int x = 0; x < width; x++){
-                for(int y = 0; y < height; y++){
-                    output.setRGB(height-1-y,x,input.getRGB(x,y));
-                }
-            }
-            return output;
-        }else if(rotate == 1){ //90 degrees left
-            BufferedImage output = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
-            for(int x = 0; x < width; x++){
-                for(int y = 0; y < height; y++){
-                    output.setRGB(y,width-1-x,input.getRGB(x,y));
-                }
-            }
-            return output;
-        }else{ //180 degrees
-            int x0,y0,x1,y1;
+        width = input.getWidth();
+        height = input.getHeight();
+
+        /*Rotates 90 degrees left */
+        if (rotate == 0){
+            /*Full image rotation */
             if(rectangle==null){
-                x0=0;
-                y0=0;
-                x1=width;
-                y1=height;
-                int temp;
-                for(int x = x0; x < width/2; x++){
-                    for(int y = y0; y < height; y++){
-                        temp = input.getRGB(x,y);
-                        input.setRGB(x,y,input.getRGB(width-1-x,height-1-y));
-                        input.setRGB(width-1-x,height-1-y, temp);
+                BufferedImage output = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
+                for(int x = 0; x < width; x++){
+                    for(int y = 0; y < height; y++){
+                        output.setRGB(height-1-y,x,input.getRGB(x,y));
                     }
                 }
+                return output;
+            }
+            /*Selected image rotation */
+            else{
+                rectanglefields();
+                int[][] array = getSelectedRGB(x0,y0,width,height,input);
+                for(int y = 0; y < height; y++){
+                    for(int x = 0; x < width; x++){
+                        if(width>height)input.setRGB(x0+d+height-y,y0-d+x,array[x][y]);
+                        if(height>width)input.setRGB(x0+width+d-y,y0-d+width+x,array[x][y]);
+                    }
+                }
+                System.out.println("right");
                 return input;
-            }else{
-                x0=(int)rectangle.getX();
-                y0=(int)rectangle.getY();
-                x1=(int)rectangle.getWidth()+x0;
-                y1=(int)rectangle.getHeight()+y0;
-                int temp;
-                for(int x = x0; x < width/2; x++){
-                    for(int y = y0; y < height; y++){
-                        temp = input.getRGB(x,y);
-                        input.setRGB(x,y,input.getRGB(width-1-x,height-1-y));
-                        input.setRGB(width-1-x,height-1-y, temp);
+            }   
+        /*Rotates 90 degrees left */
+        }else if(rotate == 1){
+            /*Full image rotation */
+            if(rectangle==null){
+                BufferedImage output = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
+                for(int x = 0; x < width; x++){
+                    for(int y = 0; y < height; y++){
+                        output.setRGB(y,width-1-x,input.getRGB(x,y));
+                    }
+                }
+                return output;
+            }
+            /*Selected image rotation */
+            else{
+                rectanglefields();
+                int[][] array = getSelectedRGB(x0,y0,width,height,input);
+                for(int y=0; y<height; y++){
+                    for(int x=0; x<width; x++){
+                        if(height>width)input.setRGB(x0-d+y,y0+d+width-x,array[x][y]);
+                        if(width>height)input.setRGB(x0+d+height-y,y0+height+d-x,array[x][y]);
                     }
                 }
                 return input;
             }
-            
+        /*Rotates 180 degrees */
+        }else{ 
+            if(rectangle!=null){
+                rectanglefields();
+            }else{
+                x0 = 0;
+                y0 = 0;
+                x1 = width;
+                y1 = height;
+            }
+            for(int x=0; x<(double)width/2; x++){
+                if(width%2==1 && x==width/2) height = height/2;
+                for(int y=0; y<height; y++){
+                    int temp = input.getRGB(x0+x,y0+y);
+                    input.setRGB(x0+x,y0+y,input.getRGB(x1-1-x,y1-1-y));
+                    input.setRGB(x1-1-x,y1-1-y,temp);
+                }
+            }
+            return input;
         }
+    }
+
+    public void rectanglefields(){
+        width = (int)rectangle.getWidth();
+        height = (int)rectangle.getHeight();
+        x0 = (int)rectangle.getX();
+        y0 = (int)rectangle.getY();
+        x1 = x0 + width;
+        y1 = y0 + height;
+        d = Math.abs((width-height)/2);
+    }
+
+    public int[][] getSelectedRGB(int x0, int y0, int width, int height, BufferedImage input){
+        int[][] b = new int[width][height];
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
+                b[x][y] = input.getRGB(x0+x,y0+y);
+                input.setRGB(x0+x,y0+y,0);
+            }
+        }
+        return b;
     }
 }

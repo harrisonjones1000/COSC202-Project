@@ -148,7 +148,7 @@ public class SelectionActions{
             public void mouseReleased(MouseEvent e) {
                 if(listening&&hasImage){
                     panel.repaint();
-                    panel.getParent().revalidate();                    
+                    panel.getParent().revalidate();        
                 }
             }
         }
