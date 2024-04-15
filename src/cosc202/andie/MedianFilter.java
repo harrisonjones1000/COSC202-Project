@@ -65,7 +65,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * Instead of taking the closest valid pixel, here the pixel just ignores it, this allows for a smoother edge compared to the method in other filters.
      * This is because the filter does not require a kernel, thus it is easy to find the median value by sorting the RGB values.
      * This is what the Try-catch statement is for.
-     * The size of the array of local pixels is specified by the {@link radius}.  
+     * The size of the array of local pixels is specified by the {@link radius} minus the valid pixels.  
      * Larger radii lead to stronger blurring.
      * </p>
      * 
