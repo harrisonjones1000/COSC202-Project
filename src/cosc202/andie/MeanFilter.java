@@ -129,7 +129,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
                 int rRounded = Integer.parseInt(rString);
                 int gRounded = Integer.parseInt(gString);
                 int bRounded = Integer.parseInt(bString);
-                int argb = ((int)aRounded << 24) | ((int)rRounded << 16) | ((int)gRounded<< 8) | (int)bRounded;
+                int argb = (aRounded << 24) | (rRounded << 16) | (gRounded<< 8) | bRounded;
                 output.setRGB(x, y, argb);
             }
         }
