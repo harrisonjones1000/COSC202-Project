@@ -1,6 +1,9 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+import java.util.*;
+import java.text.*;
+import src.cosc202.andie.ConvOp;
 
 /**
  * <p>
@@ -36,6 +39,8 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
     SharpenFilter() {
         this.radius = 1;
     }
+
+
     /**
      * <p>
      * Apply a Mean filter to an image.
@@ -56,9 +61,8 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
                         0 , -1/2.0f, 0 };
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-        ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+        output = ConvOp.convOp(input, kernel, radius);
 
         return output;
     }
