@@ -15,7 +15,7 @@ import java.text.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Ryan Wilks, Steven Mills, who made Mean Filter and Convert To Grey, which this is based off of.
+ * @author Ryan Wilks, Steven Mills, who made Convert To Grey, which this is based off of.
  * @version 1.0
  */
 public class ConvOp {
@@ -31,9 +31,10 @@ public class ConvOp {
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
      * @param radius The radius of the kernel.
+     * @param negOffSet Allows for negative values to have meaning in the convolution.
      * @return The BufferedImage with the convolution filter applied
      */
-    public static BufferedImage convOp(BufferedImage input, Kernel kernel, int radius){
+    public static BufferedImage convOp(BufferedImage input, Kernel kernel, int radius, boolean negOffSet){
         float[] kerArray = new float[(2*radius + 1)*(2*radius + 1)];
         kernel.getKernelData(kerArray);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
@@ -89,6 +90,13 @@ public class ConvOp {
                 int rRounded = Integer.parseInt(rString);
                 int gRounded = Integer.parseInt(gString);
                 int bRounded = Integer.parseInt(bString);
+                if (negOffSet){
+                    aRounded += 127;
+                    rRounded += 127;
+                    gRounded += 127;
+                    bRounded += 127;
+                }
+
                 if (rRounded > 255) rRounded = 255;
                 if (gRounded > 255) gRounded = 255;
                 if (bRounded > 255) bRounded = 255;

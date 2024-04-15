@@ -30,6 +30,18 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
      * Currently, the only possible value is 1, this is just here incase more radius values are to be implemented.
      */
     private int radius;
+    private boolean negOffSet;
+
+     /**
+     * <p>
+     * Construct a Sharpen filter with the size of 3 x 3 and if a negative offset wants to be added.
+     * </p
+     * @param negOffSet If a negative offset is to be added to the output.
+     */
+    SharpenFilter(boolean negOffSet) {
+        this.radius = 1;
+        this.negOffSet = negOffSet;
+    }
 
     /**
      * <p>
@@ -38,6 +50,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
      */
     SharpenFilter() {
         this.radius = 1;
+        this.negOffSet = false;
     }
 
 
@@ -62,7 +75,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        output = ConvOp.convOp(input, kernel, radius);
+        output = ConvOp.convOp(input, kernel, radius, negOffSet);
 
         return output;
     }

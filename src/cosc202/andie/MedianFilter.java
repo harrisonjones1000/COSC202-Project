@@ -23,6 +23,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * this is also used to find a value of the filter (know as sigma)
      */
     private int radius;
+    private boolean negOffSet;
     /**
      * <p>
      * Construct a Median filter with the given size.
@@ -37,7 +38,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * @param radius The radius of the newly constructed MedianFilter
      */
     public MedianFilter(int radius) {
-        this.radius = radius;    
+        this.radius = radius;
+        this.negOffSet = false;    
     }
     /**
      * <p>
@@ -51,7 +53,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * @see MedianFilter(int)
      */
     MedianFilter() {
-        this(1);    
+        this(1);
+        this.negOffSet = false;    
     }
     
     /**

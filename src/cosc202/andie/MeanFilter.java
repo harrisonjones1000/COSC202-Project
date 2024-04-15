@@ -28,6 +28,26 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+    private boolean negOffSet;
+
+    /**
+     * <p>
+     * Construct a Mean filter with the given size and if a negative offset wants to be added.
+     * </p>
+     * 
+     * <p>
+     * The size of the filter is the 'radius' of the convolution kernel used.
+     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
+     * Larger filters give a stronger blurring effect.
+     * </p>
+     * 
+     * @param radius The radius of the newly constructed MeanFilter
+     * @param negOffSet If a negative offset is to be added to the output.
+     */
+    MeanFilter(int radius, boolean negOffSet) {
+        this.radius = radius;
+        this.negOffSet = negOffSet;    
+    }
 
     /**
      * <p>
@@ -43,7 +63,8 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MeanFilter
      */
     MeanFilter(int radius) {
-        this.radius = radius;    
+        this.radius = radius;
+        this.negOffSet = false;    
     }
 
     /**
@@ -59,6 +80,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      */
     MeanFilter() {
         this(1);
+        this.negOffSet = false;
     }
 
     /**
@@ -83,7 +105,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         Arrays.fill(array, 1.0f/size);
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        output = ConvOp.convOp(input,kernel,radius);
+        output = ConvOp.convOp(input,kernel,radius,negOffSet);
 
         return output;
     }

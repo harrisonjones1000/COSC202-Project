@@ -103,6 +103,7 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
+            String[] negOptions = {lan.getString("yes"), lan.getString("no")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
 
             // Check the return value from the dialog box.

@@ -28,7 +28,26 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
      * this is also used to find a value of the filter (know as sigma)
      */
     private int radius;
+    private boolean negOffSet;
 
+    /**
+     * <p>
+     * Construct a Guassian filter with the given size and if a negative offset wants to be added.
+     * </p>
+     * 
+     * <p>
+     * The size of the filter is the 'radius' of the convolution kernel used.
+     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
+     * Larger filters give a stronger blurring effect.
+     * </p>
+     * 
+     * @param radius The radius of the newly constructed GaussianFilter
+     * @param negOffSet If a negative offset is to be added to the output.
+     */
+    public GaussianBlurFilter(int radius, boolean negOffSet) {
+        this.radius = radius;
+        this.negOffSet = negOffSet;   
+    }
     /**
      * <p>
      * Construct a Guassian filter with the given size.
@@ -43,7 +62,8 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
      * @param radius The radius of the newly constructed GaussianFilter
      */
     public GaussianBlurFilter(int radius) {
-        this.radius = radius;    
+        this.radius = radius;
+        this.negOffSet = false;    
     }
     /**
      * <p>
@@ -57,7 +77,8 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
      * @see GaussianBlurFilter(int)
      */
     GaussianBlurFilter() {
-        this(1);    
+        this(1);
+        this.negOffSet = false;    
     }
     /**<p>
     * Gets radius of the Gaussian Filter.
@@ -138,7 +159,7 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        output = ConvOp.convOp(input,kernel,radius);
+        output = ConvOp.convOp(input,kernel,radius,negOffSet);
         return output;
     }
 }
