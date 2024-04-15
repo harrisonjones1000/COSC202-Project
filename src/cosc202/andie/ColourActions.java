@@ -186,7 +186,7 @@ public class ColourActions {
             String[] directions = {"r->g->b->r","r<-g<-b<-r","Swap green and blue","Swap red and green","Swap red and blue", lan.getString("cancel")};
             int option = JOptionPane.showOptionDialog(null, lan.getString("color_chanel_cycle_message"), lan.getString("color_chanel_cycle_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, directions, null);
             System.out.println(option);
-            if (option == 6) {
+            if (option == 5) {
                 return;
             }
             target.getImage().apply(new ColorChannelCycle(option));

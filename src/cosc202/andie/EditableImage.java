@@ -11,21 +11,27 @@ import javax.imageio.*;
  * </p>
  * 
  * <p>
- * The EditableImage represents an image with a series of operations applied to it.
+ * The EditableImage represents an image with a series of operations applied to
+ * it.
  * It is fairly core to the ANDIE program, being the central data structure.
- * The operations are applied to a copy of the original image so that they can be undone.
- * THis is what is meant by "A Non-Destructive Image Editor" - you can always undo back to the original image.
+ * The operations are applied to a copy of the original image so that they can
+ * be undone.
+ * THis is what is meant by "A Non-Destructive Image Editor" - you can always
+ * undo back to the original image.
  * </p>
  * 
  * <p>
- * Internally the EditableImage has two {@link BufferedImage}s - the original image 
- * and the result of applying the current set of operations to it. 
- * The operations themselves are stored on a {@link Stack}, with a second {@link Stack} 
+ * Internally the EditableImage has two {@link BufferedImage}s - the original
+ * image
+ * and the result of applying the current set of operations to it.
+ * The operations themselves are stored on a {@link Stack}, with a second
+ * {@link Stack}
  * being used to allow undone operations to be redone.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
@@ -35,16 +41,22 @@ class EditableImage {
 
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
-    /** The current image, the result of applying {@link ops} to {@link original}. */
+    /**
+     * The current image, the result of applying {@link ops} to {@link original}.
+     */
     private BufferedImage current;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
     private Stack<ImageOperation> redoOps;
+    /** The sequence of operations currently stored in the Macros. */
+    private Stack<ImageOperation> macrosOps;
     /** The file where the original image is stored/ */
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /** The file where any imageMacros will be stored*/
+    private String macrosOpsFilename;
 
     private static ResourceBundle bundle = Andie.lan;
 
@@ -54,7 +66,8 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * A new EditableImage has no image (it is a null reference), and an empty stack of operations.
+     * A new EditableImage has no image (it is a null reference), and an empty stack
+     * of operations.
      * </p>
      */
     public EditableImage() {
@@ -62,8 +75,10 @@ class EditableImage {
         current = null;
         ops = new Stack<ImageOperation>();
         redoOps = new Stack<ImageOperation>();
+        macrosOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+        macrosOpsFilename = null;
     }
 
     /**
@@ -79,34 +94,41 @@ class EditableImage {
 
     /**
      * <p>
-     * Make a 'deep' copy of a BufferedImage. 
+     * Make a 'deep' copy of a BufferedImage.
      * </p>
      * 
      * <p>
-     * Object instances in Java are accessed via references, which means that assignment does
+     * Object instances in Java are accessed via references, which means that
+     * assignment does
      * not copy an object, it merely makes another reference to the original.
-     * In order to make an independent copy, the {@code clone()} method is generally used.
-     * {@link BufferedImage} does not implement {@link Cloneable} interface, and so the 
+     * In order to make an independent copy, the {@code clone()} method is generally
+     * used.
+     * {@link BufferedImage} does not implement {@link Cloneable} interface, and so
+     * the
      * {@code clone()} method is not accessible.
      * </p>
      * 
      * <p>
      * This method makes a cloned copy of a BufferedImage.
-     * This requires knowledge of some details about the internals of the BufferedImage,
+     * This requires knowledge of some details about the internals of the
+     * BufferedImage,
      * but essentially comes down to making a new BufferedImage made up of copies of
      * the internal parts of the input.
      * </p>
      * 
      * <p>
      * This code is taken from StackOverflow:
-     * <a href="https://stackoverflow.com/a/3514297">https://stackoverflow.com/a/3514297</a>
-     * in response to 
-     * <a href="https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage">https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage</a>.
+     * <a href=
+     * "https://stackoverflow.com/a/3514297">https://stackoverflow.com/a/3514297</a>
+     * in response to
+     * <a href=
+     * "https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage">https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage</a>.
      * Code by Klark used under the CC BY-SA 2.5 license.
      * </p>
      * 
      * <p>
-     * This method (only) is released under <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
+     * This method (only) is released under
+     * <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
      * </p>
      * 
      * @param bi The BufferedImage to copy.
@@ -118,7 +140,7 @@ class EditableImage {
         WritableRaster raster = bi.copyData(null);
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
-    
+
     /**
      * <p>
      * Open an image from a file.
@@ -126,9 +148,10 @@ class EditableImage {
      * 
      * <p>
      * Opens an image from the specified file.
-     * Also tries to open a set of operations from the file with <code>.ops</code> added.
-     * So if you open <code>some/path/to/image.png</code>, this method will also try to
-     * read the operations from <code>some/path/to/image.png.ops</code>.
+     * Also tries to open a set of operations from the file with <code>.ops</code>
+     * added.
+     * So if you open <code>some/path/to/image.png</code>, this method will also try
+     * to read the operations from <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
      * @param filePath The file to open the image from.
@@ -140,7 +163,7 @@ class EditableImage {
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
-        
+
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
@@ -172,9 +195,11 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * Saves an image to the file it was opened from, or the most recent file saved as.
+     * Saves an image to the file it was opened from, or the most recent file saved
+     * as.
      * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save
      * the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
@@ -185,7 +210,7 @@ class EditableImage {
             this.opsFilename = this.imageFilename + ".ops";
         }
         // Write image file based on file extension
-        String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
         ImageIO.write(original, extension, new File(imageFilename));
 
         // Write operations file
@@ -196,7 +221,6 @@ class EditableImage {
         fileOut.close();
     }
 
-
     /**
      * <p>
      * Save an image to a specified file.
@@ -205,7 +229,8 @@ class EditableImage {
      * <p>
      * Saves an image to the file provided as a parameter.
      * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save
      * the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
@@ -216,6 +241,33 @@ class EditableImage {
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
+    }
+
+    /**CHANGE
+     * <p>
+     * Save an image to a specified file.
+     * </p>
+     * 
+     * <p>
+     * Saves an image to the file provided as a parameter.
+     * Also saves a set of operations from the file with <code>.ops</code> added.
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save
+     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * </p>
+     * 
+     * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
+     */
+    //For Calan's ImageMacros operations. This function is currently not called from anywere, and should not be added to the UI yet.
+    public void saveMacrosAs(String filename) throws Exception {
+        this.macrosOpsFilename = filename + ".ops";
+        // Write operations file
+        FileOutputStream fileOut = new FileOutputStream(this.macrosOpsFilename);
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        objOut.writeObject(this.macrosOps);
+        objOut.close();
+        fileOut.close();
     }
 
     /**
@@ -237,12 +289,13 @@ class EditableImage {
      */
     public void undo() {
 
-        /* This if loop change was made due to a funky error wherein if the
-         * user were to continuously press undo, it could fill the 
+        /*
+         * This if loop change was made due to a funky error wherein if the
+         * user were to continuously press undo, it could fill the
          * redoOps stack with nothing as it would push the nothing
          * from the ops stack.
          */
-        if(ops.size() > 0){
+        if (ops.size() > 0) {
 
             redoOps.push(ops.pop());
             refresh();
@@ -252,22 +305,25 @@ class EditableImage {
     }
 
     /*
-     * The method converts the  BufferedImage current object to an png image.
-     * @param fileName 
+     * The method converts the BufferedImage current object to an png image.
+     * 
+     * @param fileName
+     * 
      * @return void
-    */
-    public void exportImage(String fileName){
-        try{
-            if(hasImage()){
-                //The image will be saved as a "png" file, the ImageIO.write() I found from the implementation of the save() method.
+     */
+    public void exportImage(String fileName) {
+        try {
+            if (hasImage()) {
+                // The image will be saved as a "png" file, the ImageIO.write() I found from the
+                // implementation of the save() method.
                 ImageIO.write(this.current, "png", new File(fileName + ".png"));
-            }else{
-                //Pop up panel prompts the user to choose an image first
-                Andie.createPopupPanel(bundle.getString("export_error_popup_title"), 
-                                       bundle.getString("export_error_popup_message"),
-                                        "error");
+            } else {
+                // Pop up panel prompts the user to choose an image first
+                Andie.createPopupPanel(bundle.getString("export_error_popup_title"),
+                        bundle.getString("export_error_popup_message"),
+                        "error");
             }
-        }catch (IOException ie){
+        } catch (IOException ie) {
             System.out.println(ie.toString());
             return;
         }
@@ -278,7 +334,7 @@ class EditableImage {
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
      * </p>
      */
-    public void redo()  {
+    public void redo() {
 
         apply(redoOps.pop());
 
@@ -289,7 +345,8 @@ class EditableImage {
      * Get the current image after the operations have been applied.
      * </p>
      * 
-     * @return The result of applying all of the current operations to the {@link original} image.
+     * @return The result of applying all of the current operations to the
+     *         {@link original} image.
      */
     public BufferedImage getCurrentImage() {
         return current;
@@ -302,14 +359,16 @@ class EditableImage {
      * 
      * <p>
      * While the latest version of the image is stored in {@link current}, this
-     * method makes a fresh copy of the original and applies the operations to it in sequence.
-     * This is useful when undoing changes to the image, or in any other case where {@link current}
-     * cannot be easily incrementally updated. 
+     * method makes a fresh copy of the original and applies the operations to it in
+     * sequence.
+     * This is useful when undoing changes to the image, or in any other case where
+     * {@link current}
+     * cannot be easily incrementally updated.
      * </p>
      */
-    private void refresh()  {
+    private void refresh() {
         current = deepCopy(original);
-        for (ImageOperation op: ops) {
+        for (ImageOperation op : ops) {
             current = op.apply(current);
         }
     }
@@ -319,23 +378,24 @@ class EditableImage {
      * Obtain a true or false as to whether any changes have been made to an image.
      * </p>
      * 
-     * @return A boolean which will be true if the image has been changed/any operations
-     * in the stack.
+     * @return A boolean which will be true if the image has been changed/any
+     *         operations
+     *         in the stack.
      */
 
     public boolean hasChanged() {
-        
+
         return !ops.isEmpty();
 
     }
 
-    public int numRedoOps(){
+    public int numRedoOps() {
 
         return redoOps.size();
 
     }
 
-    public int numOps(){
+    public int numOps() {
 
         return ops.size();
 
