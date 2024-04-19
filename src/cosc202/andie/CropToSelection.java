@@ -19,25 +19,15 @@ public class CropToSelection implements ImageOperation, java.io.Serializable {
     
     private Rectangle rectangle;
 
-    /**Constructs a Flip operation with a given direction
+    /**
      * <p>
-     * This class supports image flipping in the horizontal and vertical planes. 
-     * The direction of this operation depends on the given boolean.
      * 
-     * @param flipX Indicates the direction of the flip operation.
+     * </p>
      */
     CropToSelection(Rectangle rectangle){
         this.rectangle = rectangle;
     }
     /**
-     * <p>
-     * Apply a Flip operation to an image.
-     * </p>
-     * 
-     * <p>
-        The Flip operation is controlled by an if statement in code, controlled by {@link flipX}.
-
-     * </p>
      * 
      * @param input The image to apply the Flip to.
      * @return The resulting flipped image.
