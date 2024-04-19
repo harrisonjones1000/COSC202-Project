@@ -1,4 +1,4 @@
-package src.cosc202.andie;
+package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 import java.text.*;
