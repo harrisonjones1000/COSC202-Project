@@ -57,6 +57,8 @@ class EditableImage {
     private String opsFilename;
     /** The file where any imageMacros will be stored*/
     private String macrosOpsFilename;
+    /** Whether actions are being stored in a macro */
+    private Boolean macrosStore = false;
 
     private static ResourceBundle bundle = Andie.lan;
 
@@ -261,6 +263,8 @@ class EditableImage {
      */
     //For Calan's ImageMacros operations. This function is currently not called from anywere, and should not be added to the UI yet.
     public void saveMacrosAs(String filename) throws Exception {
+        if(macrosOps.isEmpty()) 
+            return;
         this.macrosOpsFilename = filename + ".ops";
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.macrosOpsFilename);
@@ -269,6 +273,16 @@ class EditableImage {
         objOut.close();
         fileOut.close();
     }
+
+    public void startMacros(){
+        if(!macrosStore) macrosOps.clear();//Starting a new recording should clear any old macros
+        //"Starting" while already active shouldn't do anything
+        macrosStore = true;
+    }
+    public void stopMacros(){
+        macrosStore = false;
+    }
+
 
     /**
      * <p>
@@ -280,6 +294,29 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        if(macrosStore) macrosOps.add(op);
+        
+    }
+
+    public void applyMacros(String macrosOpsFilename) throws Exception {
+        FileInputStream fileIn = new FileInputStream(this.opsFilename);
+        ObjectInputStream objIn = new ObjectInputStream(fileIn);
+
+        // Silence the Java compiler warning about type casting.
+        // Understanding the cause of the warning is way beyond
+        // the scope of COSC202, but if you're interested, it has
+        // to do with "type erasure" in Java: the compiler cannot
+        // produce code that fails at this point in all cases in
+        // which there is actually a type mismatch for one of the
+        // elements within the Stack, i.e., a non-ImageOperation.
+        @SuppressWarnings("unchecked")
+        Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+        for(ImageOperation action:opsFromFile){
+            //A macros is basically a list of operations
+            apply(action);
+        }
+        objIn.close();
+        fileIn.close();
     }
 
     /**
@@ -298,6 +335,9 @@ class EditableImage {
         if (ops.size() > 0) {
 
             redoOps.push(ops.pop());
+            //If recording macros, make sure you don't pop an empty stack.
+            if(macrosStore && macrosOps.size()>0) 
+                macrosOps.pop();
             refresh();
 
         }
@@ -336,7 +376,7 @@ class EditableImage {
      */
     public void redo() {
 
-        apply(redoOps.pop());
+        apply(redoOps.pop()); //Automatically redoes macrosOps too if recording.
 
     }
 
@@ -398,6 +438,12 @@ class EditableImage {
     public int numOps() {
 
         return ops.size();
+
+    }
+
+    public int numMacrosOps() {
+
+        return macrosOps.size();
 
     }
 

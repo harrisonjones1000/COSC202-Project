@@ -99,6 +99,7 @@ public class ColourActions {
             target.getImage().apply(new ConvertToGrey());
             target.repaint();
             target.getParent().revalidate();
+            //System.out.println(e.getActionCommand());
         }
 
     }
@@ -190,9 +191,6 @@ public class ColourActions {
                 return;
             }
             target.getImage().apply(new ColorChannelCycle(option));
-            //target.getImage().apply(new ColorChannelCycle(true)); //Check if better to set a variable
-            //Or call two methods
-            //Currently setting a variable.
             target.repaint();
             target.getParent().revalidate();
         }
