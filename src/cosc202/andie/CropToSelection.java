@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 /**
  * <p>
- * ImageOperation to flip an image a specified way.
+ * ImageOperation to crop an image to a specified selected rectangle
  * </p>
  * 
  * <p> 
@@ -19,32 +19,21 @@ public class CropToSelection implements ImageOperation, java.io.Serializable {
     
     private Rectangle rectangle;
 
-    /**Constructs a Flip operation with a given direction
-     * <p>
-     * This class supports image flipping in the horizontal and vertical planes. 
-     * The direction of this operation depends on the given boolean.
-     * 
-     * @param flipX Indicates the direction of the flip operation.
-     */
+    /**Constructs a CropToSelectionn operation for a given rectangle*/
     CropToSelection(Rectangle rectangle){
         this.rectangle = rectangle;
     }
     /**
      * <p>
-     * Apply a Flip operation to an image.
-     * </p>
-     * 
-     * <p>
-        The Flip operation is controlled by an if statement in code, controlled by {@link flipX}.
-
+     * Apply a Crop operation to an image.
      * </p>
      * 
      * @param input The image to apply the Flip to.
-     * @return The resulting flipped image.
+     * @return The resulting cropped image.
      */
     public BufferedImage apply(BufferedImage input){
         if(rectangle==null)return input;
-        
+
         BufferedImage output = new BufferedImage((int)rectangle.getWidth(), (int)rectangle.getHeight(), BufferedImage.TYPE_INT_ARGB);
         for(int x=0; x<rectangle.getWidth(); x++){
             for(int y=0; y<rectangle.getHeight(); y++){

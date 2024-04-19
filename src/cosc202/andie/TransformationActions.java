@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-import java.awt.*;
 
 /**
  * <p>
@@ -24,8 +23,6 @@ import java.awt.*;
 public class TransformationActions{
 
     protected ArrayList<Action> actions;
-
-    private Rectangle selected;
     
     /*Initializing the resource bundle by getting the resource bundle from the Andie class */
     private ResourceBundle lan = Andie.lan;

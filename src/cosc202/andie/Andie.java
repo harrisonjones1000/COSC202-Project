@@ -124,6 +124,10 @@ public class Andie {
         TransformationActions transActions = new TransformationActions();
         menuBar.add(transActions.createJMenu());
 
+        //Adds drawing panel to menubar
+        DrawActions drawActions = new DrawActions();
+        menuBar.add(drawActions.createJMenu());
+
          //Adds select JCheckBox to menubar
          SelectionActions selectActions = new SelectionActions();
          menuBar.add(selectActions.creatJCheckBox());
