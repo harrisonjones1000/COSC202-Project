@@ -1,7 +1,7 @@
 # _Welcome to our **project Andie**, a non-destructive image editor._
 
 # User Manual:
-The main use of this program is to give you the ability to non-destructively edit an image with the option of saving it as a series of operations or just exporting it as a png file.
+The main use of this program is to give you the ability to non-destructively edit an image with the option of just exporting it as a png file.
 ## In the Menubar you have a series of buttons which all perform their own features respectively these buttons include:
 
 **NB**: When you hover over buttons a brief description of what the button does will pop-up.
