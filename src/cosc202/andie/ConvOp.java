@@ -91,7 +91,6 @@ public class ConvOp {
                 int gRounded = Integer.parseInt(gString);
                 int bRounded = Integer.parseInt(bString);
                 if (negOffSet){
-                    aRounded += 127;
                     rRounded += 127;
                     gRounded += 127;
                     bRounded += 127;
