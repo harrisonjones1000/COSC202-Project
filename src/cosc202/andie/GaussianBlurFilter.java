@@ -3,7 +3,7 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 import java.text.*;
-import src.cosc202.andie.ConvOp;
+import cosc202.andie.ConvOp;
 /**
  * <p>
  * ImageOperation to apply a Gaussian Blur filter.

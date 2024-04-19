@@ -26,6 +26,24 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
     private boolean negOffSet;
     /**
      * <p>
+     * Construct a Median filter with the given size and if a negative offset wants to be added.
+     * </p>
+     * 
+     * <p>
+     * The size of the filter is the 'radius' of the array used.
+     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
+     * Larger filters give a stronger blurring effect.
+     * </p>
+     * 
+     * @param radius The radius of the newly constructed MedianFilter
+     * @param negOffSet If a negative offset is to be added to the output.
+     */
+    public MedianFilter(int radius, boolean negOffSet) {
+        this.radius = radius;
+        this.negOffSet = negOffSet;   
+    }
+    /**
+     * <p>
      * Construct a Median filter with the given size.
      * </p>
      * 
@@ -70,6 +88,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * This is what the Try-catch statement is for.
      * The size of the array of local pixels is specified by the {@link radius} minus the valid pixels.  
      * Larger radii lead to stronger blurring.
+     * 
+     * Also Note that the Negative adjustment does not apply to alpha value of the image.
      * </p>
      * 
      * @param input The image to apply the Median filter to.
@@ -115,8 +135,16 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                 //note, in cases with even array size, the median is not the mean of the two middle values, only the left.
                 //this is uncommon as if all inputs are not out of bounds, the size of the array is (2 * radius + 1)^2,
                 //since an odd number times an odd number is always odd, even size is uncommon and only tends to appear near the edges.
+                int a_median = a_array[medianPos];
+                int r_median = r_array[medianPos];
+                int g_median = g_array[medianPos];
+                int b_median = b_array[medianPos];
+                if (negOffSet){
+                    r_median += 127;
+                    g_median += 127;
+                    b_median += 127;
+                }
                 int argb = (a_array[medianPos] << 24) | (r_array[medianPos] << 16) | (g_array[medianPos] << 8) | b_array[medianPos];
-                
                 output.setRGB(x, y, argb);
 
             }
