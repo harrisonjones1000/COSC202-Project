@@ -27,6 +27,8 @@ public class ConvOp {
      * <p>
      * Note that values outside the image instead takes values from the nearest valid value.
      * This is what the Try-catch statement is for.
+     * 
+     * Also Note that the Negative adjustment does not apply to alpha value of the image.
      * </p>
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
