@@ -36,7 +36,7 @@ public class SelectionActions{
      * 
      * @return The Select menu UI element.
      */
-    public JCheckBox creatJCheckBox() {
+    public JCheckBox creatJCheckBox(){
         JCheckBox selectBox = new JCheckBox(new SelectAction("Select", null, "Select_desc", Integer.valueOf(KeyEvent.VK_R)));
         return selectBox;
     }

@@ -155,4 +155,20 @@ public class ImagePanel extends JPanel {
             g2.dispose();
         }
     }
+
+    public class Draw{
+        private Rectangle r;
+        private String Colour;
+        private String Shape;
+        private boolean fill;
+
+        Draw(Rectangle r, String Colour, String Shape, boolean fill){
+            this.r = r;
+            this.Colour = Colour;
+            this.Shape = Shape;
+            this.fill = fill;
+        }
+
+        
+    }
 }
