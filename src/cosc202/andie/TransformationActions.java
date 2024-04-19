@@ -40,6 +40,7 @@ public class TransformationActions{
         actions.add(new ResizeAction(lan.getString("resize"), null, lan.getString("resize_desc"), Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new RotateAction(lan.getString("rotate"), null, lan.getString("rotate_desc"), Integer.valueOf(KeyEvent.VK_T)));
         actions.add(new FlipAction(lan.getString("flip"), null, lan.getString("flip_desc"), Integer.valueOf(KeyEvent.VK_F)));
+        actions.add(new CropAction("Crop to Selection", null, "Crops image to selected", null));
     }
 
     /**
@@ -49,12 +50,13 @@ public class TransformationActions{
      * 
      * @return The Transfromation menu UI element.
      */
-    public JMenu createJMenu() {
+    public JMenu createJMenu(){
         JMenu transMenu = new JMenu(lan.getString("transformations"));
 
         transMenu.add(new JMenuItem(actions.get(0)));
         transMenu.add(new JMenuItem(actions.get(1)));
         transMenu.add(new JMenuItem(actions.get(2)));
+        transMenu.add(new JMenuItem(actions.get(3)));
 
         return transMenu;
     }
@@ -110,7 +112,7 @@ public class TransformationActions{
             }
 
             // Create and apply the filter, also changes new preferred size.
-            target.getImage().apply(new Resize(scaleFactor));
+            target.getImage().apply(new Resize(scaleFactor, target.selected));
             target.setPreferredSize(target.getPreferredSize());
             target.repaint();
             target.getParent().revalidate();
@@ -213,6 +215,28 @@ public class TransformationActions{
             }
            
             target.getImage().apply(new Flip(flipX, target.selected));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class CropAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new flip action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e){
+            target.getImage().apply(new CropToSelection(target.selected));
             target.repaint();
             target.getParent().revalidate();
         }
