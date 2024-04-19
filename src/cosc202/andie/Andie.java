@@ -123,6 +123,10 @@ public class Andie {
         //Transformations: resize, flip, rotate
         TransformationActions transActions = new TransformationActions();
         menuBar.add(transActions.createJMenu());
+
+         //Adds select JCheckBox to menubar
+         SelectionActions selectActions = new SelectionActions();
+         menuBar.add(selectActions.creatJCheckBox());
         
         frame.setJMenuBar(menuBar);
         frame.pack();
