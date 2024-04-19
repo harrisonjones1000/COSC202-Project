@@ -40,6 +40,7 @@ public class FilterActions {
         actions.add(new SharpenFilterAction(lan.getString("sharpen_filter"), null, lan.getString("sharpen_filter_desc"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new GaussianBlurFilterAction(lan.getString("gaussian_blur_filter"), null, lan.getString("gaussian_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new MedianFilterAction(lan.getString("median_blur_filter"), null, lan.getString("median_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new EmbossFilterAction("Emboss filter", null, "Apply an Emboss filter", Integer.valueOf(KeyEvent.VK_E)));
     }
 
     /**
@@ -159,7 +160,7 @@ public class FilterActions {
          * </p>
          * 
          * <p>
-         * This method is called whenever the MeanFilterAction is triggered.
+         * This method is called whenever the SharpenFilterAction is triggered.
          * It prompts the user if they want a negative offset, then applies an appropriately sized {@link MeanFilter}.
          * </p>
          * 
@@ -306,6 +307,62 @@ public class FilterActions {
 
             // Create and apply the filter
             target.getImage().apply(new MedianFilter(radius,negOffSet));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+    /**
+     * <p>
+     * Action to blur an image with an emboss filter.
+     * </p>
+     * 
+     * @see EmbossFilter
+     */
+    public class EmbossFilterAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new emboss-filter action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterAction is triggered.
+         * It prompts the user, which filter want they want and if they want a negative offset, then applies an appropriately sized {@link MeanFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            //Pop-up dialog boxes to ask for which filter to use and Negative Offset.
+            int arrayChoice = 0;
+            boolean negOffSet = false;
+            Object[] options = {"Left", "Up Left", "Up", "Up Right", "Right", "Down Right", "Down", "DownLeft"};
+            Object[] negOptions = {"Yes (recomended)","No"};
+            int Option = JOptionPane.showOptionDialog(null, "Which filter do you want to use?", "Emboss filters", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            // Check the return value from the dialog boxes.
+            if (negOption == JOptionPane.YES_OPTION) {
+
+                negOffSet = true;
+                
+            }
+            // Create and apply the filter
+            target.getImage().apply(new EmbossFilter(negOffSet, 0));
             target.repaint();
             target.getParent().revalidate();
         }
