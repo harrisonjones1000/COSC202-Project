@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.awt.*;
 
 /**
  * <p>
@@ -23,6 +24,8 @@ import java.util.*;
 public class TransformationActions{
 
     protected ArrayList<Action> actions;
+
+    private Rectangle selected;
     
     /*Initializing the resource bundle by getting the resource bundle from the Andie class */
     private ResourceBundle lan = Andie.lan;
@@ -156,7 +159,7 @@ public class TransformationActions{
                 return;
             }
 
-            target.getImage().apply(new Rotate(n)); 
+            target.getImage().apply(new Rotate(n, target.selected)); 
             target.repaint();
             target.getParent().revalidate();
         }
@@ -209,7 +212,7 @@ public class TransformationActions{
                 flipX = false;
             }
            
-            target.getImage().apply(new Flip(flipX));
+            target.getImage().apply(new Flip(flipX, target.selected));
             target.repaint();
             target.getParent().revalidate();
         }
