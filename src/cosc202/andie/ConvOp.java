@@ -1,4 +1,4 @@
-package src.cosc202.andie;
+package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 import java.text.*;
@@ -27,6 +27,8 @@ public class ConvOp {
      * <p>
      * Note that values outside the image instead takes values from the nearest valid value.
      * This is what the Try-catch statement is for.
+     * 
+     * Also Note that the Negative adjustment does not apply to alpha value of the image.
      * </p>
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
@@ -91,7 +93,6 @@ public class ConvOp {
                 int gRounded = Integer.parseInt(gString);
                 int bRounded = Integer.parseInt(bString);
                 if (negOffSet){
-                    aRounded += 127;
                     rRounded += 127;
                     gRounded += 127;
                     bRounded += 127;

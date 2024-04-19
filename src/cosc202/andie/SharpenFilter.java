@@ -3,7 +3,7 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 import java.text.*;
-import src.cosc202.andie.ConvOp;
+import cosc202.andie.ConvOp;
 
 /**
  * <p>
@@ -56,7 +56,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
 
     /**
      * <p>
-     * Apply a Mean filter to an image.
+     * Apply a Sharpen filter to an image.
      * </p>
      * 
      * <p>

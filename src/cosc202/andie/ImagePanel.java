@@ -1,5 +1,5 @@
 package cosc202.andie;
-
+import javax.imageio.ImageIO;
 import java.awt.*;
 import javax.swing.*;
 
@@ -50,11 +50,23 @@ public class ImagePanel extends JPanel {
      * <p>
      * Newly created ImagePanels have a default zoom level of 100%
      * </p>
+     * <p>
+     * If possible a default image is initially rendered when the app loads, if an exception is thrown the 
+     * app just loads without a default image.
+     * </p>
      */
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        try{
+            //Default image when the app initially loads.
+            image.open("src\\assets\\Default_Image.png");
+
+        }catch(Exception e){
+            System.out.println("default image does not exists");
+        }
     }
+
 
     /**
      * <p>

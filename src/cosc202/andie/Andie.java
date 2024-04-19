@@ -1,5 +1,4 @@
 package cosc202.andie;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -123,6 +122,10 @@ public class Andie {
         //Transformations: resize, flip, rotate
         TransformationActions transActions = new TransformationActions();
         menuBar.add(transActions.createJMenu());
+
+        //Adds drawing panel to menubar
+        DrawActions drawActions = new DrawActions();
+        menuBar.add(drawActions.createJMenu());
 
          //Adds select JCheckBox to menubar
          SelectionActions selectActions = new SelectionActions();
