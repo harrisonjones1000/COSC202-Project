@@ -56,14 +56,13 @@ public class ImagePanel extends JPanel {
      * </p>
      */
     public ImagePanel() {
+        image = new EditableImage();
         try{
-            image = new EditableImage();
             //Default image when the app initially loads.
             image.open("src\\assets\\Default_Image.png");
             scale = 1.0;
         }catch(Exception e){
             System.out.println("default image does not exists");
-            image = new EditableImage();
         }
     }
 
