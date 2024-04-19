@@ -1,3 +1,34 @@
+# _Welcome to our **project Andie**, a non-destructive image editor._
+
+# User Manual:
+The main use of this program is to give you the ability to non-destructively edit an image with the option of just exporting it as a png file.
+## In the Menubar you have a series of buttons which all perform their own features respectively these buttons include:
+
+**NB**: When you hover over buttons a brief description of what the button does will pop-up.
+### <br> 1. File:
+ - will include button of the JMenuBar under File here.
+###  <br>2. Edit:
+### <br>3. View:
+### <br>4. Filter:
+ - Please include buttons and high-level description of what each button does here.
+### <br>4. Colour:
+-  Please include buttons and a high-level description of the Color buttons here.
+### <br>5. Language:
+### <br>6. Transformations:
+ - Please include buttons and high-level description of what each button does here. 
+### <br>7. Select:
+ - Please provide a high-level description of what this feature does here.
+
+
+
+
+
+
+
+
+
+
+
 ## Contributions
 Ryan- Sharpen Filter, Median Filter, Gaussoan Blur Fliter, Unit Test Implementation.
 
@@ -29,8 +60,6 @@ Errors were identified after manually testing each feature with actions normal o
 
 7) Open Image - When opening another image while currently editing an image, does not save any changes made to the image. (Minor)
 
-## User Guide
-To use andie, after opening the application, click File, then open, then find the image file you want to edit. After which, you may zoom in and out under view, undo and redo under Edit, Filter to blur/sharpen the image, Colour to alter the colour of the image, Language to change the language of the application (must close and reopen the application first and only english and Māori are implimented), and transform to resize, flip, and rotate the image. After editing the image, you may save the image, save the image as a copy, or export the image.
 
 ## Future Change Ideas
 - Add a window that pops up upon exiting the program if an image has been edited during that run, but hasn't been saved -- ADDED
