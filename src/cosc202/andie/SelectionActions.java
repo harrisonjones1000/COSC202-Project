@@ -69,8 +69,6 @@ public class SelectionActions{
          * <p>
          * This method is called whenever the SelectAction is triggered.
          * Switches the listening datafield on and off and generates a SelectionArea if not already initialised
-         * 
-         * BUG TO FIX: opening new file does not generate a new SelectionArea for the new image
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -81,6 +79,7 @@ public class SelectionActions{
                 s = new SelectionArea(target);
             }else if(!listening){
                 target.selected=null;
+                target.draw.setRectangle(null);
                 target.repaint();
                 target.getParent().revalidate();
             }
@@ -89,7 +88,7 @@ public class SelectionActions{
 
     /**
      * <p>
-     * 
+     * SelectionArea is a class that allows for the selection of an ImagePanles regions
      * </p>
      */
     private class SelectionArea extends ImagePanel{
@@ -105,6 +104,12 @@ public class SelectionActions{
             panel.addMouseMotionListener(myListener);
         }
         
+        /**
+         * <p>
+         * MyListener class allows for mouseinputs on the imagepanel to draw and select a selected region
+         * for operations to be performed on.
+         * </p>
+         */
         private class MyListener extends MouseInputAdapter{
             private int x0;
             private int y0;
@@ -116,8 +121,11 @@ public class SelectionActions{
                     x0 = e.getX();
                     y0 = e.getY();
                     panel.selected = null;
+                    panel.draw.setRectangle(null);
                     panel.repaint();
                     panel.getParent().revalidate();
+                    width = panel.image.getCurrentImage().getWidth();
+                    height = panel.image.getCurrentImage().getHeight();
                 }
             }
 

@@ -98,7 +98,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
                 for(int y=0; y<height; y++){
                     for(int x=0; x<width; x++){
                         if(height>width)input.setRGB(x0-d+y,y0+d+width-x,array[x][y]);
-                        if(width>height)input.setRGB(x0+d+height-y,y0+height+d-x,array[x][y]);
+                        if(width>height)input.setRGB(x0+d+height-y,y0+d-x,array[x][y]);
                     }
                 }
                 return input;
