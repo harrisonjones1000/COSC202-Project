@@ -68,6 +68,9 @@ public class ConvOp {
                 float[] b_array = new float[array.size()];
                 for (int i = 0; i < array.size(); i++){
                     a_array[i] = (array.get(i) & 0xFF000000) >> 24;
+                    if (a_array[i] == -1){
+                        a_array[i] = 255;
+                    }
                     r_array[i] = (array.get(i) & 0x00FF0000) >> 16;
                     g_array[i] = (array.get(i) & 0x0000FF00) >> 8;
                     b_array[i] = (array.get(i) & 0x000000FF);
@@ -93,14 +96,16 @@ public class ConvOp {
                 int gRounded = Integer.parseInt(gString);
                 int bRounded = Integer.parseInt(bString);
                 if (negOffSet){
+                    aRounded += 127;
                     rRounded += 127;
                     gRounded += 127;
                     bRounded += 127;
                 }
-
+                if (aRounded > 255) aRounded = 255;
                 if (rRounded > 255) rRounded = 255;
                 if (gRounded > 255) gRounded = 255;
                 if (bRounded > 255) bRounded = 255;
+                if (aRounded < 0) aRounded = 0;
                 if (rRounded < 0) rRounded = 0;
                 if (gRounded < 0) gRounded = 0;
                 if (bRounded < 0) bRounded = 0;

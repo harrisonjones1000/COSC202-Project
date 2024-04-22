@@ -353,7 +353,7 @@ public class FilterActions {
             boolean negOffSet = false;
             Object[] options = {"Left", "Up Left", "Up", "Up Right", "Right", "Down Right", "Down", "DownLeft"};
             Object[] negOptions = {"Yes (recomended)","No"};
-            int Option = JOptionPane.showOptionDialog(null, "Which filter do you want to use?", "Emboss filters", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            int option = JOptionPane.showOptionDialog(null, "Which filter do you want to use?", "Emboss filters", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (negOption == JOptionPane.YES_OPTION) {
@@ -362,7 +362,7 @@ public class FilterActions {
                 
             }
             // Create and apply the filter
-            target.getImage().apply(new EmbossFilter(negOffSet, 0));
+            target.getImage().apply(new EmbossFilter(negOffSet, option));
             target.repaint();
             target.getParent().revalidate();
         }
