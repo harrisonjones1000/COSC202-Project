@@ -33,7 +33,6 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable{
     private int radius;
     private boolean negOffSet;
     private int arrayChoice;
-    //left, up left, up, up right, right, down right, down, down left
 
      /**
      * <p>
@@ -49,7 +48,7 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable{
     
     /**
      * <p>
-     * Construct a Sharpen filter with the size of 3 x 3.
+     * Construct a Emboss filter with the size of 3 x 3.
      * </p
      */
     EmbossFilter() {
