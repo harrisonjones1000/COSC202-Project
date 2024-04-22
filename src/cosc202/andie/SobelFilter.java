@@ -79,7 +79,6 @@ public class SobelFilter implements ImageOperation, java.io.Serializable{
                             0, 0, 0,
                             1/2f, 1f, 1/2f},
                             };
-        System.out.println(Arrays.toString(array[arrayChoice]));
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array[arrayChoice]);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         output = ConvOp.convOp(input, kernel, radius, negOffSet);
