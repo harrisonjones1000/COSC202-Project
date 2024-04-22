@@ -349,7 +349,6 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             //Pop-up dialog boxes to ask for which filter to use and Negative Offset.
-            int arrayChoice = 0;
             boolean negOffSet = false;
             Object[] options = {"Left", "Up Left", "Up", "Up Right", "Right", "Down Right", "Down", "DownLeft"};
             Object[] negOptions = {"Yes (recomended)","No"};
