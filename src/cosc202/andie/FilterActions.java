@@ -39,8 +39,9 @@ public class FilterActions {
         actions.add(new MeanFilterAction(lan.getString("mean_filter"), null, lan.getString("mean_filter_desc"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new SharpenFilterAction(lan.getString("sharpen_filter"), null, lan.getString("sharpen_filter_desc"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new GaussianBlurFilterAction(lan.getString("gaussian_blur_filter"), null, lan.getString("gaussian_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new MedianFilterAction(lan.getString("median_blur_filter"), null, lan.getString("median_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new MedianFilterAction(lan.getString("median_blur_filter"), null, lan.getString("median_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new EmbossFilterAction("Emboss filter", null, "Apply an Emboss filter", Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new SobelFilterAction("Sobel filter", null, "Apply an Sobel filter", Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -161,7 +162,7 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the SharpenFilterAction is triggered.
-         * It prompts the user if they want a negative offset, then applies an appropriately sized {@link MeanFilter}.
+         * It prompts the user if they want a negative offset, then applies an appropriately sized {@link SharpenFilter}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -342,7 +343,7 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the EmbossFilterAction is triggered.
-         * It prompts the user, which filter want they want and if they want a negative offset, then applies an appropriately sized {@link MeanFilter}.
+         * It prompts the user, which filter want they want and if they want a negative offset, then applies an appropriately sized {@link EmbossFilter}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -362,6 +363,61 @@ public class FilterActions {
             }
             // Create and apply the filter
             target.getImage().apply(new EmbossFilter(negOffSet, option));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+    /**
+     * <p>
+     * Action to blur an image with an Sobel filter.
+     * </p>
+     * 
+     * @see SobelFilter
+     */
+    public class SobelFilterAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new sobel-filter action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the convert-to-grey action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SobelFilterAction is triggered.
+         * It prompts the user, which filter want they want and if they want a negative offset, then applies an appropriately sized {@link SobelFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            //Pop-up dialog boxes to ask for which filter to use and Negative Offset.
+            boolean negOffSet = false;
+            Object[] options = {"Vertical","Horizontal"};
+            Object[] negOptions = {"Yes (recomended)","No"};
+            int option = JOptionPane.showOptionDialog(null, "Which filter do you want to use?", "Sobel filters", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            // Check the return value from the dialog boxes.
+            if (negOption == JOptionPane.YES_OPTION) {
+
+                negOffSet = true;
+                
+            }
+            // Create and apply the filter
+            target.getImage().apply(new SobelFilter(negOffSet, option));
             target.repaint();
             target.getParent().revalidate();
         }
