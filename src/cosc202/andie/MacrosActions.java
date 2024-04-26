@@ -44,22 +44,24 @@ public class MacrosActions {
      * Andie class
      */
     private ResourceBundle lan = Andie.lan;
-
+    Action startStop;
+    private boolean active;
     /**
      * <p>
-     * Create a set of File menu actions.
+     * Create a set of Macros menu actions.
      * </p>
      */
     public MacrosActions() {
         actions = new ArrayList<Action>();
+        startStop = new MacrosStartStopAction("Start Recoding", null,
+        "Start/Stop Macros Recording", null);
         actions.add(new MacrosOpenAction("Open Macros", null,
                 "Open External Macros", null));
         actions.add(new MacrosSaveAsAction("Save Macros", null,
                 "Save Recorded Macros", null));
-        actions.add(new MacrosStartAction("Start Macros", null,
-                "Start Macros Recording", null));
-        actions.add(new MacrosStopAction("Stop Macros", null,
-                "Stop Macros Recording", null));
+        actions.add(startStop);//Make it say Stop recording when already started
+        actions.add(new MacrosClearAction("Clear Macros", null,
+                "Clear Macros Recording", null));
     }
 
     /**
@@ -177,7 +179,7 @@ public class MacrosActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            //Ensure that user cannot save empty macros
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle(lan.getString("save"));// Save macros
             int result = fileChooser.showSaveDialog(target);
@@ -199,7 +201,7 @@ public class MacrosActions {
 
     }
 
-    public class MacrosStartAction extends ImageAction {
+    public class MacrosStartStopAction extends ImageAction {
         /**
          * <p>
          * Create a new file-save-as action.
@@ -210,16 +212,21 @@ public class MacrosActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        MacrosStartAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        MacrosStartStopAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) {
-            target.getImage().startMacros();
+            active = !active;
+            if (!active) {
+                //Figure out how to dynamically change name
+                
+            } 
+            target.getImage().startStopMacros();
         }
     }
 
-    public class MacrosStopAction extends ImageAction {
+    public class MacrosClearAction extends ImageAction {
         /**
          * <p>
          * Create a new file-save-as action.
@@ -230,12 +237,12 @@ public class MacrosActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        MacrosStopAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        MacrosClearAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) {
-            target.getImage().stopMacros();
+            target.getImage().clearMacros();
         }
     }
 }
