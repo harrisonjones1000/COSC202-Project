@@ -32,24 +32,6 @@ public class GaussianBlurFilter implements ImageOperation, java.io.Serializable{
 
     /**
      * <p>
-     * Construct a Guassian filter with the given size and if a negative offset wants to be added.
-     * </p>
-     * 
-     * <p>
-     * The size of the filter is the 'radius' of the convolution kernel used.
-     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
-     * Larger filters give a stronger blurring effect.
-     * </p>
-     * 
-     * @param radius The radius of the newly constructed GaussianFilter
-     * @param negOffSet If a negative offset is to be added to the output.
-     */
-    public GaussianBlurFilter(int radius, boolean negOffSet) {
-        this.radius = radius;
-        this.negOffSet = negOffSet;   
-    }
-    /**
-     * <p>
      * Construct a Guassian filter with the given size.
      * </p>
      * 

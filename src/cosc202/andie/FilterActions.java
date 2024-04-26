@@ -100,15 +100,12 @@ public class FilterActions {
 
             // Determine the radius - ask the user.
             int radius = 1;
-            boolean negOffSet = false;
 
             //2 Pop-up dialog boxes to ask for the radius value and Negative Offset respectfully.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
-            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (option == JOptionPane.CANCEL_OPTION) {
 
@@ -119,14 +116,8 @@ public class FilterActions {
                 radius = radiusModel.getNumber().intValue();
 
             }
-
-            if (negOption == JOptionPane.YES_OPTION) {
-
-                negOffSet = true;
-                
-            }
             // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius,negOffSet));
+            target.getImage().apply(new MeanFilter(radius));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -168,18 +159,8 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            //Pop-up dialog box to ask for Negative Offset.
-            boolean negOffSet = false;
-            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
-            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
-            // Check the return value from the dialog box.
-            if (negOption == JOptionPane.YES_OPTION) {
-
-                negOffSet = true;
-                
-            }
             // Create and apply the filter
-            target.getImage().apply(new SharpenFilter(negOffSet));
+            target.getImage().apply(new SharpenFilter());
             target.repaint();
             target.getParent().revalidate();
         }
@@ -216,15 +197,12 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             // Determine the radius/negOffSet - ask the user.
             int radius = 1;
-            boolean negOffSet = false;
 
             //2 Pop-up dialog boxes to ask for the radius value and Negative Offset respectfully.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
-            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (option == JOptionPane.CANCEL_OPTION) {
 
@@ -235,15 +213,8 @@ public class FilterActions {
                 radius = radiusModel.getNumber().intValue();
 
             }
-
-            if (negOption == JOptionPane.YES_OPTION) {
-
-                negOffSet = true;
-                
-            }
-
             // Create and apply the filter
-            target.getImage().apply(new GaussianBlurFilter(radius,negOffSet));
+            target.getImage().apply(new GaussianBlurFilter(radius));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -280,15 +251,12 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             // Determine the radius/negOffSet - ask the user.
             int radius = 1;
-            boolean negOffSet = false;
 
             //2 Pop-up dialog boxes to ask for the radius value and Negative Offset respectfully.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
-            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (option == JOptionPane.CANCEL_OPTION) {
 
@@ -300,14 +268,8 @@ public class FilterActions {
 
             }
 
-            if (negOption == JOptionPane.YES_OPTION) {
-
-                negOffSet = true;
-                
-            }
-
             // Create and apply the filter
-            target.getImage().apply(new MedianFilter(radius,negOffSet));
+            target.getImage().apply(new MedianFilter(radius));
             target.repaint();
             target.getParent().revalidate();
         }

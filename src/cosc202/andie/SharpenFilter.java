@@ -32,17 +32,6 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
     private int radius;
     private boolean negOffSet;
 
-     /**
-     * <p>
-     * Construct a Sharpen filter with the size of 3 x 3 and if a negative offset wants to be added.
-     * </p
-     * @param negOffSet If a negative offset is to be added to the output.
-     */
-    SharpenFilter(boolean negOffSet) {
-        this.radius = 1;
-        this.negOffSet = negOffSet;
-    }
-
     /**
      * <p>
      * Construct a Sharpen filter with the size of 3 x 3.
