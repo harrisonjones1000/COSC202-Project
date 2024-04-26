@@ -88,7 +88,7 @@ public class SelectionActions{
 
     /**
      * <p>
-     * SelectionArea is a class that allows for the selection of an ImagePanles regions
+     * SelectionArea is a class that allows for the selection of an ImagePanels regions
      * </p>
      */
     private class SelectionArea extends ImagePanel{

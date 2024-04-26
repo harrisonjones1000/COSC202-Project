@@ -181,6 +181,8 @@ class EditableImage {
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
             ops = opsFromFile;
             redoOps.clear();
+            macrosOps.clear();
+            macrosStore = false;
             objIn.close();
             fileIn.close();
         } catch (Exception ex) {
@@ -265,6 +267,7 @@ class EditableImage {
     public void saveMacrosAs(String filename) throws Exception {
         if(macrosOps.isEmpty()) 
             return;
+        
         this.macrosOpsFilename = filename + ".ops";
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.macrosOpsFilename);
@@ -272,15 +275,14 @@ class EditableImage {
         objOut.writeObject(this.macrosOps);
         objOut.close();
         fileOut.close();
+        macrosOps.clear();//Get rid of stored operations once they are saved.
     }
 
-    public void startMacros(){
-        if(!macrosStore) macrosOps.clear();//Starting a new recording should clear any old macros
-        //"Starting" while already active shouldn't do anything
-        macrosStore = true;
+    public void startStopMacros(){//Will start and stop macros recording. Clearing is done by another function
+        macrosStore = !macrosStore;
     }
-    public void stopMacros(){
-        macrosStore = false;
+    public void clearMacros(){
+        macrosOps.clear();
     }
 
 
@@ -339,7 +341,6 @@ class EditableImage {
             if(macrosStore && macrosOps.size()>0) 
                 macrosOps.pop();
             refresh();
-
         }
 
     }
@@ -445,6 +446,10 @@ class EditableImage {
 
         return macrosOps.size();
 
+    }
+
+    public boolean storedMacrosOps(){
+        return !macrosOps.isEmpty();
     }
 
 }
