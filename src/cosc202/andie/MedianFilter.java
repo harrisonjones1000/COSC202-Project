@@ -117,7 +117,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                 int[] g_array = new int[array.size()];
                 int[] b_array = new int[array.size()];
                 for (int i = 0; i < array.size(); i++){
-                a_array[i] = (array.get(i) & 0xFF000000) >> 24;
+                a_array[i] = (array.get(i) & 0xFF000000) >>> 24;
                 r_array[i] = (array.get(i) & 0x00FF0000) >> 16;
                 g_array[i] = (array.get(i) & 0x0000FF00) >> 8;
                 b_array[i] = (array.get(i) & 0x000000FF);
@@ -140,11 +140,12 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
                 int g_median = g_array[medianPos];
                 int b_median = b_array[medianPos];
                 if (negOffSet){
+                    a_median += 127;
                     r_median += 127;
                     g_median += 127;
                     b_median += 127;
                 }
-                int argb = (a_array[medianPos] << 24) | (r_array[medianPos] << 16) | (g_array[medianPos] << 8) | b_array[medianPos];
+                int argb = (a_median << 24) | (r_median << 16) | (g_median << 8) | b_median;
                 output.setRGB(x, y, argb);
 
             }

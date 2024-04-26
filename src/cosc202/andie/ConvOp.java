@@ -67,10 +67,7 @@ public class ConvOp {
                 float[] g_array = new float[array.size()];
                 float[] b_array = new float[array.size()];
                 for (int i = 0; i < array.size(); i++){
-                    a_array[i] = (array.get(i) & 0xFF000000) >> 24;
-                    if (a_array[i] == -1){
-                        a_array[i] = 255;
-                    }
+                    a_array[i] = (array.get(i) & 0xFF000000) >>> 24;
                     r_array[i] = (array.get(i) & 0x00FF0000) >> 16;
                     g_array[i] = (array.get(i) & 0x0000FF00) >> 8;
                     b_array[i] = (array.get(i) & 0x000000FF);
