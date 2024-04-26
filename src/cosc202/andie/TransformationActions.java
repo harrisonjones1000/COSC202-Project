@@ -110,7 +110,7 @@ public class TransformationActions{
 
             // Create and apply the filter, also changes new preferred size.
             target.getImage().apply(new Resize(scaleFactor, target.selected));
-            target.setPreferredSize(target.getPreferredSize());
+            target.draw.setRectangle(null);
             target.repaint();
             target.getParent().revalidate();
         }
@@ -158,7 +158,9 @@ public class TransformationActions{
                 return;
             }
 
-            target.getImage().apply(new Rotate(n, target.selected)); 
+            target.getImage().apply(new Rotate(n, target.selected));
+            target.selected=null;
+            target.draw.setRectangle(null);
             target.repaint();
             target.getParent().revalidate();
         }
@@ -212,6 +214,7 @@ public class TransformationActions{
             }
            
             target.getImage().apply(new Flip(flipX, target.selected));
+            target.draw.setRectangle(null);
             target.repaint();
             target.getParent().revalidate();
         }
@@ -234,6 +237,8 @@ public class TransformationActions{
 
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new CropToSelection(target.selected));
+            target.selected=null;
+            target.draw.setRectangle(null);
             target.repaint();
             target.getParent().revalidate();
         }

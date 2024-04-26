@@ -1,5 +1,4 @@
 package cosc202.andie;
-import javax.imageio.ImageIO;
 import java.awt.*;
 import javax.swing.*;
 
@@ -41,6 +40,8 @@ public class ImagePanel extends JPanel {
 
     public Rectangle selected;
 
+    public Draw draw;
+
 
     /**
      * <p>
@@ -65,6 +66,8 @@ public class ImagePanel extends JPanel {
         }catch(Exception e){
             System.out.println("default image does not exists");
         }
+
+        draw = new Draw();
     }
 
 
@@ -75,7 +78,7 @@ public class ImagePanel extends JPanel {
      *
      * @return the image currently displayed.
      */
-    public EditableImage getImage() {
+    public EditableImage getImage(){
         return image;
     }
 
@@ -139,6 +142,7 @@ public class ImagePanel extends JPanel {
     /**
      * <p>
      * (Re)draw the component in the GUI.
+     * Will draw selection and drawings as they're being drawn.
      * </p>
      * 
      * @param g The Graphics component to draw the image on.
@@ -150,10 +154,74 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+
             if(selected!=null){
                 g2.drawRect(selected.x, selected.y, selected.width, selected.height);
             }
+            if(draw.getRectangle()!=null&&draw.getColour()!=null&&draw.getShape()!=null&&selected==null){
+                int x = (int)draw.getRectangle().getX();
+                int y = (int)draw.getRectangle().getY();
+                int width = (int)draw.getRectangle().getWidth();
+                int height = (int)draw.getRectangle().getHeight();
+                g2.setColor(draw.getColour());
+                if(draw.getShape().equals("Rectangle")){
+                    if(draw.getFill()) g2.fillRect(x,y,width,height);
+                    else if(!draw.getFill())g2.drawRect(x,y,width,height);
+                }else if(draw.getShape().equals("Oval")){
+                    if(draw.getFill()) g2.fillOval(x,y,width,height);
+                    else if(!draw.getFill()) g2.drawOval(x,y,width,height);
+                }else if(draw.getShape().equals("Line")){
+                    if(draw.getLine()) g2.drawLine(x,y,x+width,y+height);
+                    else if(!draw.getLine()) g2.drawLine(x+width,y,x,y+height);
+                }
+            }
             g2.dispose();
+        }
+    }
+
+     /**
+     * <p>
+     * Draw class contains datafields on what needs to be drawm and 
+     * has methods to set and get them
+     * </p>
+     */
+    public class Draw{
+        private Rectangle rectangle;
+        private Color colour;
+        private String shape;
+        private boolean fill = false;
+        private boolean line;
+
+        public Rectangle getRectangle(){
+            return this.rectangle;
+        }
+        public Color getColour(){
+            return this.colour;
+        }
+        public String getShape(){
+            return this.shape;
+        }
+        public boolean getFill(){
+            return this.fill;
+        }
+        public boolean getLine(){
+            return this.line;
+        }
+
+        public void setRectangle(Rectangle rectangle){
+            this.rectangle=rectangle;
+        }
+        public void setColour(Color colour){
+            this.colour=colour;
+        }
+        public void setShape(String shape){
+            this.shape=shape;
+        }
+        public void setFill(){
+            this.fill=!(this.fill);
+        }
+        public void setLine(boolean line){
+            this.line = line;
         }
     }
 }
