@@ -39,9 +39,9 @@ public class FilterActions {
         actions.add(new MeanFilterAction(lan.getString("mean_filter"), null, lan.getString("mean_filter_desc"), Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new SharpenFilterAction(lan.getString("sharpen_filter"), null, lan.getString("sharpen_filter_desc"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new GaussianBlurFilterAction(lan.getString("gaussian_blur_filter"), null, lan.getString("gaussian_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new MedianFilterAction(lan.getString("median_blur_filter"), null, lan.getString("median_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new EmbossFilterAction("Emboss filter", null, "Apply an Emboss filter", Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new SobelFilterAction("Sobel filter", null, "Apply an Sobel filter", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new MedianFilterAction(lan.getString("median_blur_filter"), null, lan.getString("median_blur_filter_desc"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new EmbossFilterAction(lan.getString("emboss_filter"), null, lan.getString("emboss_filter_desc"), Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new SobelFilterAction(lan.getString("sobel_filter"), null, lan.getString("sobel_filter_desc"), Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -106,9 +106,9 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
-            Object[] negOptions = {"Yes","No (recomended)"};
+            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (option == JOptionPane.CANCEL_OPTION) {
 
@@ -170,8 +170,8 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             //Pop-up dialog box to ask for Negative Offset.
             boolean negOffSet = false;
-            Object[] negOptions = {"Yes","No (recomended)"};
-            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
+            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog box.
             if (negOption == JOptionPane.YES_OPTION) {
 
@@ -222,9 +222,9 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
-            Object[] negOptions = {"Yes","No (recomended)"};
+            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (option == JOptionPane.CANCEL_OPTION) {
 
@@ -286,9 +286,9 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             Object[] options = {lan.getString("ok"), lan.getString("cancel")};
-            Object[] negOptions = {"Yes","No (recomended)"};
+            Object[] negOptions = {lan.getString("yes"),lan.getString("no_recomended")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, lan.getString("mean_filter_title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
-            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (option == JOptionPane.CANCEL_OPTION) {
 
@@ -351,10 +351,10 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             //Pop-up dialog boxes to ask for which filter to use and Negative Offset.
             boolean negOffSet = false;
-            Object[] options = {"Left", "Up Left", "Up", "Up Right", "Right", "Down Right", "Down", "DownLeft"};
-            Object[] negOptions = {"Yes (recomended)","No"};
-            int option = JOptionPane.showOptionDialog(null, "Which filter do you want to use?", "Emboss filters", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            Object[] options = {lan.getString("left"), lan.getString("up_left"), lan.getString("up"), lan.getString("up_right"), lan.getString("right"), lan.getString("down_right"), lan.getString("down"), lan.getString("down_left")};
+            Object[] negOptions = {lan.getString("yes_recomended"),lan.getString("no")};
+            int option = JOptionPane.showOptionDialog(null, lan.getString("filter_question"), lan.getString("emboss_filter"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (negOption == JOptionPane.YES_OPTION) {
 
@@ -406,10 +406,10 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             //Pop-up dialog boxes to ask for which filter to use and Negative Offset.
             boolean negOffSet = false;
-            Object[] options = {"Vertical","Horizontal"};
-            Object[] negOptions = {"Yes (recomended)","No"};
-            int option = JOptionPane.showOptionDialog(null, "Which filter do you want to use?", "Sobel filters", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            int negOption = JOptionPane.showOptionDialog(null, "Do you want to adjust for negatives in the filter?", "Negative Adjustment", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
+            Object[] options = {lan.getString("vertical"),lan.getString("horizontal")};
+            Object[] negOptions = {lan.getString("yes_recomended"),lan.getString("no")};
+            int option = JOptionPane.showOptionDialog(null, lan.getString("filter_question"), lan.getString("sobel_filter"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            int negOption = JOptionPane.showOptionDialog(null, lan.getString("negative_adjustment_desc"), lan.getString("negative_adjustment_title"), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, negOptions, negOptions[1]);
             // Check the return value from the dialog boxes.
             if (negOption == JOptionPane.YES_OPTION) {
 
