@@ -28,9 +28,9 @@ public class ConvOp {
      * Note that values outside the image instead takes values from the nearest valid value.
      * This is what the Try-catch statement is for.
      * 
-     * Also Note that Negative adjustment will cause the filter to ignore alpha as when 
-     * using this with Emboss and Sobel filters causes the alpha value to become the 
-     * adjustment value 127, which isn't useful.
+     * Also note negative adjustment only can apply to Emboss and Sobel Filters as those are the 
+     * only filters which can have negative outputs and it doesn't make sense to include the others. 
+     * Doing the negative adjustment also ignores the alpha value on the image. 
      * </p>
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
