@@ -54,7 +54,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
         width = input.getWidth();
         height = input.getHeight();
 
-        /*Rotates 90 degrees left */
+        /*Rotates 90 degrees right */
         if (rotate == 0){
             /*Full image rotation */
             if(rectangle==null){
@@ -72,11 +72,11 @@ public class Rotate implements ImageOperation, java.io.Serializable {
                 int[][] array = getSelectedRGB(x0,y0,width,height,input);
                 for(int y = 0; y < height; y++){
                     for(int x = 0; x < width; x++){
-                        if(width>height)input.setRGB(x0+d+height-y,y0-d+x,array[x][y]);
-                        if(height>width)input.setRGB(x0+width+d-y,y0-d+width+x,array[x][y]);
+                        if(width>height){
+                            if(x0+d+height-y>=0&&x0+d+height-y<=input.getWidth()-1&&y0-d+x>=0&&y0-d+x<=input.getHeight()-1)input.setRGB(x0+d+height-y,y0-d+x,array[x][y]);
+                        }else if(x0+width+d-y>=0&&x0+width+d-y<=input.getWidth()-1&&y0+d+x>=0&&y0+d+x<=input.getHeight()-1) input.setRGB(x0+width+d-y,y0+d+x,array[x][y]);
                     }
                 }
-                System.out.println("right");
                 return input;
             }   
         /*Rotates 90 degrees left */
@@ -97,8 +97,9 @@ public class Rotate implements ImageOperation, java.io.Serializable {
                 int[][] array = getSelectedRGB(x0,y0,width,height,input);
                 for(int y=0; y<height; y++){
                     for(int x=0; x<width; x++){
-                        if(height>width)input.setRGB(x0-d+y,y0+d+width-x,array[x][y]);
-                        if(width>height)input.setRGB(x0+d+height-y,y0+d-x,array[x][y]);
+                        if(height>width){
+                            if(x0-d+y>=0&&x0-d+y<=input.getWidth()-1&&y0+d+width-x>=0&&y0+d+width-x<=input.getHeight()-1)input.setRGB(x0-d+y,y0+d+width-x,array[x][y]);
+                        }else if(x0+d+y>=0&&x0+d+y<=input.getWidth()-1&&y0+height+d-x>=0&&y0+height+d-x<=input.getHeight()-1)input.setRGB(x0+d+y,y0+height+d-x,array[x][y]);
                     }
                 }
                 return input;
@@ -132,7 +133,11 @@ public class Rotate implements ImageOperation, java.io.Serializable {
         y0 = (int)rectangle.getY();
         x1 = x0 + width;
         y1 = y0 + height;
-        d = Math.abs((width-height)/2);
+        if(width>height) d = (width-height)/2;
+        else{
+            d = (height-width)/2;
+        }
+        
     }
 
     public int[][] getSelectedRGB(int x0, int y0, int width, int height, BufferedImage input){

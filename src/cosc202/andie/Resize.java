@@ -85,7 +85,7 @@ public class Resize implements ImageOperation, java.io.Serializable {
 
             for(int x = 0; x < scaledImg.getWidth(null); x++){
                 for(int y = 0; y < scaledImg.getHeight(null); y++){
-                    input.setRGB(x0+x, y0+y, scaledBImg.getRGB(x,y));
+                    if(x0+x<input.getWidth()&&y0+y<input.getHeight()) input.setRGB(x0+x, y0+y, scaledBImg.getRGB(x,y));
                 }
             }
             return input;
