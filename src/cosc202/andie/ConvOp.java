@@ -28,7 +28,7 @@ public class ConvOp {
      * Note that values outside the image instead takes values from the nearest valid value.
      * This is what the Try-catch statement is for.
      * 
-     * Also Note that the Negative adjustment does not apply to alpha value of the image.
+     * Also Note that Negative adjustment will cause the filter to ignore alpha.
      * </p>
      * @param input The BufferedImage
      * @param kernel The Kernel for the convolution.
@@ -93,7 +93,9 @@ public class ConvOp {
                 int gRounded = Integer.parseInt(gString);
                 int bRounded = Integer.parseInt(bString);
                 if (negOffSet){
-                    aRounded += 127;
+                    float aOld = a_array[(2*radius+1)*(2*radius+1)/2 +1];
+                    String aOldString = fmt.format(aOld);
+                    aRounded = Integer.parseInt(aOldString);
                     rRounded += 127;
                     gRounded += 127;
                     bRounded += 127;
