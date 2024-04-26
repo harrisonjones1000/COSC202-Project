@@ -89,7 +89,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable{
      * The size of the array of local pixels is specified by the {@link radius} minus the valid pixels.  
      * Larger radii lead to stronger blurring.
      * 
-     * Also Note that the Negative adjustment does not apply to alpha value of the image.
+     * Also Note that Negative adjustment will cause the filter to ignore alpha.
      * </p>
      * 
      * @param input The image to apply the Median filter to.
